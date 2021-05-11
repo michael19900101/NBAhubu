@@ -70,4 +70,6 @@ dependencies {
     testImplementation Depend.junit
     androidTestImplementation Depend.androidTestJunit
     androidTestImplementation Depend.espressoCore
+
+    implementation Depend.xxPermissions
 }

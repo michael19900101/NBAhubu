@@ -37,6 +37,7 @@ object Versions {
     const val hitViewModule = "1.0.0-alpha01"
     const val appStartup = "1.0.0"
     const val material = "1.2.1"
+    const val xxPermissions = "10.8"
 }
 
 object AndroidX {
@@ -123,5 +124,7 @@ object Depend {
     const val jDatabinding = "com.hi-dhl:jdatabinding:${Versions.jDatabinding}"
     const val progressview = "com.hi-dhl:progressview:${Versions.progressview}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+    // 权限请求框架
+    const val xxPermissions = "com.github.getActivity:XXPermissions:${Versions.xxPermissions}"
 }
 
