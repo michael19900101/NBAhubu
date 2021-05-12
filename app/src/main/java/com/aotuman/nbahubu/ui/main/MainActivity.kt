@@ -9,6 +9,7 @@ import com.aotuman.nbahubu.R
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
+import com.aotuman.nbahubu.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -20,11 +21,15 @@ import org.jetbrains.anko.toast
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var mainBinding: ActivityMainBinding
     private val mViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+//        setContentView(R.layout.activity_main)
+
+        mainBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(mainBinding.root)
 
         XXPermissions.with(this)
             .permission(Permission.READ_EXTERNAL_STORAGE)
