@@ -13,6 +13,6 @@ import com.aotuman.nbahubu.model.PlayerItemModel
 class Entity2ItemModelMapper : Mapper<PlayerEntity, PlayerItemModel> {
 
     override fun map(input: PlayerEntity): PlayerItemModel =
-            PlayerItemModel(cnName = input.name, teamUrl = input.url)
+            PlayerItemModel(cnName = input.cnName, teamUrl = input.teamUrl)
 
 }

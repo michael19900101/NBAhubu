@@ -1,6 +1,7 @@
 package com.aotuman.nbahubu.data.repository
 
 import androidx.paging.PagingData
+import com.aotuman.nbahubu.data.entity.Player
 import com.aotuman.nbahubu.data.entity.PlayerResponse
 import com.aotuman.nbahubu.data.remote.PlayerResult
 import com.aotuman.nbahubu.model.PlayerInfoModel
@@ -16,7 +17,7 @@ import kotlinx.coroutines.flow.Flow
  */
 interface Repository {
 
-    fun fetchPlayerList1(): Flow<PlayerResponse>
+    fun fetchPlayerList1(): Flow<List<Player>>
 
     fun fetchPlayerList(): Flow<PagingData<PlayerItemModel>>
 

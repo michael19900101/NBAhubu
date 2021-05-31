@@ -29,9 +29,9 @@ class MainActivity : AppCompatActivity() {
             recyleView.adapter = playerAdapter
         }
 
-        mViewModel.testRequest().observe(this, Observer {
-            it.data?.let {
-                    players -> playerAdapter.addData(players)
+        mViewModel.testRequest().observe(this, Observer { players ->
+            players?.let {
+                    playerAdapter.addData(it)
                     playerAdapter.notifyDataSetChanged()
             }
             mainBinding.swiperRefresh.isEnabled = false

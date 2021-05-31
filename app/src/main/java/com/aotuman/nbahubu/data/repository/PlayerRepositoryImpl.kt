@@ -3,7 +3,8 @@ package com.aotuman.nbahubu.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.aotuman.nbahubu.data.entity.PlayerResponse
+import com.aotuman.nbahubu.data.entity.Player
+import com.aotuman.nbahubu.data.entity.PlayerEntity
 import com.aotuman.nbahubu.data.entity.PlayerInfoEntity
 import com.aotuman.nbahubu.data.local.AppDataBase
 import com.aotuman.nbahubu.data.mapper.Entity2ItemModelMapper
@@ -34,11 +35,67 @@ class PlayerRepositoryImpl(
         val mapper2InfoModel: InfoEntity2InfoModelMapper
 ) : Repository {
 
-    override fun fetchPlayerList1(): Flow<PlayerResponse> {
+    override fun fetchPlayerList1(): Flow<List<Player>> {
         return flow {
-            val result = api.fetchPlayerList1()
+            val count = db.playerDao().countPlayer()
+            var players: List<Player> = mutableListOf();
+            // 查询数据库是否存在
+            if (count > 0) {
+                players = db.playerDao().getPlayers().map {
+                    Player(
+                        id = it.id,
+                        cnName = it.cnName,
+                        enName = it.enName,
+                        capital = it.capital,
+                        teamId = it.teamId,
+                        teamName = it.teamName,
+                        teamLogo = it.teamLogo,
+                        teamUrl = it.teamUrl,
+                        jerseyNum = it.jerseyNum,
+                        position = it.position,
+                        birthStateCountry = it.birthStateCountry,
+                        birth = it.birth,
+                        height = it.height,
+                        weight = it.weight,
+                        icon = it.icon,
+                        detailUrl = it.detailUrl,
+                        wage = it.wage
+                    )
+                }
+            } else {
+                // 网络查找
+                val playerResponse = api.fetchPlayerList1()
+                val playerEntities = playerResponse.data?.map {
+                    PlayerEntity(
+                        id = it.id,
+                        cnName = it.cnName,
+                        enName = it.enName,
+                        capital = it.capital,
+                        teamId = it.teamId,
+                        teamName = it.teamName,
+                        teamLogo = it.teamLogo,
+                        teamUrl = it.teamUrl,
+                        jerseyNum = it.jerseyNum,
+                        position = it.position,
+                        birthStateCountry = it.birthStateCountry,
+                        birth = it.birth,
+                        height = it.height,
+                        weight = it.weight,
+                        icon = it.icon,
+                        detailUrl = it.detailUrl,
+                        wage = it.wage
+                    )
+                }
+                // 插入本地数据库
+                playerEntities?.let {
+                    db.playerDao().insertPlayer(playerEntities)
+                }
+                playerResponse.data?.let {
+                    players = it
+                }
+            }
             // 发射转换后的数据
-            emit(result)
+            emit(players)
         }.flowOn(Dispatchers.IO)
     }
 
@@ -47,7 +104,7 @@ class PlayerRepositoryImpl(
             config = pageConfig,
             remoteMediator = PlayerRemoteMediator(api, db)
         ) {
-            db.playerDao().getPokemon()
+            db.playerDao().getPlayer()
         }.flow.map { pagingData ->
             pagingData.map { mapper2ItemMolde.map(it) }
         }
@@ -83,7 +140,7 @@ class PlayerRepositoryImpl(
     override suspend fun fetchPlayerByParameter(parameter: String): Flow<PagingData<PlayerItemModel>> {
         return Pager(pageConfig) {
             // 加载数据库的数据
-            db.playerDao().pokemonInfoByParameter(parameter)
+            db.playerDao().playerInfoByParameter(parameter)
         }.flow.map { pagingData ->
 
             // 数据映射，数据库实体 PersonEntity ——>  上层用到的实体 Person

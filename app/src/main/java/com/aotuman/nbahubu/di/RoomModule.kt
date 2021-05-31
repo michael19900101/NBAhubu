@@ -32,7 +32,7 @@ object RoomModule {
     @Singleton
     fun provideAppDataBase(application: Application): AppDataBase {
         return Room
-            .databaseBuilder(application, AppDataBase::class.java, "dhl.db")
+            .databaseBuilder(application, AppDataBase::class.java, "NBAhubu.db")
             .fallbackToDestructiveMigration()
             .allowMainThreadQueries()
             .build()
@@ -40,13 +40,13 @@ object RoomModule {
 
     @Provides
     @Singleton
-    fun providerPokemonDao(appDataBase: AppDataBase): PlayerDao {
+    fun providerPlayDao(appDataBase: AppDataBase): PlayerDao {
         return appDataBase.playerDao()
     }
 
     @Provides
     @Singleton
-    fun providerPokemonInfoDao(appDataBase: AppDataBase): PlayerInfoDao {
+    fun providerPlayerInfoDao(appDataBase: AppDataBase): PlayerInfoDao {
         return appDataBase.playerInfoDao()
     }
 

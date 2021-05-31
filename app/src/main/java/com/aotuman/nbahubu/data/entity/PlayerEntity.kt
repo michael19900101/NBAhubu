@@ -14,9 +14,21 @@ import androidx.room.PrimaryKey
 @Entity
 data class PlayerEntity(
     @PrimaryKey
-    val name: String,
-    var pokemonId: Int = 0,
-    val page: Int = 0,
-    val url: String,
-    val remoteName: String
+    var id: String = "",
+    var cnName: String = "",
+    var enName: String = "",
+    var capital: String = "",
+    var teamId: String = "",
+    var teamName: String = "",
+    var teamLogo: String = "",
+    var teamUrl: String = "",
+    var jerseyNum: String = "",
+    var position: String = "",
+    var birthStateCountry: String = "",
+    var birth: String = "",
+    var height: String = "",
+    var weight: String = "",
+    var icon: String = "",
+    var detailUrl: String = "",
+    var wage: String = ""
 )

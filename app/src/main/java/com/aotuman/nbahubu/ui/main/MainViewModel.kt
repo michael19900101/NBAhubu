@@ -7,6 +7,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.aotuman.nbahubu.data.entity.Player
 import com.aotuman.nbahubu.data.entity.PlayerResponse
 import com.aotuman.nbahubu.data.repository.Repository
 import com.aotuman.nbahubu.model.PlayerItemModel
@@ -86,6 +87,6 @@ class MainViewModel @ViewModelInject constructor(
     }
 
 
-    fun testRequest(): LiveData<PlayerResponse> =
+    fun testRequest(): LiveData<List<Player>> =
             pokemonRepository.fetchPlayerList1().asLiveData()
 }

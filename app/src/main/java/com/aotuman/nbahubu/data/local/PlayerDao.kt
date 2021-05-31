@@ -18,14 +18,23 @@ import com.aotuman.nbahubu.data.entity.PlayerEntity
 interface PlayerDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPokemon(playerList: List<PlayerEntity>)
+    suspend fun insertPlayer(playerList: List<PlayerEntity>)
 
     @Query("SELECT * FROM PlayerEntity")
-    fun getPokemon(): PagingSource<Int, PlayerEntity>
+    fun getPlayers(): List<PlayerEntity>
 
-    @Query("DELETE FROM PlayerEntity where remoteName = :name")
-    suspend fun clearPokemon(name: String)
+    @Query("SELECT * FROM PlayerEntity")
+    fun getPlayer(): PagingSource<Int, PlayerEntity>
 
-    @Query("SELECT * FROM PlayerEntity where name LIKE '%' || :parameter || '%'")
-    fun pokemonInfoByParameter(parameter: String): PagingSource<Int, PlayerEntity>
+    @Query("DELETE FROM PlayerEntity where cnName = :name")
+    suspend fun clearPlayer(name: String)
+
+    @Query("DELETE FROM PlayerEntity")
+    suspend fun clearPlayer()
+
+    @Query("SELECT COUNT(*) FROM PlayerEntity")
+    suspend fun countPlayer(): Int
+
+    @Query("SELECT * FROM PlayerEntity where cnName LIKE '%' || :parameter || '%'")
+    fun playerInfoByParameter(parameter: String): PagingSource<Int, PlayerEntity>
 }
