@@ -7,8 +7,9 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.aotuman.nbahubu.data.entity.NewsID
 import com.aotuman.nbahubu.data.entity.Player
-import com.aotuman.nbahubu.data.entity.PlayerResponse
+import com.aotuman.nbahubu.data.repository.NewsRepository
 import com.aotuman.nbahubu.data.repository.Repository
 import com.aotuman.nbahubu.model.PlayerItemModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,7 +28,8 @@ import kotlinx.coroutines.flow.*
 @FlowPreview
 @ExperimentalCoroutinesApi
 class MainViewModel @ViewModelInject constructor(
-    private val pokemonRepository: Repository
+    private val playerRepository: Repository,
+    private val newsRepository: NewsRepository
 ) : ViewModel() {
 
     private val mChanncel = ConflatedBroadcastChannel<String>()
@@ -38,7 +40,7 @@ class MainViewModel @ViewModelInject constructor(
 
     // 通过 paging3 加载数据
     fun postOfData(): LiveData<PagingData<PlayerItemModel>> =
-        pokemonRepository.fetchPlayerList().cachedIn(viewModelScope).asLiveData()
+        playerRepository.fetchPlayerList().cachedIn(viewModelScope).asLiveData()
 
     // 使用 ConflatedBroadcastChannel 进行搜索
     val searchResultForDb = mChanncel.asFlow()
@@ -48,7 +50,7 @@ class MainViewModel @ViewModelInject constructor(
         // distinctUntilChanged 对于 StateFlow 任何实例是没有效果的
         .distinctUntilChanged()
         .flatMapLatest { search -> // 只显示最后一次搜索的结果，忽略之前的请求
-            pokemonRepository.fetchPlayerByParameter(search).cachedIn(viewModelScope)
+            playerRepository.fetchPlayerByParameter(search).cachedIn(viewModelScope)
         }
         .catch { throwable ->
             //  异常捕获
@@ -71,7 +73,7 @@ class MainViewModel @ViewModelInject constructor(
             }
             .flatMapLatest { // 只显示最后一次搜索的结果，忽略之前的请求
                 // 网络请求，这里替换自己的实现即可
-                pokemonRepository.fetchPlayerList().cachedIn(viewModelScope)
+                playerRepository.fetchPlayerList().cachedIn(viewModelScope)
             }
             .catch { throwable ->
                 //  异常捕获
@@ -88,5 +90,8 @@ class MainViewModel @ViewModelInject constructor(
 
 
     fun testRequest(): LiveData<List<Player>> =
-            pokemonRepository.fetchPlayerList1().asLiveData()
+            playerRepository.fetchPlayerList1().asLiveData()
+
+    fun requestNewsIDs(): LiveData<List<NewsID>> =
+        newsRepository.fetchNewsID().asLiveData()
 }

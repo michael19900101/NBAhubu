@@ -1,6 +1,7 @@
 package com.aotuman.nbahubu.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -35,6 +36,12 @@ class MainActivity : AppCompatActivity() {
                     playerAdapter.notifyDataSetChanged()
             }
             mainBinding.swiperRefresh.isEnabled = false
+        })
+
+        mViewModel.requestNewsIDs().observe(this, Observer { newsIDs ->
+            newsIDs?.let {
+                Log.d("jbjb",newsIDs.size.toString())
+            }
         })
     }
 }
