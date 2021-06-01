@@ -15,7 +15,7 @@
         android:background="?android:attr/windowBackground"
         app:menu="@menu/bottommenu" />
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"

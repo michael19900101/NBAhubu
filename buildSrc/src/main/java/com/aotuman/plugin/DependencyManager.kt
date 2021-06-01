@@ -38,6 +38,9 @@ object Versions {
     const val appStartup = "1.0.0"
     const val material = "1.2.1"
     const val xxPermissions = "10.8"
+    const val navigation = "2.3.0"
+    const val lifecycle_ktx = "2.2.0"
+    const val legacy = "1.0.0"
 }
 
 object AndroidX {
@@ -54,6 +57,11 @@ object AndroidX {
     const val swiperefreshlayout =
         "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swiperefreshlayout}"
     const val appStartup = "androidx.startup:startup-runtime:${Versions.appStartup}"
+    const val navigation_ui_ktx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
+    const val navigation_fragment_ktx = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
+    const val lifecycle_viewmodel_ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle_ktx}"
+    const val lifecycle_livedata_ktx = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle_ktx}"
+    const val legacy = "androidx.legacy:legacy-support-v4:${Versions.legacy}"
 }
 
 object Android {

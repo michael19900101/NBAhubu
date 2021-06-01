@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.aotuman.nbahubu.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -18,12 +20,14 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        val fragmentContainerView: FragmentContainerView = findViewById(R.id.fragmentContainerView)
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navController = navHostFragment.navController
 
-        val navController = Navigation.findNavController(fragmentContainerView)
 //        val configuration = AppBarConfiguration(navController.graph)
 //        NavigationUI.setupActionBarWithNavController(this, navController, configuration)
-        NavigationUI.setupWithNavController(bottomNavigationView, navController)
+        bottomNavigationView.setupWithNavController(navController)
+//        NavigationUI.setupWithNavController(bottomNavigationView, navController)
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
             BottomNavigationView.OnNavigationItemSelectedListener { item ->
