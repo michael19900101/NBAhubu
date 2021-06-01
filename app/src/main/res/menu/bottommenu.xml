@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/newsFragment"
+        android:icon="@mipmap/default_teamlogo_90"
+        android:title="@string/tab_news" />
+    <item
+        android:id="@+id/playerFragment"
+        android:icon="@mipmap/default_header_80"
+        android:title="@string/tab_player" />
+</menu>

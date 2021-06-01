@@ -2,4 +2,6 @@
     <string name="app_name">NBAhubu</string>
     <string name="app_name_chn">虎卜NBA</string>
     <string name="search_et_hit">输入球员的名字</string>
+    <string name="tab_player">球员</string>
+    <string name="tab_news">新闻</string>
 </resources>
