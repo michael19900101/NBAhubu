@@ -1,4 +1,4 @@
-package com.aotuman.nbahubu.model
+package com.aotuman.nbahubu.model.player
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

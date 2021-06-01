@@ -1,6 +1,6 @@
-package com.aotuman.nbahubu.data.remote
+package com.aotuman.nbahubu.data.remote.player
 
-import com.aotuman.nbahubu.data.entity.PlayerResponse
+import com.aotuman.nbahubu.data.entity.player.PlayerResponse
 import com.aotuman.nbahubu.data.entity.ListingResponse
 import com.aotuman.nbahubu.data.entity.NetWorkPlayerInfo
 import retrofit2.http.GET

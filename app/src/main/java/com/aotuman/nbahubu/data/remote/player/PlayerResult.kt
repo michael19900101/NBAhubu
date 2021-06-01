@@ -1,4 +1,4 @@
-package com.aotuman.nbahubu.data.remote
+package com.aotuman.nbahubu.data.remote.player
 
 /**
  * <pre>

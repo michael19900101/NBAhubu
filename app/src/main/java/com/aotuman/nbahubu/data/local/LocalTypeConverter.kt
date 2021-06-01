@@ -2,7 +2,7 @@ package com.aotuman.nbahubu.data.local
 
 import androidx.room.TypeConverter
 import com.google.gson.GsonBuilder
-import com.aotuman.nbahubu.data.entity.PlayerInfoEntity
+import com.aotuman.nbahubu.data.entity.player.PlayerInfoEntity
 import com.aotuman.nbahubu.ext.fromJson
 import com.aotuman.nbahubu.ext.typedToJson
 

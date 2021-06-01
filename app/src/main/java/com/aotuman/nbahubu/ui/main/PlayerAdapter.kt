@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.aotuman.nbahubu.R
-import com.aotuman.nbahubu.data.entity.Player
+import com.aotuman.nbahubu.data.entity.player.Player
 
 
 class PlayerAdapter(private val players: ArrayList<Player>) : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {

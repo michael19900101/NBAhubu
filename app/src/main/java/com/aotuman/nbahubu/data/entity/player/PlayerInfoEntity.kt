@@ -1,8 +1,9 @@
-package com.aotuman.nbahubu.data.entity
+package com.aotuman.nbahubu.data.entity.player
 
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.aotuman.nbahubu.data.entity.NetWorkPlayerInfo
 import com.aotuman.nbahubu.ext.getEmptyOrDefault
 
 /**
@@ -15,15 +16,15 @@ import com.aotuman.nbahubu.ext.getEmptyOrDefault
 
 @Entity
 data class PlayerInfoEntity(
-        @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = true)
     var id: Int = 0,
-        val name: String,
-        val height: Int,
-        val weight: Int,
-        val experience: Int,
-        val types: List<Type>,
-        val stats: List<Stats>,
-        @Embedded val sprites: Sprites
+    val name: String,
+    val height: Int,
+    val weight: Int,
+    val experience: Int,
+    val types: List<Type>,
+    val stats: List<Stats>,
+    @Embedded val sprites: Sprites
 ) {
 
     data class Sprites(

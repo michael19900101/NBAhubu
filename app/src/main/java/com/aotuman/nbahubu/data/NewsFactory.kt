@@ -1,9 +1,9 @@
 package com.aotuman.nbahubu.data
 
 import com.aotuman.nbahubu.data.local.AppDataBase
-import com.aotuman.nbahubu.data.remote.NewsService
-import com.aotuman.nbahubu.data.repository.NewsRepository
-import com.aotuman.nbahubu.data.repository.NewsRepositoryImpl
+import com.aotuman.nbahubu.data.remote.news.NewsService
+import com.aotuman.nbahubu.data.repository.news.NewsRepository
+import com.aotuman.nbahubu.data.repository.news.NewsRepositoryImpl
 
 /**
  * <pre>

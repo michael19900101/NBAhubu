@@ -1,4 +1,4 @@
-package com.aotuman.nbahubu.model
+package com.aotuman.nbahubu.model.player
 
 import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
@@ -35,14 +35,14 @@ data class PlayerItemModel(
     companion object {
         val diffCallback = object : DiffUtil.ItemCallback<PlayerItemModel>() {
             override fun areItemsTheSame(
-                    oldItem: PlayerItemModel,
-                    newItem: PlayerItemModel
+                oldItem: PlayerItemModel,
+                newItem: PlayerItemModel
             ): Boolean =
                 oldItem.enName == newItem.enName
 
             override fun areContentsTheSame(
-                    oldItem: PlayerItemModel,
-                    newItem: PlayerItemModel
+                oldItem: PlayerItemModel,
+                newItem: PlayerItemModel
             ): Boolean =
                 oldItem == newItem
         }

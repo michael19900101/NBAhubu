@@ -1,9 +1,9 @@
-package com.aotuman.nbahubu.di
+package com.aotuman.nbahubu.di.news
 
 import com.aotuman.nbahubu.data.NewsFactory
 import com.aotuman.nbahubu.data.local.AppDataBase
-import com.aotuman.nbahubu.data.remote.NewsService
-import com.aotuman.nbahubu.data.repository.NewsRepository
+import com.aotuman.nbahubu.data.remote.news.NewsService
+import com.aotuman.nbahubu.data.repository.news.NewsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

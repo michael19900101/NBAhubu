@@ -1,6 +1,7 @@
 package com.aotuman.nbahubu.di
 
-import com.aotuman.nbahubu.data.remote.PlayerService
+import com.aotuman.nbahubu.data.remote.news.NewsService
+import com.aotuman.nbahubu.data.remote.player.PlayerService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,7 +46,13 @@ object NetWorkModule {
 
     @Provides
     @Singleton
-    fun providePokemonService(retrofit: Retrofit): PlayerService {
+    fun providePlayerService(retrofit: Retrofit): PlayerService {
         return retrofit.create(PlayerService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsService(retrofit: Retrofit): NewsService {
+        return retrofit.create(NewsService::class.java)
     }
 }

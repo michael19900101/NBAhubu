@@ -1,4 +1,4 @@
-package com.aotuman.nbahubu.data.remote
+package com.aotuman.nbahubu.data.remote.news
 
 import com.aotuman.nbahubu.data.entity.NewsIDResponse
 import retrofit2.http.GET

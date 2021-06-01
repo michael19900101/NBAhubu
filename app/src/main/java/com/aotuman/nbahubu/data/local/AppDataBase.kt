@@ -4,8 +4,10 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.aotuman.nbahubu.data.entity.RemoteKeysEntity
-import com.aotuman.nbahubu.data.entity.PlayerEntity
-import com.aotuman.nbahubu.data.entity.PlayerInfoEntity
+import com.aotuman.nbahubu.data.entity.player.PlayerEntity
+import com.aotuman.nbahubu.data.entity.player.PlayerInfoEntity
+import com.aotuman.nbahubu.data.local.player.PlayerDao
+import com.aotuman.nbahubu.data.local.player.PlayerInfoDao
 
 /**
  * <pre>

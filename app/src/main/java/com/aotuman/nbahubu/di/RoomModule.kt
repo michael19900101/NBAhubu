@@ -3,8 +3,8 @@ package com.aotuman.nbahubu.di
 import android.app.Application
 import androidx.room.Room
 import com.aotuman.nbahubu.data.local.AppDataBase
-import com.aotuman.nbahubu.data.local.PlayerDao
-import com.aotuman.nbahubu.data.local.PlayerInfoDao
+import com.aotuman.nbahubu.data.local.player.PlayerDao
+import com.aotuman.nbahubu.data.local.player.PlayerInfoDao
 import com.aotuman.nbahubu.data.local.RemoteKeysDao
 import dagger.Module
 import dagger.Provides

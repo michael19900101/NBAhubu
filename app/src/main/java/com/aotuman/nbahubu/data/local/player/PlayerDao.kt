@@ -1,11 +1,11 @@
-package com.aotuman.nbahubu.data.local
+package com.aotuman.nbahubu.data.local.player
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.aotuman.nbahubu.data.entity.PlayerEntity
+import com.aotuman.nbahubu.data.entity.player.PlayerEntity
 
 /**
  * <pre>

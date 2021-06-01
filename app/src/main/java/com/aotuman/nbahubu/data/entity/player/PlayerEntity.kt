@@ -1,4 +1,4 @@
-package com.aotuman.nbahubu.data.entity
+package com.aotuman.nbahubu.data.entity.player
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

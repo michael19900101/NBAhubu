@@ -1,19 +1,12 @@
-package com.aotuman.nbahubu.data.repository
+package com.aotuman.nbahubu.data.repository.player
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import androidx.room.withTransaction
-import com.aotuman.nbahubu.AppHelper
 import com.aotuman.nbahubu.data.local.AppDataBase
-import com.aotuman.nbahubu.data.remote.PlayerService
-import com.aotuman.nbahubu.data.entity.PlayerEntity
-import com.aotuman.nbahubu.data.entity.RemoteKeysEntity
-import com.aotuman.nbahubu.ext.isConnectedNetwork
-import retrofit2.HttpException
-import timber.log.Timber
-import java.io.IOException
+import com.aotuman.nbahubu.data.remote.player.PlayerService
+import com.aotuman.nbahubu.data.entity.player.PlayerEntity
 
 /**
  * <pre>

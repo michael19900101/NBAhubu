@@ -1,9 +1,8 @@
-package com.aotuman.nbahubu.data.repository
+package com.aotuman.nbahubu.data.repository.news
 
 import com.aotuman.nbahubu.data.entity.NewsID
-import com.aotuman.nbahubu.data.entity.Player
 import com.aotuman.nbahubu.data.local.AppDataBase
-import com.aotuman.nbahubu.data.remote.NewsService
+import com.aotuman.nbahubu.data.remote.news.NewsService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

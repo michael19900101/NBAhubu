@@ -1,4 +1,4 @@
-package com.aotuman.nbahubu.data.entity
+package com.aotuman.nbahubu.data.entity.player
 
 /**
  * <pre>
@@ -9,9 +9,9 @@ package com.aotuman.nbahubu.data.entity
  */
 
 data class PlayerResponse(
-        val code: String?,
-        val data: List<Player>?,
-        val version: String?,
+    val code: String?,
+    val data: List<Player>?,
+    val version: String?,
 )
 
 data class Player(

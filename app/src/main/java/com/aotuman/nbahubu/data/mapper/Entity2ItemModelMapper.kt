@@ -1,7 +1,7 @@
 package com.aotuman.nbahubu.data.mapper
 
-import com.aotuman.nbahubu.data.entity.PlayerEntity
-import com.aotuman.nbahubu.model.PlayerItemModel
+import com.aotuman.nbahubu.data.entity.player.PlayerEntity
+import com.aotuman.nbahubu.model.player.PlayerItemModel
 
 /**
  * <pre>

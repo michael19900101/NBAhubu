@@ -2,9 +2,9 @@ package com.aotuman.nbahubu.data
 
 import androidx.paging.PagingConfig
 import com.aotuman.nbahubu.data.local.AppDataBase
-import com.aotuman.nbahubu.data.remote.PlayerService
-import com.aotuman.nbahubu.data.repository.PlayerRepositoryImpl
-import com.aotuman.nbahubu.data.repository.Repository
+import com.aotuman.nbahubu.data.remote.player.PlayerService
+import com.aotuman.nbahubu.data.repository.player.PlayerPlayerRepositoryImpl
+import com.aotuman.nbahubu.data.repository.player.PlayerRepository
 import com.aotuman.nbahubu.data.mapper.Entity2ItemModelMapper
 import com.aotuman.nbahubu.data.mapper.InfoEntity2InfoModelMapper
 
@@ -17,8 +17,8 @@ import com.aotuman.nbahubu.data.mapper.InfoEntity2InfoModelMapper
  */
 object PlayerFactory {
 
-    fun makePlayerRepository(api: PlayerService, db: AppDataBase): Repository =
-        PlayerRepositoryImpl(
+    fun makePlayerRepository(api: PlayerService, db: AppDataBase): PlayerRepository =
+        PlayerPlayerRepositoryImpl(
             api,
             db,
             pagingConfig,

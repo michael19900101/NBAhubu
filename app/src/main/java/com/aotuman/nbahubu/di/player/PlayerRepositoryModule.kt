@@ -1,9 +1,9 @@
-package com.aotuman.nbahubu.di
+package com.aotuman.nbahubu.di.player
 
 import com.aotuman.nbahubu.data.PlayerFactory
 import com.aotuman.nbahubu.data.local.AppDataBase
-import com.aotuman.nbahubu.data.remote.PlayerService
-import com.aotuman.nbahubu.data.repository.Repository
+import com.aotuman.nbahubu.data.remote.player.PlayerService
+import com.aotuman.nbahubu.data.repository.player.PlayerRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,14 +19,14 @@ import javax.inject.Singleton
  */
 @Module
 @InstallIn(ApplicationComponent::class)
-class RepositoryModule {
+class PlayerRepositoryModule {
 
     @Singleton
     @Provides
     fun provideTasksRepository(
-            api: PlayerService,
-            db: AppDataBase
-    ): Repository {
+        api: PlayerService,
+        db: AppDataBase
+    ): PlayerRepository {
         return PlayerFactory.makePlayerRepository(api, db)
     }
 

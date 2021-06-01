@@ -1,18 +1,18 @@
-package com.aotuman.nbahubu.data.repository
+package com.aotuman.nbahubu.data.repository.player
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.aotuman.nbahubu.data.entity.Player
-import com.aotuman.nbahubu.data.entity.PlayerEntity
-import com.aotuman.nbahubu.data.entity.PlayerInfoEntity
+import com.aotuman.nbahubu.data.entity.player.Player
+import com.aotuman.nbahubu.data.entity.player.PlayerEntity
+import com.aotuman.nbahubu.data.entity.player.PlayerInfoEntity
 import com.aotuman.nbahubu.data.local.AppDataBase
 import com.aotuman.nbahubu.data.mapper.Entity2ItemModelMapper
 import com.aotuman.nbahubu.data.mapper.InfoEntity2InfoModelMapper
-import com.aotuman.nbahubu.data.remote.PlayerResult
-import com.aotuman.nbahubu.data.remote.PlayerService
-import com.aotuman.nbahubu.model.PlayerInfoModel
-import com.aotuman.nbahubu.model.PlayerItemModel
+import com.aotuman.nbahubu.data.remote.player.PlayerResult
+import com.aotuman.nbahubu.data.remote.player.PlayerService
+import com.aotuman.nbahubu.model.player.PlayerInfoModel
+import com.aotuman.nbahubu.model.player.PlayerItemModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -27,13 +27,13 @@ import kotlinx.coroutines.flow.map
  * </pre>
  */
 
-class PlayerRepositoryImpl(
-        val api: PlayerService,
-        val db: AppDataBase,
-        val pageConfig: PagingConfig,
-        val mapper2ItemMolde: Entity2ItemModelMapper,
-        val mapper2InfoModel: InfoEntity2InfoModelMapper
-) : Repository {
+class PlayerPlayerRepositoryImpl(
+    val api: PlayerService,
+    val db: AppDataBase,
+    val pageConfig: PagingConfig,
+    val mapper2ItemMolde: Entity2ItemModelMapper,
+    val mapper2InfoModel: InfoEntity2InfoModelMapper
+) : PlayerRepository {
 
     override fun fetchPlayerList1(): Flow<List<Player>> {
         return flow {

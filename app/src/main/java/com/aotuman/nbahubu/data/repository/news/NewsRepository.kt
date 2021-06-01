@@ -1,4 +1,4 @@
-package com.aotuman.nbahubu.data.repository
+package com.aotuman.nbahubu.data.repository.news
 
 import com.aotuman.nbahubu.data.entity.NewsID
 import kotlinx.coroutines.flow.Flow
