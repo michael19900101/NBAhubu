@@ -1,15 +1,15 @@
 package com.aotuman.nbahubu.ui.main
 
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.aotuman.nbahubu.R
 import com.aotuman.nbahubu.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-
 
 @FlowPreview
 @ExperimentalCoroutinesApi
@@ -17,8 +17,6 @@ import kotlinx.coroutines.FlowPreview
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mainBinding: ActivityMainBinding
-    private val mViewModel: MainViewModel by viewModels()
-    private val playerAdapter by lazy { PlayerAdapter(arrayListOf()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,22 +24,10 @@ class MainActivity : AppCompatActivity() {
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
-        mainBinding.apply {
-            recyleView.adapter = playerAdapter
-        }
-
-        mViewModel.testRequest().observe(this, Observer { players ->
-            players?.let {
-                    playerAdapter.addData(it)
-                    playerAdapter.notifyDataSetChanged()
-            }
-            mainBinding.swiperRefresh.isEnabled = false
-        })
-
-        mViewModel.requestNewsIDs().observe(this, Observer { newsIDs ->
-            newsIDs?.let {
-                Log.d("jbjb",newsIDs.size.toString())
-            }
-        })
+        val bottomNavigationView: BottomNavigationView = mainBinding.bottomNavigationView
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navController = navHostFragment.navController
+        bottomNavigationView.setupWithNavController(navController)
     }
 }

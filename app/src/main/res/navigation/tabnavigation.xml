@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.aotuman.nbahubu.ui.main.NewsFragment"
+        android:name="com.aotuman.nbahubu.ui.news.NewsFragment"
         android:label="fragment_news"
         tools:layout="@layout/fragment_news" />
     <fragment
         android:id="@+id/playerFragment"
-        android:name="com.aotuman.nbahubu.ui.main.PlayerFragment"
+        android:name="com.aotuman.nbahubu.ui.player.PlayerFragment"
         android:label="fragment_player"
         tools:layout="@layout/fragment_player" />
 </navigation>

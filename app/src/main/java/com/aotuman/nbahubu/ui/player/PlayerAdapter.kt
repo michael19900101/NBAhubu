@@ -1,4 +1,4 @@
-package com.aotuman.nbahubu.ui.main
+package com.aotuman.nbahubu.ui.player
 
 import android.view.LayoutInflater
 import android.view.View
