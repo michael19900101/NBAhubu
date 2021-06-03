@@ -1,6 +1,8 @@
 package com.aotuman.nbahubu.data.repository.news
 
+import androidx.paging.PagingData
 import com.aotuman.nbahubu.data.entity.NewsID
+import com.aotuman.nbahubu.model.news.NewsItemModel
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -13,4 +15,6 @@ import kotlinx.coroutines.flow.Flow
 interface NewsRepository {
 
     fun fetchNewsID(): Flow<List<NewsID>>
+
+    fun fetchNews(): Flow<PagingData<NewsItemModel>>
 }
