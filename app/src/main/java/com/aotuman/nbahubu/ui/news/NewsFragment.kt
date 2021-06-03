@@ -21,6 +21,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
 
     private var fragmentNewsBinding: FragmentNewsBinding? = null
     private val viewModel: NewsViewModel by viewModels()
+    private val newsAdapter by lazy { NewsAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
