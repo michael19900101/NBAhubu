@@ -39,8 +39,12 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         viewModel.fetchNewsIDs().observe(viewLifecycleOwner, Observer { newsIDs ->
             newsIDs?.let {
                 Timber.tag(TAG).e("size:${it.size}")
+//                viewModel.postOfData(newsIDs).observe(viewLifecycleOwner, Observer {
+//                    newsAdapter.submitData(viewLifecycleOwner, it)
+//                })
             }
         })
+
     }
 
     override fun onDestroyView() {

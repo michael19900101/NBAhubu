@@ -7,7 +7,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.aotuman.nbahubu.data.entity.NewsID
+import com.aotuman.nbahubu.data.entity.news.NewsID
 import com.aotuman.nbahubu.data.entity.player.Player
 import com.aotuman.nbahubu.data.repository.news.NewsRepository
 import com.aotuman.nbahubu.data.repository.player.PlayerRepository

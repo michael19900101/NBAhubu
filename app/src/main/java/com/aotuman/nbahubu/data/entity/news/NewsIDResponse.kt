@@ -1,4 +1,4 @@
-package com.aotuman.nbahubu.data.entity
+package com.aotuman.nbahubu.data.entity.news
 
 /**
  * <pre>

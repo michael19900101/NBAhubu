@@ -4,8 +4,10 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import com.aotuman.nbahubu.data.entity.NewsID
+import androidx.paging.cachedIn
+import com.aotuman.nbahubu.data.entity.news.NewsID
 import com.aotuman.nbahubu.data.repository.news.NewsRepository
 import com.aotuman.nbahubu.model.news.NewsItemModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -28,5 +30,6 @@ class NewsViewModel @ViewModelInject constructor(
         newsRepository.fetchNewsID().asLiveData()
 
     // 通过 paging3 加载数据
-//    fun postOfData(): LiveData<PagingData<NewsItemModel>>
+    fun postOfData(ids: List<NewsID>): LiveData<PagingData<NewsItemModel>> =
+        newsRepository.fetchNews(ids).cachedIn(viewModelScope).asLiveData()
 }
