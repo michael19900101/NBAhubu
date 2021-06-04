@@ -9,13 +9,12 @@ package com.aotuman.nbahubu.data.entity.news
  */
 data class NewsResponse(
         val code: String?,
-//        val data: List<NewsItem>,
-        val data: Map<Int, NewsItem>,
+        val data: Map<Long, NewsItem>,
         val version: String?,
 )
 
 data class NewsItem(
-        var newsId: Int,
+        var newsId: Long,
         var title: String = "",
         var url: String = "",
         var imgurl: String = ""

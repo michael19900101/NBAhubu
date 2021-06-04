@@ -116,6 +116,7 @@ class NewsRemoteMediator(
             }
             val result = api.fetchNewsByIDs("app","banner", articleIds.toString()).data
 //            val result = api.fetchNewsByIDs("app","banner",subNewsIDs?: mutableListOf(""))
+            if (result.isNullOrEmpty())  return MediatorResult.Success(endOfPaginationReached = true)
             Timber.tag(TAG).e(result.toString())
 
             val endOfPaginationReached = result.isEmpty()
