@@ -21,7 +21,7 @@ import com.aotuman.nbahubu.data.local.player.PlayerInfoDao
 
 @Database(
     entities = arrayOf(PlayerEntity::class, NewsEntity::class, RemoteKeysEntity::class, PlayerInfoEntity::class),
-    version = 2, exportSchema = false
+    version = 3, exportSchema = false
 )
 @TypeConverters(value = arrayOf(LocalTypeConverter::class))
 abstract class AppDataBase : RoomDatabase() {

@@ -4,6 +4,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import androidx.room.withTransaction
 import com.aotuman.nbahubu.AppHelper
 import com.aotuman.nbahubu.data.entity.news.NewsEntity
 import com.aotuman.nbahubu.data.local.AppDataBase
@@ -45,6 +46,22 @@ class NewsRemoteMediator(
              * 3. 将网路插入到本地数据库中
              */
             val newsDao = db.newsDao()
+            val count = newsDao.countNews()
+            val newsIDMap = mutableMapOf<Int, List<String>>()
+            if (count == 0) {
+                // 请求网络获取新闻id集合
+                val response = api.fetchNewsID()
+                val subNews = response.data?.chunked(20)
+                subNews?.forEachIndexed { index, list ->
+                    val subNewsIDs = mutableListOf<String>()
+                    list.forEach {
+                        it.page = index
+                        subNewsIDs.add(it.id)
+                    }
+                    newsIDMap[index] = subNewsIDs
+                }
+            }
+
             Timber.tag(TAG).e("loadType = ${loadType}")
             // 第一步： 判断 LoadType
             val pageKey = when (loadType) {
@@ -79,8 +96,6 @@ class NewsRemoteMediator(
 //                    }
 //                    remoteKey.nextKey
                 }
-
-
             }
 
             if (!AppHelper.mContext.isConnectedNetwork()) {
@@ -90,11 +105,38 @@ class NewsRemoteMediator(
 
             // 第二步： 请问网络分页数据
             val page = pageKey ?: 0
+            val subNewsIDs = newsIDMap[page]
+            var articleIds = StringBuffer()
+            subNewsIDs?.forEachIndexed { index, id ->
+                if (index == subNewsIDs.size - 1) {
+                    articleIds.append(id)
+                } else {
+                    articleIds.append("$id%")
+                }
+            }
+            val result = api.fetchNewsByIDs("app","banner", articleIds.toString()).data
+//            val result = api.fetchNewsByIDs("app","banner",subNewsIDs?: mutableListOf(""))
+            Timber.tag(TAG).e(result.toString())
 
-            // todo
-            return MediatorResult.Success(
-                endOfPaginationReached = true
-            )
+            val endOfPaginationReached = result.isEmpty()
+
+            val item = result.map {
+                val newsItem = it.value
+                NewsEntity(
+                    newsId = newsItem.newsId,
+                    title = newsItem.title,
+                    url = newsItem.url,
+                    imgurl = newsItem.imgurl,
+                    page = page + 1
+                )
+            }
+
+            // 第三步： 插入数据库
+            db.withTransaction {
+                val nextKey = if (endOfPaginationReached) null else page + 1
+                newsDao.insertNews(item)
+            }
+            return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
 
         } catch (e: IOException) {
             return MediatorResult.Error(e)

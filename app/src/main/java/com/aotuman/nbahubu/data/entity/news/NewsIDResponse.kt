@@ -19,4 +19,6 @@ data class NewsID(
         var type: String = "",
         var column: String = "",
         var needUpdate: String = "",
+
+        var page: Int = 0
 )

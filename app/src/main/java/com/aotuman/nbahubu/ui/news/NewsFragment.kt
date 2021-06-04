@@ -36,13 +36,16 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         fragmentNewsBinding?.apply {
 
         }
-        viewModel.fetchNewsIDs().observe(viewLifecycleOwner, Observer { newsIDs ->
-            newsIDs?.let {
-                Timber.tag(TAG).e("size:${it.size}")
+//        viewModel.fetchNewsIDs().observe(viewLifecycleOwner, Observer { newsIDs ->
+//            newsIDs?.let {
+//                Timber.tag(TAG).e("size:${it.size}")
 //                viewModel.postOfData(newsIDs).observe(viewLifecycleOwner, Observer {
 //                    newsAdapter.submitData(viewLifecycleOwner, it)
 //                })
-            }
+//            }
+//        })
+        viewModel.postOfData().observe(viewLifecycleOwner, Observer {
+            newsAdapter.submitData(lifecycle, it)
         })
 
     }

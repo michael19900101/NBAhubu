@@ -16,5 +16,5 @@ interface NewsRepository {
 
     fun fetchNewsID(): Flow<List<NewsID>>
 
-    fun fetchNews(ids: List<NewsID>): Flow<PagingData<NewsItemModel>>
+    fun fetchNews(): Flow<PagingData<NewsItemModel>>
 }

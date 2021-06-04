@@ -42,7 +42,7 @@ class NewsRepositoryImpl(
         }.flowOn(Dispatchers.IO)
     }
 
-    override fun fetchNews(ids: List<NewsID>): Flow<PagingData<NewsItemModel>> {
+    override fun fetchNews(): Flow<PagingData<NewsItemModel>> {
         return Pager(
             config = pageConfig,
             remoteMediator = NewsRemoteMediator(api, db)

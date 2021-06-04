@@ -14,7 +14,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class NewsItemModel(
-        var newsId: String = "",
+        var newsId: Int,
         var title: String = "",
         var url: String = "",
         var imgurl: String = ""

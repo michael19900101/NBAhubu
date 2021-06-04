@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class NewsEntity (
     @PrimaryKey
-    var newsId: String,
+    var newsId: Int,
     var title: String,
     var url: String,
     var imgurl: String,

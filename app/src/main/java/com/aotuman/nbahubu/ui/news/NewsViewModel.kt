@@ -30,6 +30,6 @@ class NewsViewModel @ViewModelInject constructor(
         newsRepository.fetchNewsID().asLiveData()
 
     // 通过 paging3 加载数据
-    fun postOfData(ids: List<NewsID>): LiveData<PagingData<NewsItemModel>> =
-        newsRepository.fetchNews(ids).cachedIn(viewModelScope).asLiveData()
+    fun postOfData(): LiveData<PagingData<NewsItemModel>> =
+        newsRepository.fetchNews().cachedIn(viewModelScope).asLiveData()
 }
