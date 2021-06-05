@@ -25,4 +25,7 @@ interface NewsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNews(news: List<NewsEntity>)
+
+    @Query("SELECT max(newsId) FROM NewsEntity")
+    fun selectMaxNewsID(): Long
 }

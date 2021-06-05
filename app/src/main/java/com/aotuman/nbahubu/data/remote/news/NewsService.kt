@@ -21,6 +21,6 @@ interface NewsService {
     suspend fun fetchNewsByIDs(
         @Query("from") from: String,
         @Query("column") column: String,
-        @Query("articleIds") articleIds: String
+        @Query("articleIds", encoded = true) articleIds: String
     ): NewsResponse
 }

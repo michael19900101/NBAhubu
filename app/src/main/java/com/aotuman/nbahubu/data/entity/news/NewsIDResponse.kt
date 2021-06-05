@@ -15,10 +15,10 @@ data class NewsIDResponse(
 )
 
 data class NewsID(
-        var id: String = "",
+        var id: Long,
         var type: String = "",
         var column: String = "",
-        var needUpdate: String = "",
+        var needUpdate: Boolean,
 
         var page: Int = 0
 )

@@ -1,5 +1,6 @@
 package com.aotuman.nbahubu.di
 
+import com.aotuman.nbahubu.BuildConfig
 import com.aotuman.nbahubu.data.remote.news.NewsService
 import com.aotuman.nbahubu.data.remote.player.PlayerService
 import dagger.Module
@@ -7,9 +8,12 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+
 
 /**
  * <pre>
@@ -30,7 +34,16 @@ object NetWorkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
+        val logging = HttpLoggingInterceptor()
+        if (BuildConfig.DEBUG) {
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+        } else {
+            logging.setLevel(HttpLoggingInterceptor.Level.BASIC)
+        }
         return OkHttpClient.Builder()
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(15, TimeUnit.SECONDS)
+            .addInterceptor(logging)
             .build()
     }
 

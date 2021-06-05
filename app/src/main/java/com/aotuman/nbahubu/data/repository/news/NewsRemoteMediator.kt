@@ -7,12 +7,14 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.aotuman.nbahubu.AppHelper
 import com.aotuman.nbahubu.data.entity.news.NewsEntity
+import com.aotuman.nbahubu.data.entity.news.NewsID
 import com.aotuman.nbahubu.data.local.AppDataBase
 import com.aotuman.nbahubu.data.remote.news.NewsService
 import com.aotuman.nbahubu.ext.isConnectedNetwork
 import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
+import java.net.URLEncoder
 
 /**
  * <pre>
@@ -46,27 +48,32 @@ class NewsRemoteMediator(
              * 3. 将网路插入到本地数据库中
              */
             val newsDao = db.newsDao()
-            val count = newsDao.countNews()
-            val newsIDMap = mutableMapOf<Int, List<String>>()
-            if (count == 0) {
-                // 请求网络获取新闻id集合
-                val response = api.fetchNewsID()
-                val subNews = response.data?.chunked(20)
-                subNews?.forEachIndexed { index, list ->
-                    val subNewsIDs = mutableListOf<String>()
-                    list.forEach {
-                        it.page = index
-                        subNewsIDs.add(it.id)
-                    }
-                    newsIDMap[index] = subNewsIDs
-                }
-            }
-
+            val localMaxID = newsDao.selectMaxNewsID()
+            Timber.tag(TAG).e("localMaxID = ${localMaxID}")
+            val newsIDMap = mutableMapOf<Int, List<Long>>()
             Timber.tag(TAG).e("loadType = ${loadType}")
             // 第一步： 判断 LoadType
             val pageKey = when (loadType) {
                 // 首次访问 或者调用 PagingDataAdapter.refresh()
-                LoadType.REFRESH -> null
+                LoadType.REFRESH -> {
+                    // 请求网络获取新闻id集合
+                    val response = api.fetchNewsID()
+                    val subNews : List<List<NewsID>>?
+                    if (localMaxID > 0) {
+                        subNews = response.data?.filter { it.needUpdate || it.id > localMaxID }?.chunked(20)
+                    } else {
+                        subNews = response.data?.chunked(20)
+                    }
+                    subNews?.forEachIndexed { index, list ->
+                        val subNewsIDs = mutableListOf<Long>()
+                        list.forEach {
+                            it.page = index
+                            subNewsIDs.add(it.id)
+                        }
+                        newsIDMap[index] = subNewsIDs
+                    }
+                    null
+                }
 
                 // 在当前加载的数据集的开头加载数据时
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
@@ -111,11 +118,12 @@ class NewsRemoteMediator(
                 if (index == subNewsIDs.size - 1) {
                     articleIds.append(id)
                 } else {
-                    articleIds.append("$id%")
+                    articleIds.append("$id%2c")
                 }
             }
+            if (subNewsIDs.isNullOrEmpty())  return MediatorResult.Success(endOfPaginationReached = true)
+
             val result = api.fetchNewsByIDs("app","banner", articleIds.toString()).data
-//            val result = api.fetchNewsByIDs("app","banner",subNewsIDs?: mutableListOf(""))
             if (result.isNullOrEmpty())  return MediatorResult.Success(endOfPaginationReached = true)
             Timber.tag(TAG).e(result.toString())
 
