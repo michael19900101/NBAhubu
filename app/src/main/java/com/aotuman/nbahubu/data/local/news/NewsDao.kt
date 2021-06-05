@@ -27,5 +27,9 @@ interface NewsDao {
     suspend fun insertNews(news: List<NewsEntity>)
 
     @Query("SELECT max(newsId) FROM NewsEntity")
-    fun selectMaxNewsID(): Long
+    fun queryMaxNewsID(): Long
+
+    // todo
+    @Query("SELECT * FROM NewsEntity where newsId > 0")
+    fun queryNextPageNews(): List<NewsEntity>
 }

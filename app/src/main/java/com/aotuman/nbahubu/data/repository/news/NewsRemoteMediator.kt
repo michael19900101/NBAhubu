@@ -7,14 +7,12 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.aotuman.nbahubu.AppHelper
 import com.aotuman.nbahubu.data.entity.news.NewsEntity
-import com.aotuman.nbahubu.data.entity.news.NewsID
 import com.aotuman.nbahubu.data.local.AppDataBase
 import com.aotuman.nbahubu.data.remote.news.NewsService
 import com.aotuman.nbahubu.ext.isConnectedNetwork
 import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
-import java.net.URLEncoder
 
 /**
  * <pre>
@@ -48,7 +46,7 @@ class NewsRemoteMediator(
              * 3. 将网路插入到本地数据库中
              */
             val newsDao = db.newsDao()
-            val localMaxID = newsDao.selectMaxNewsID()
+            val localMaxID = newsDao.queryMaxNewsID()
             Timber.tag(TAG).e("localMaxID = ${localMaxID}")
             val newsIDMap = mutableMapOf<Int, List<Long>>()
             Timber.tag(TAG).e("loadType = ${loadType}")
@@ -56,22 +54,7 @@ class NewsRemoteMediator(
             val pageKey = when (loadType) {
                 // 首次访问 或者调用 PagingDataAdapter.refresh()
                 LoadType.REFRESH -> {
-                    // 请求网络获取新闻id集合
-                    val response = api.fetchNewsID()
-                    val subNews : List<List<NewsID>>?
-                    if (localMaxID > 0) {
-                        subNews = response.data?.filter { it.needUpdate || it.id > localMaxID }?.chunked(20)
-                    } else {
-                        subNews = response.data?.chunked(20)
-                    }
-                    subNews?.forEachIndexed { index, list ->
-                        val subNewsIDs = mutableListOf<Long>()
-                        list.forEach {
-                            it.page = index
-                            subNewsIDs.add(it.id)
-                        }
-                        newsIDMap[index] = subNewsIDs
-                    }
+                    insertOrUpdateNewsDB(db)
                     null
                 }
 
@@ -90,18 +73,7 @@ class NewsRemoteMediator(
                             endOfPaginationReached = true
                         )
                     }
-                    lastItem.page
-
-                    /**
-                     * 方式二：比较麻烦，当前分页数据没有对应的远程 key，这个时候需要我们自己建表
-                     */
-//                    val remoteKey = db.withTransaction {
-//                        db.remoteKeysDao().getRemoteKeys(remotePokemon)
-//                    }
-//                    if (remoteKey == null || remoteKey.nextKey == null) {
-//                        return MediatorResult.Success(endOfPaginationReached = true)
-//                    }
-//                    remoteKey.nextKey
+                    lastItem.newsId
                 }
             }
 
@@ -135,8 +107,7 @@ class NewsRemoteMediator(
                     newsId = newsItem.newsId,
                     title = newsItem.title,
                     url = newsItem.url,
-                    imgurl = newsItem.imgurl,
-                    page = page + 1
+                    imgurl = newsItem.imgurl
                 )
             }
 
@@ -153,6 +124,63 @@ class NewsRemoteMediator(
             return MediatorResult.Error(e)
         }
     }
+
+    private suspend fun insertOrUpdateNewsDB(db: AppDataBase) {
+        val newsDao = db.newsDao()
+        // 查出数据库最新的新闻ID
+        val localMaxID = newsDao.queryMaxNewsID()
+        Timber.tag(TAG).e("localMaxID = ${localMaxID}")
+        // 首次访问，请求网络获取新闻id集合（服务器默认返回200条）
+        val response = api.fetchNewsID()
+        // 筛选比本地数据库还要新的新闻
+        if (localMaxID > 0) {
+            val latestNewsIDs = response.data?.filter { it.id > localMaxID }?.map { it.id }
+            val newsEntities = fetchLatestNewsDetail(latestNewsIDs)
+            newsEntities?.let {
+                // 插入数据库
+                db.withTransaction {
+                    newsDao.insertNews(it)
+                }
+            }
+        } else {
+            // 数据库新闻表是空表，全部插入
+            val latestNewsIDs = response.data?.map { it.id }
+            val newsEntities = fetchLatestNewsDetail(latestNewsIDs)
+            newsEntities?.let {
+                // 插入数据库
+                db.withTransaction {
+                    newsDao.insertNews(it)
+                }
+            }
+        }
+    }
+
+    private suspend fun fetchLatestNewsDetail(latestNewsIDs: List<Long>?): List<NewsEntity>? {
+        if (latestNewsIDs.isNullOrEmpty()) return null
+        // 组装一连串的新闻id，查询新闻详情
+        var articleIds = StringBuffer()
+        latestNewsIDs.forEachIndexed { index, newsID ->
+            if (index == latestNewsIDs.size - 1) {
+                articleIds.append(newsID)
+            } else {
+                articleIds.append("$newsID%2c")
+            }
+        }
+        return api.fetchNewsByIDs("app", "banner", articleIds.toString()).data.map {
+            val newsItem = it.value
+            NewsEntity(
+                newsId = newsItem.newsId,
+                title = newsItem.title,
+                url = newsItem.url,
+                imgurl = newsItem.imgurl
+            )
+        }
+    }
+
+    private fun queryNewsFromDB(db: AppDataBase, startNewsId: Int, pageSize: Int) {
+
+    }
+
 
     companion object {
         private val TAG = "NewsRemoteMediator"
