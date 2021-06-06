@@ -9,5 +9,8 @@ data class NewsEntity (
     var newsId: Long,
     var title: String,
     var url: String,
-    var imgurl: String
+    var imgurl: String,
+    var upNum: Int,
+    var commentNum: Int,
+    var shareUrl: String
 )

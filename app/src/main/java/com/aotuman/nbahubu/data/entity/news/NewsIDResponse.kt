@@ -18,7 +18,5 @@ data class NewsID(
         var id: Long,
         var type: String = "",
         var column: String = "",
-        var needUpdate: Boolean,
-
-        var page: Int = 0
+        var needUpdate: Boolean
 )

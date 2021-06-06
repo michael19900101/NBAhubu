@@ -20,6 +20,9 @@ class Entity2ItemModelMapper : Mapper<NewsEntity, NewsItemModel> {
             newsId = input.newsId,
             title = input.title,
             url = input.url,
-            imgurl = input.imgurl
+            imgurl = input.imgurl,
+            upNum = input.upNum,
+            commentNum = input.commentNum,
+            shareUrl = input.shareUrl
         )
 }

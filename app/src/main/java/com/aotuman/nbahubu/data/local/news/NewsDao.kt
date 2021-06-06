@@ -17,7 +17,7 @@ import com.aotuman.nbahubu.data.entity.news.NewsEntity
 @Dao
 interface NewsDao {
 
-    @Query("SELECT * FROM NewsEntity")
+    @Query("SELECT * FROM NewsEntity ORDER BY newsId DESC")
     fun getNews(): PagingSource<Int, NewsEntity>
 
     @Query("SELECT COUNT(*) FROM NewsEntity")
@@ -30,6 +30,9 @@ interface NewsDao {
     fun queryMaxNewsID(): Long
 
     // todo
-    @Query("SELECT * FROM NewsEntity where newsId > 0")
-    fun queryNextPageNews(): List<NewsEntity>
+    @Query("SELECT * FROM NewsEntity where newsId > :offsetNewsID ORDER BY newsId DESC LIMIT :limit OFFSET 20")
+    fun queryNextPageNews(offsetNewsID: Long, limit: Int): List<NewsEntity>
+
+    @Query("SELECT * FROM NewsEntity WHERE newsId IN(:ids)")
+    fun findByNewsIDs(ids: List<Long>): List<NewsEntity>?
 }

@@ -17,7 +17,10 @@ data class NewsItemModel(
         var newsId: Long,
         var title: String = "",
         var url: String = "",
-        var imgurl: String = ""
+        var imgurl: String = "",
+        var upNum: Int = 0,
+        var commentNum: Int = 0,
+        var shareUrl: String = ""
 ) : Parcelable {
     companion object {
         val diffCallback = object : DiffUtil.ItemCallback<NewsItemModel>() {
