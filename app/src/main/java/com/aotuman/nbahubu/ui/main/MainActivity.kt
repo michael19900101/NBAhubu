@@ -54,6 +54,10 @@ class MainActivity : AppCompatActivity() {
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
+                when (position) {
+                    0 ->  mainBinding.head.visibility = View.VISIBLE
+                    1 ->  mainBinding.head.visibility = View.GONE
+                }
                 bottomNavigationView.menu.getItem(position).isChecked = true
             }
         })
