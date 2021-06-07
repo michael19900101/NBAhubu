@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.aotuman.nbahubu.utils.TimeUtil" />
+
         <variable
             name="newsitem"
             type="com.aotuman.nbahubu.model.news.NewsItemModel" />
@@ -26,50 +28,51 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            app:bindingAvator="@{newsitem.imgurl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-            app:bindingAvator="@{newsitem.imgurl}"/>
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
         <TextView
             android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2021-11-11"
+            android:text="@{TimeUtil.INSTANCE.formatDisplayTime(newsitem.pub_time, `yyyy-MM-dd HH:mm:ss`)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imgUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@+id/textView5"
+            app:layout_constraintEnd_toStartOf="@+id/tvUpNum"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
             app:srcCompat="@drawable/ic_zan" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/imgComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@+id/textView4"
+            app:layout_constraintEnd_toStartOf="@+id/tvCommentNum"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
             app:srcCompat="@drawable/ic_comment" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/tvCommentNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="11111"
+            android:text="@{Integer.toString(newsitem.commentNum)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/tvUpNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            app:layout_constraintEnd_toStartOf="@+id/imageView3"
+            android:text="@{Integer.toString(newsitem.upNum)}"
+            app:layout_constraintEnd_toStartOf="@+id/imgComment"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

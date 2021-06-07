@@ -71,7 +71,11 @@ class NewsRemoteMediator(
             }
 
             // 1.从新闻id表拿出当前页的id集合
-            val newsIDEntities = newsIDDao.queryNextPageNews(pageStartNewsId, state.config.pageSize)
+            val newsIDEntities = if (loadType == LoadType.REFRESH) {
+                newsIDDao.queryFirstPageNews(pageStartNewsId, state.config.pageSize)
+            } else {
+                newsIDDao.queryNextPageNews(pageStartNewsId, state.config.pageSize)
+            }
             val ids = newsIDEntities?.map { it.id }
             if (ids.isNullOrEmpty()) return MediatorResult.Success(endOfPaginationReached = true)
             // 2.根据新闻id集合去新闻表取数据
@@ -177,34 +181,11 @@ class NewsRemoteMediator(
                 title = newsItem.title,
                 url = newsItem.url,
                 imgurl = newsItem.imgurl,
+                pub_time = newsItem.pub_time,
                 upNum = newsItem.upNum,
                 commentNum = newsItem.commentNum,
                 shareUrl = newsItem.shareUrl
             )
-        }
-    }
-
-    private suspend fun queryNewsFromDB(db: AppDataBase,
-                                        startNewsId: Long,
-                                        pageSize: Int) {
-        val newsIDDao = db.newsIDDao()
-        val newsDao = db.newsDao()
-        // 1.从新闻id表拿出当前页的id集合
-        val newsIDEntities = newsIDDao.queryNextPageNews(startNewsId, pageSize)
-        val ids = newsIDEntities?.map { it.id }
-        if (ids.isNullOrEmpty()) return
-        // 2.根据新闻id集合去新闻表取数据
-        val localNewsIDs = newsDao.findByNewsIDs(ids)?.map { it.newsId }
-        if (localNewsIDs.isNullOrEmpty()) return
-        // 3.新闻表找不到的id集合，统一去服务器去找
-        val serverNewsIDs = ids.filterNot { localNewsIDs.contains(it) }
-        val newsEntities = fetchLatestNewsDetail(serverNewsIDs)
-        // 4.服务器找到数据之后，插入数据库
-        newsEntities?.let {
-            // 插入新闻表
-            db.withTransaction {
-                newsDao.insertNews(it)
-            }
         }
     }
 

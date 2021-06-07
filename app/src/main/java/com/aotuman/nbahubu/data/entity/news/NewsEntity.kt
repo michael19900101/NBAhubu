@@ -10,6 +10,7 @@ data class NewsEntity (
     var title: String,
     var url: String,
     var imgurl: String,
+    var pub_time: String,
     var upNum: Int,
     var commentNum: Int,
     var shareUrl: String

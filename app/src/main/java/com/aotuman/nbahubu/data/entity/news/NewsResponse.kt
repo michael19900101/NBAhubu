@@ -18,6 +18,7 @@ data class NewsItem(
         var title: String = "",
         var url: String = "",
         var imgurl: String = "",
+        var pub_time: String = "",
         var upNum: Int = 0,
         var commentNum: Int = 0,
         var shareUrl: String = ""

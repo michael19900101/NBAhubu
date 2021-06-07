@@ -32,4 +32,7 @@ interface NewsIDDao {
 
     @Query("SELECT * FROM NewsIDEntity WHERE id < :startNewsID ORDER BY id DESC LIMIT :limit")
     fun queryNextPageNews(startNewsID: Long, limit: Int): List<NewsIDEntity>?
+
+    @Query("SELECT * FROM NewsIDEntity WHERE id <= :startNewsID ORDER BY id DESC LIMIT :limit")
+    fun queryFirstPageNews(startNewsID: Long, limit: Int): List<NewsIDEntity>?
 }
