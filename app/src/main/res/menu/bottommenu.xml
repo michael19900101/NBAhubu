@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@id/newsFragment"
-        android:icon="@mipmap/default_teamlogo_90"
+        android:icon="@drawable/tab_news_selector"
         android:title="@string/tab_news" />
     <item
         android:id="@id/playerFragment"
-        android:icon="@mipmap/default_header_80"
+        android:icon="@drawable/tab_player_selector"
         android:title="@string/tab_player" />
 </menu>

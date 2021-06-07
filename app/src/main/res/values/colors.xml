@@ -26,4 +26,5 @@
     <color name="data_rank_row_text_deep_blue">#7ba7f2</color>
     <color name="match_detail_ahead_lost">#7ba7f2</color>
     <color name="nba_light_grey">#7ba7f2</color>
+    <color name="news_item_text_gray">#5B5E63</color>
 </resources>

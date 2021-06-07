@@ -1,6 +1,7 @@
 package com.aotuman.nbahubu.ui.main
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -29,5 +30,29 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
         bottomNavigationView.setupWithNavController(navController)
+
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            // 避免再次点击重复创建
+            if (item.isChecked) return@setOnNavigationItemSelectedListener true
+            // 避免B返回到A重复创建
+            val popBackStack = navController.popBackStack(item.itemId, false)
+            when (item.itemId) {
+                R.id.newsFragment -> {
+                    mainBinding.head.visibility = View.VISIBLE
+                    if (!popBackStack) {
+                        navController.navigate(R.id.newsFragment)
+                    }
+                }
+                R.id.playerFragment -> {
+                    mainBinding.head.visibility = View.GONE
+                    if (!popBackStack) {
+                        navController.navigate(R.id.playerFragment)
+                    }
+                }
+            }
+            return@setOnNavigationItemSelectedListener true
+        }
+
+
     }
 }

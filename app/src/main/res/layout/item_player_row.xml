@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -27,7 +28,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:textColor="@color/data_rank_row_text_deep_blue"
+                    tools:text="安德鲁-伊戈达拉"
+                    android:textColor="#0F1820"
                     android:textSize="18sp" />
 
                 <TextView
@@ -35,7 +37,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:textColor="@color/match_detail_ahead_lost"
+                    tools:text="Andre Iguodala"
+                    android:textColor="#797979"
                     android:textSize="12sp" />
 
                 <TextView
@@ -43,7 +46,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:textColor="@color/data_rank_row_text_deep_blue"
+                    tools:text="热火"
+                    android:textColor="#111A22"
                     android:textSize="14sp" />
 
                 <TextView
@@ -52,7 +56,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="5dp"
-                    android:textColor="@color/match_detail_ahead_lost"
+                    tools:text="后卫-前锋.#28"
+                    android:textColor="#707070"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -88,7 +93,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="5dp"
+            android:layout_height="2dp"
             android:background="@color/nba_light_grey" />
     </LinearLayout>
 </LinearLayout>
