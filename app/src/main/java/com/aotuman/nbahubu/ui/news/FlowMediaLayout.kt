@@ -1,6 +1,7 @@
 package com.aotuman.nbahubu.ui.news
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -10,6 +11,7 @@ import com.aotuman.nbahubu.R
 import com.aotuman.nbahubu.data.entity.news.NewsContentItem
 import com.aotuman.nbahubu.model.news.NewsItemModel
 import com.aotuman.nbahubu.utils.dp2px
+import com.aotuman.nbahubu.utils.sp2px
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -28,12 +30,16 @@ class FlowMediaLayout @JvmOverloads constructor(
                     crossfade(true)
                     placeholder(R.mipmap.ic_launcher)
                 }
-                addView(imageView, LayoutParams(LayoutParams.MATCH_PARENT, dp2px(200)))
+                addView(imageView, LayoutParams(LayoutParams.MATCH_PARENT, dp2px(250)))
             }
             if(it.type == "text") {
                 val textView = TextView(context)
                 textView.text = it.info
-                addView(textView)
+                textView.textSize = 16f
+                textView.setTextColor(Color.parseColor("#FF11202B"))
+                val layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+                layoutParams.topMargin = dp2px(10)
+                addView(textView, layoutParams)
             }
         }
     }
