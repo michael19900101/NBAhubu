@@ -13,7 +13,6 @@ import com.aotuman.nbahubu.ui.player.PlayerFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import javax.inject.Inject
 
 @FlowPreview
 @ExperimentalCoroutinesApi
@@ -32,7 +31,9 @@ class MainActivity : AppCompatActivity() {
 
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
-
+        setSupportActionBar(mainBinding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        mainBinding.toolbarTitle.text = "新闻"
         initFragments()
 
         val viewPager = mainBinding.viewpager
@@ -55,8 +56,8 @@ class MainActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 when (position) {
-                    0 ->  mainBinding.head.visibility = View.VISIBLE
-                    1 ->  mainBinding.head.visibility = View.GONE
+                    0 ->  mainBinding.toolbar.visibility = View.VISIBLE
+                    1 ->  mainBinding.toolbar.visibility = View.GONE
                 }
                 bottomNavigationView.menu.getItem(position).isChecked = true
             }
@@ -68,11 +69,12 @@ class MainActivity : AppCompatActivity() {
             if (item.isChecked) return@setOnNavigationItemSelectedListener true
             when (item.itemId) {
                 R.id.newsFragment -> {
-                    mainBinding.head.visibility = View.VISIBLE
+                    mainBinding.toolbarTitle.text = "新闻"
+                    mainBinding.toolbar.visibility = View.VISIBLE
                     viewPager.setCurrentItem(0, true)
                 }
                 R.id.playerFragment -> {
-                    mainBinding.head.visibility = View.GONE
+                    mainBinding.toolbar.visibility = View.GONE
                     viewPager.setCurrentItem(1, true)
                 }
             }
