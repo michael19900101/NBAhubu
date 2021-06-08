@@ -35,7 +35,7 @@ class NewsDetailActivity : AppCompatActivity() {
             newsItemModel = requireNotNull(intent.getParcelableExtra(KEY_LIST_MODEL)) {
                 "params is not null"
             }
-            contenttext.text = newsItemModel.content
+            contentLayout.addViewByModel(newsItemModel)
         }
     }
 
