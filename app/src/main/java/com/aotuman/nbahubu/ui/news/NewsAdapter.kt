@@ -46,7 +46,6 @@ class NewsViewHolder(view: View) : DataBindingViewHolder<NewsItemModel>(view) {
 
     override fun bindData(data: NewsItemModel, position: Int) {
         mBinding.apply {
-//            data.id = "#${position + 1}"
             newsitem = data
             executePendingBindings()
         }

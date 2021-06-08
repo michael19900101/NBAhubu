@@ -11,6 +11,7 @@ import com.aotuman.nbahubu.data.entity.news.NewsIDEntity
 import com.aotuman.nbahubu.data.local.AppDataBase
 import com.aotuman.nbahubu.data.remote.news.NewsService
 import com.aotuman.nbahubu.ext.isConnectedNetwork
+import com.google.gson.Gson
 import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
@@ -174,6 +175,7 @@ class NewsRemoteMediator(
                 articleIds.append("$newsID%2c")
             }
         }
+        val gson = Gson()
         return api.fetchNewsByIDs("app", "banner", articleIds.toString()).data.map {
             val newsItem = it.value
             NewsEntity(
@@ -184,7 +186,8 @@ class NewsRemoteMediator(
                 pub_time = newsItem.pub_time,
                 upNum = newsItem.upNum,
                 commentNum = newsItem.commentNum,
-                shareUrl = newsItem.shareUrl
+                shareUrl = newsItem.shareUrl,
+                content = gson.toJson(newsItem.content)
             )
         }
     }

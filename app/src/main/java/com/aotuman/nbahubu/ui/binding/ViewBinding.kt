@@ -7,6 +7,8 @@ import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import coil.load
 import com.aotuman.nbahubu.R
+import com.aotuman.nbahubu.model.news.NewsItemModel
+import com.aotuman.nbahubu.ui.news.NewsDetailActivity
 import com.hi.dhl.jprogressview.JProgressView
 import timber.log.Timber
 
@@ -23,6 +25,16 @@ fun bindingAvator(imageView: ImageView, url: String) {
     imageView.load(url) {
         crossfade(true)
         placeholder(R.mipmap.ic_launcher)
+    }
+}
+
+@BindingAdapter("bindNewsItemClick")
+fun bindingNewsItemClick(view: View, model: NewsItemModel) {
+    view.setOnClickListener {
+        NewsDetailActivity.jumpActivity(
+            view.context,
+            model
+        )
     }
 }
 

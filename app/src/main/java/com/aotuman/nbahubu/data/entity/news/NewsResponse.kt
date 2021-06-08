@@ -21,5 +21,18 @@ data class NewsItem(
         var pub_time: String = "",
         var upNum: Int = 0,
         var commentNum: Int = 0,
-        var shareUrl: String = ""
+        var shareUrl: String = "",
+        var content: List<NewsContentItem>
+)
+
+data class NewsContentItem(
+        var type: String,
+        var info: String,
+        var img: Map<String, NewsContentImg>
+)
+
+data class NewsContentImg(
+        var height: String,
+        var width: String,
+        var imgurl: String
 )

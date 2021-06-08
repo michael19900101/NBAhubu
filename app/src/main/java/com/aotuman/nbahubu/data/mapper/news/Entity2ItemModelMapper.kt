@@ -24,6 +24,7 @@ class Entity2ItemModelMapper : Mapper<NewsEntity, NewsItemModel> {
             pub_time = input.pub_time,
             upNum = input.upNum,
             commentNum = input.commentNum,
-            shareUrl = input.shareUrl
+            shareUrl = input.shareUrl,
+            content = input.content
         )
 }
