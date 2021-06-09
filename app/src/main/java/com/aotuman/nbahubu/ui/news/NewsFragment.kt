@@ -7,12 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import com.aotuman.nbahubu.R
 import com.aotuman.nbahubu.databinding.FragmentNewsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import timber.log.Timber
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+
 
 @FlowPreview
 @ExperimentalCoroutinesApi
@@ -35,7 +39,17 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         super.onViewCreated(view, savedInstanceState)
         fragmentNewsBinding?.apply {
             recyleView.adapter = newsAdapter
+            swipeRefresh.setColorSchemeResources(R.color.colorPrimary)
+            swipeRefresh.setOnRefreshListener {
+                newsAdapter.refresh()
+            }
         }
+        lifecycleScope.launch {
+            newsAdapter.loadStateFlow.collectLatest { state ->
+                fragmentNewsBinding?.swipeRefresh?.isRefreshing = state.refresh is LoadState.Loading
+            }
+        }
+
         viewModel.postOfData().observe(viewLifecycleOwner, Observer {
             newsAdapter.submitData(lifecycle, it)
         })
