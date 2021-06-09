@@ -39,14 +39,14 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         super.onViewCreated(view, savedInstanceState)
         fragmentNewsBinding?.apply {
             recyleView.adapter = newsAdapter
-            swipeRefresh.setColorSchemeResources(R.color.colorPrimary)
             swipeRefresh.setOnRefreshListener {
                 newsAdapter.refresh()
             }
         }
         lifecycleScope.launch {
             newsAdapter.loadStateFlow.collectLatest { state ->
-                fragmentNewsBinding?.swipeRefresh?.isRefreshing = state.refresh is LoadState.Loading
+                val success = state.refresh is LoadState.Loading
+                fragmentNewsBinding?.swipeRefresh?.finishLoadMore(1000, success, true)
             }
         }
 
