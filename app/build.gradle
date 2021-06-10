@@ -61,10 +61,6 @@ dependencies {
     implementation AndroidX.appcompat
     implementation AndroidX.constraintlayout
     implementation Android.meteria
-    implementation 'androidx.navigation:navigation-fragment:2.3.0'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     kapt Room.compiler
     implementation Anko.common
     implementation AndroidX.cardview
@@ -90,7 +86,6 @@ dependencies {
     androidTestImplementation Depend.espressoCore
 
     implementation Depend.xxPermissions
-
-    implementation  'com.scwang.smart:refresh-layout-kernel:2.0.3'      //核心必须依赖
-    implementation  'com.scwang.smart:refresh-header-radar:2.0.3'       //雷达刷新头
+    implementation Depend.smartRefresh
+    implementation Depend.lottie
 }

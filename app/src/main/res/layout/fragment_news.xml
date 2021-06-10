@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.scwang.smart.refresh.header.BezierRadarHeader
+        <com.aotuman.nbahubu.ui.news.LoadingHeader
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

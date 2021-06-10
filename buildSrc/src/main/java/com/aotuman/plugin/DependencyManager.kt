@@ -41,6 +41,8 @@ object Versions {
     const val navigation = "2.3.0"
     const val lifecycle_ktx = "2.2.0"
     const val legacy = "1.0.0"
+    const val smartRefresh = "2.0.3"
+    const val lottie = "3.7.0"
 }
 
 object AndroidX {
@@ -134,5 +136,7 @@ object Depend {
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     // 权限请求框架
     const val xxPermissions = "com.github.getActivity:XXPermissions:${Versions.xxPermissions}"
+    const val smartRefresh = "com.scwang.smart:refresh-layout-kernel:${Versions.smartRefresh}"
+    const val lottie = "com.airbnb.android:lottie:${Versions.lottie}"
 }
 
