@@ -13,7 +13,7 @@
 
         <com.aotuman.nbahubu.ui.news.LoadingHeader
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="@dimen/dp_80"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyleView"

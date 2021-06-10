@@ -39,6 +39,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         super.onViewCreated(view, savedInstanceState)
         fragmentNewsBinding?.apply {
             recyleView.adapter = newsAdapter
+            swipeRefresh.autoRefreshAnimationOnly()
             swipeRefresh.setOnRefreshListener {
                 newsAdapter.refresh()
             }
