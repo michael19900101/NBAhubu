@@ -6,42 +6,49 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.core.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
+import androidx.core.content.ContextCompat;
+
 import com.aotuman.nbahubu.R;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.RadarChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.BubbleEntry;
-import com.github.mikephil.charting.data.CandleEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.data.RadarData;
 import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public class RadarChartActivity extends DemoBase {
 
     private RadarChart chart;
+    float[] yValues = new float[]{3.8f, 1.3f, 0.5f, 1.0f, 3.0f};
+    float[] yMaxValues = new float[]{35.7f, 11.8f, 3.0f, 2.8f, 13.7f};
+    float[] yChartValues = new float[5];
+
+    private void calActualYValues() {
+        for (int i = 0; i < 5; i++) {
+            float actualValue = yValues[i] / yMaxValues[i];
+            BigDecimal bd = new BigDecimal(actualValue).setScale(1, RoundingMode.HALF_UP);
+            yChartValues[i] = bd.floatValue();
+//            yChartValues[i] = Math.round(yValues[i]/yMaxValues[i]*10)/10;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        calActualYValues();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_radarchart);
@@ -49,14 +56,13 @@ public class RadarChartActivity extends DemoBase {
         setTitle("RadarChartActivity");
 
         chart = findViewById(R.id.chart1);
-        chart.setBackgroundColor(Color.rgb(60, 65, 82));
 
         chart.getDescription().setEnabled(false);
 
         chart.setWebLineWidth(1f);
-        chart.setWebColor(Color.LTGRAY);
+        chart.setWebColor(Color.parseColor("#E6F2FE")); // 五条内边线颜色
         chart.setWebLineWidthInner(1f);
-        chart.setWebColorInner(Color.LTGRAY);
+        chart.setWebColorInner(Color.parseColor("#C6E1FC"));
         chart.setWebAlpha(100);
 
         // create a custom MarkerView (extend MarkerView) and specify the layout
@@ -71,133 +77,72 @@ public class RadarChartActivity extends DemoBase {
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setTypeface(tfLight);
-        xAxis.setTextSize(9f);
+        xAxis.setTextSize(14f);
         xAxis.setYOffset(0f);
         xAxis.setXOffset(0f);
         xAxis.setValueFormatter(new ValueFormatter() {
-            private final String[] mActivities = new String[]{"Burger", "Steak", "Salad", "Pasta", "Pizza"};
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return super.getFormattedValue(value, axis);
-            }
-
-            @Override
-            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-                return mActivities[(int) value % mActivities.length];
-            }
+            private final String[] mActivities = new String[]{"得分", "助攻", "封盖", "抢断", "篮板"};
 
             @Override
             public String getFormattedValue(float value) {
-                return super.getFormattedValue(value);
+                return mActivities[(int) value % mActivities.length];
             }
 
-            @Override
-            public String getAxisLabel(float value, AxisBase axis) {
-                return super.getAxisLabel(value, axis);
-            }
-
-            @Override
-            public String getBarLabel(BarEntry barEntry) {
-                return super.getBarLabel(barEntry);
-            }
-
-            @Override
-            public String getBarStackedLabel(float value, BarEntry stackedEntry) {
-                return super.getBarStackedLabel(value, stackedEntry);
-            }
-
-            @Override
-            public String getPointLabel(Entry entry) {
-                return super.getPointLabel(entry);
-            }
-
-            @Override
-            public String getPieLabel(float value, PieEntry pieEntry) {
-                return super.getPieLabel(value, pieEntry);
-            }
-
-            @Override
-            public String getRadarLabel(RadarEntry radarEntry) {
-                return super.getRadarLabel(radarEntry);
-            }
-
-            @Override
-            public String getBubbleLabel(BubbleEntry bubbleEntry) {
-                return super.getBubbleLabel(bubbleEntry);
-            }
-
-            @Override
-            public String getCandleLabel(CandleEntry candleEntry) {
-                return super.getCandleLabel(candleEntry);
-            }
         });
-        xAxis.setTextColor(Color.WHITE);
+        xAxis.setTextColor(Color.parseColor("#11202B"));
 
         YAxis yAxis = chart.getYAxis();
         yAxis.setTypeface(tfLight);
         yAxis.setLabelCount(5, false);
-        yAxis.setTextSize(9f);
+        yAxis.setTextSize(14f);
         yAxis.setAxisMinimum(0f);
-        yAxis.setAxisMaximum(80f);
+        yAxis.setAxisMaximum(1f);
         yAxis.setDrawLabels(false);
+        yAxis.setTextColor(Color.parseColor("#11202B"));
 
-        Legend l = chart.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
-        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-        l.setDrawInside(false);
-        l.setTypeface(tfLight);
-        l.setXEntrySpace(7f);
-        l.setYEntrySpace(5f);
-        l.setTextColor(Color.WHITE);
+        // 隐藏图例
+        chart.getLegend().setEnabled(false);
     }
 
     private void setData() {
-
-        float mul = 80;
-        float min = 20;
         int cnt = 5;
-
         ArrayList<RadarEntry> entries1 = new ArrayList<>();
-        ArrayList<RadarEntry> entries2 = new ArrayList<>();
 
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
         for (int i = 0; i < cnt; i++) {
-            float val1 = (float) (Math.random() * mul) + min;
-            entries1.add(new RadarEntry(val1));
+            entries1.add(new RadarEntry(yChartValues[i], yValues[i]));
 
-            float val2 = (float) (Math.random() * mul) + min;
-            entries2.add(new RadarEntry(val2));
         }
 
-        RadarDataSet set1 = new RadarDataSet(entries1, "Last Week");
-        set1.setColor(Color.rgb(103, 110, 129));
-        set1.setFillColor(Color.rgb(103, 110, 129));
+        RadarDataSet set1 = new RadarDataSet(entries1, "各项指标场均水平");
+        set1.setColor(Color.parseColor("#DBEAFE"));
+        set1.setFillColor(Color.parseColor("#5AA7F9"));
+//        int startColor = Color.parseColor("#E6F2FE");
+//        int endColor = Color.parseColor("#A6D0Fa");
+//        set1.setGradientColor(startColor, endColor);
         set1.setDrawFilled(true);
         set1.setFillAlpha(180);
-        set1.setLineWidth(2f);
+        set1.setLineWidth(1f);
         set1.setDrawHighlightCircleEnabled(true);
         set1.setDrawHighlightIndicators(false);
+        set1.setValueTextColor(Color.BLACK);
+        set1.setValueFormatter(new ValueFormatter() {
 
-        RadarDataSet set2 = new RadarDataSet(entries2, "This Week");
-        set2.setColor(Color.rgb(121, 162, 175));
-        set2.setFillColor(Color.rgb(121, 162, 175));
-        set2.setDrawFilled(true);
-        set2.setFillAlpha(180);
-        set2.setLineWidth(2f);
-        set2.setDrawHighlightCircleEnabled(true);
-        set2.setDrawHighlightIndicators(false);
+            @Override
+            public String getRadarLabel(RadarEntry radarEntry) {
+                return String.valueOf(radarEntry.getData());
+            }
+        });
 
         ArrayList<IRadarDataSet> sets = new ArrayList<>();
         sets.add(set1);
-//        sets.add(set2);
 
         RadarData data = new RadarData(sets);
         data.setValueTypeface(tfLight);
-        data.setValueTextSize(8f);
+        data.setValueTextSize(10f);
         data.setDrawValues(true);
-        data.setValueTextColor(Color.WHITE);
+        data.setValueTextColor(Color.parseColor("#11202B"));
 
         chart.setData(data);
         chart.invalidate();
