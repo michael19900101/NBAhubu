@@ -88,5 +88,4 @@ dependencies {
     implementation Depend.xxPermissions
     implementation Depend.smartRefresh
     implementation Depend.lottie
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }

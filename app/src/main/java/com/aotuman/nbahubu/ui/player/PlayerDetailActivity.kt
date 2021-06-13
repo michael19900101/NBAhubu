@@ -1,29 +1,46 @@
 package com.aotuman.nbahubu.ui.player
 
+import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.aotuman.nbahubu.R
-import com.aotuman.nbahubu.common.RadarItem
-import com.aotuman.nbahubu.common.RadarView
+import com.aotuman.nbahubu.common.radarview.RadarData
+import com.aotuman.nbahubu.common.radarview.RadarView
+import com.aotuman.nbahubu.utils.dp2px
+import java.util.*
 
 class PlayerDetailActivity : AppCompatActivity()  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_radar)
-        val radarview = findViewById<RadarView>(R.id.radarview)
 
-        val radarItemList = mutableListOf<RadarItem>()
-        for (i in 0..4) {
-            val value: Int = getRandomValue()
-            val progress = value / 100.0f
-            radarItemList.add(RadarItem("标签" + (i + 1), "" + value, progress))
-        }
-        radarview.setRadarItemList(radarItemList)
-    }
+        val mRadarView: RadarView = findViewById<View>(R.id.radarView) as RadarView
 
-    //随机获取50-100的int
-    private fun getRandomValue(): Int {
-        return (Math.random() * 50 + 51).toInt()
+        mRadarView.emptyHint = "无数据"
+
+        // 环形内层颜色(内->外)
+        val layerColor = mutableListOf<Int>()
+        Collections.addAll(layerColor, -0x592f06, -0x512b06, -0x492708, -0x391e04, -0x190d02)
+        mRadarView.layerColor = layerColor
+
+        val vertexText = mutableListOf<String>()
+        Collections.addAll(vertexText, "场均篮板", "场均助攻", "场均盖帽", "场均抢断", "场均得分")
+        mRadarView.vertexText = vertexText
+
+        val values = mutableListOf<Float>()
+        Collections.addAll(values, 6.0f, 5.3f, 1.5f, 1.6f, 13.8f)
+        val data = RadarData(values)
+        data.isValueTextEnable = true
+        data.vauleTextColor = Color.BLACK
+        data.color = Color.parseColor("#53A4FA") // 数据之间的区域颜色
+
+        data.valueTextSize = dp2px(8f)
+        mRadarView.addData(data)
+
+        val maxValues = mutableListOf<Float>()
+        Collections.addAll(maxValues, 13.9f, 11.8f, 3.0f, 2.8f, 35.6f)
+        mRadarView.maxValues = maxValues
     }
 }

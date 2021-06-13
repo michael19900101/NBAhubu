@@ -20,7 +20,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ui.news.NewsDetailActivity"></activity>
         <activity android:name=".ui.player.PlayerDetailActivity"></activity>
-        <activity android:name=".ui.player.RadarChartActivity"></activity>
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
