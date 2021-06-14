@@ -3,18 +3,34 @@ package com.aotuman.nbahubu.ui.player
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.aotuman.nbahubu.R
 import com.aotuman.nbahubu.common.radarview.RadarData
 import com.aotuman.nbahubu.common.radarview.RadarView
 import com.aotuman.nbahubu.utils.dp2px
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import java.util.*
 
 class PlayerDetailActivity : AppCompatActivity()  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.layout_radar)
+        setContentView(R.layout.layout_player_detail)
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val collapsingToolbarLayout = findViewById<CollapsingToolbarLayout>(R.id.collapsingToolbarLayout)
+//        val toolbarTitle = findViewById<TextView>(R.id.toolbar_title)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true) //添加默认的返回图标
+        supportActionBar?.setHomeButtonEnabled(true) //设置返回键可用
+//        collapsingToolbarLayout.title = "球员详情"
+//        collapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
+//        collapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
+        supportActionBar?.title = "球员详情"
+//        toolbarTitle.text = "球员详情"
 
         val mRadarView: RadarView = findViewById<View>(R.id.radarView) as RadarView
 

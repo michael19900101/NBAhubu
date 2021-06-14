@@ -1,5 +1,6 @@
 package com.aotuman.nbahubu.ui.player
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.aotuman.nbahubu.R
 import com.aotuman.nbahubu.data.entity.player.Player
+import com.aotuman.nbahubu.ui.news.NewsDetailActivity
+import org.jetbrains.anko.startActivity
 
 
 class PlayerAdapter(private val players: ArrayList<Player>) : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
@@ -67,6 +70,10 @@ class PlayerAdapter(private val players: ArrayList<Player>) : RecyclerView.Adapt
 
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
         holder.bind(players[position])
+        val KEY_LIST_MODEL = "listModel"
+        holder.itemView.setOnClickListener{
+            it.context.startActivity<PlayerDetailActivity>(KEY_LIST_MODEL to "params")
+        }
     }
 
     override fun getItemCount(): Int = players.size
