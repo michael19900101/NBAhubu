@@ -3,6 +3,7 @@ package com.aotuman.nbahubu.data.remote.player
 import com.aotuman.nbahubu.data.entity.player.PlayerResponse
 import com.aotuman.nbahubu.data.entity.ListingResponse
 import com.aotuman.nbahubu.data.entity.NetWorkPlayerInfo
+import com.aotuman.nbahubu.data.entity.player.PlayerDetailResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -17,6 +18,9 @@ import retrofit2.http.Query
 interface PlayerService {
     @GET("player/list")
     suspend fun fetchPlayerList1(): PlayerResponse
+
+    @GET("player/baseInfo")
+    suspend fun fetchPlayerDetail(@Query("playerId") playerId: String): PlayerDetailResponse
 
     @GET("player")
     suspend fun fetchPlayerList(

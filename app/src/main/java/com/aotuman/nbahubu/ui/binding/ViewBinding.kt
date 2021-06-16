@@ -21,7 +21,7 @@ import timber.log.Timber
  */
 
 @BindingAdapter("bindingAvator")
-fun bindingAvator(imageView: ImageView, url: String) {
+fun bindingAvator(imageView: ImageView, url: String?) {
     imageView.load(url) {
         crossfade(true)
         placeholder(R.mipmap.ic_launcher)

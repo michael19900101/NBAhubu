@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="playerDetail"
+            type="com.aotuman.nbahubu.data.entity.player.PlayerDetail" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_cn_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="安德鲁-伊戈达拉"
+                    android:text="@{playerDetail.cnName}"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_en_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:text="@{playerDetail.enName}"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    tools:text="Andre Iguodala" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_team_logo"
+                app:bindingAvator="@{playerDetail.teamLogo}"
+                android:layout_gravity="right|center_vertical"
+                android:layout_width="42dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="15dp"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/default_teamlogo_90" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                    <!--app:layout_collapseMode 设置imageView可随着滑动控件的滑动而滑动 -->
+                    <!--app:layout_collapseParallaxMultiplier 视差因子 -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_collapseMode="parallax"
+                        app:layout_collapseParallaxMultiplier="0.5">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/constraintLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:background="?attr/colorPrimary"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:id="@+id/iv_player"
+                                android:layout_width="130dp"
+                                android:layout_height="95dp"
+                                android:scaleType="centerCrop"
+                                android:src="@mipmap/default_player"
+                                app:bindingAvator="@{playerDetail.logo}"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_play_jerseyNum"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginBottom="5dp"
+                                android:textColor="@color/white"
+                                android:textSize="24sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toTopOf="@id/guideline1"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                android:text='@{"#"+playerDetail.jerseyNum}'
+                                tools:text="#28" />
+
+                            <TextView
+                                android:id="@+id/tv_team_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                app:layout_constraintEnd_toStartOf="@+id/tv_play_position"
+                                app:layout_constraintTop_toBottomOf="@id/guideline1"
+                                android:text="@{playerDetail.teamName}"
+                                tools:text="热火" />
+
+                            <TextView
+                                android:id="@+id/tv_play_position"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                app:layout_constraintEnd_toStartOf="@+id/tv_play_height"
+                                app:layout_constraintTop_toBottomOf="@id/guideline1"
+                                android:text="@{playerDetail.position}"
+                                tools:text="后卫-前锋" />
+
+                            <TextView
+                                android:id="@+id/tv_play_height"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                app:layout_constraintEnd_toStartOf="@+id/tv_play_weight"
+                                app:layout_constraintTop_toBottomOf="@id/guideline1"
+                                android:text="@{playerDetail.height}"
+                                tools:text="198.12cm" />
+
+                            <TextView
+                                android:id="@+id/tv_play_weight"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/guideline1"
+                                android:text="@{playerDetail.weight}"
+                                tools:text="97.50kg" />
+
+                            <androidx.constraintlayout.widget.Guideline
+                                android:id="@+id/guideline1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                app:layout_constraintGuide_end="@dimen/dp_50" />
+
+                            <TextView
+                                android:id="@+id/tv_play_birthday"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                app:layout_constraintEnd_toStartOf="@id/tv_play_draftYear"
+                                app:layout_constraintTop_toBottomOf="@id/guideline2"
+                                android:text='@{"生日:"+playerDetail.birthDate}'
+                                tools:text="生日:1984年01月28日" />
+
+                            <TextView
+                                android:id="@+id/tv_play_draftYear"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/guideline2"
+                                android:text='@{"选秀:"+playerDetail.draftYear+"年"}'
+                                tools:text="选秀:2004年" />
+
+                            <androidx.constraintlayout.widget.Guideline
+                                android:id="@+id/guideline2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                app:layout_constraintGuide_end="30dp" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/tv_play_season"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="10dp"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/black"
+                            android:background="@color/white"
+                            android:textSize="18sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                            android:text="@{playerDetail.season}"
+                            tools:text="2020-2021年度季后赛" />
+
+                        <com.aotuman.nbahubu.common.radarview.RadarView
+                            android:id="@+id/radarView"
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            android:background="@color/white"
+                            app:layer_line_color="#99FFFFFF"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_play_season"
+                            app:rotation_enable="false"
+                            app:vertex_line_color="#99FFFFFF"
+                            app:vertex_text_color="@color/black"
+                            app:vertex_text_offset="25dp"
+                            app:vertex_text_size="10sp" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <!--app:layout_behavior 为滑动控件设置Behavior,这样上面的控件才能做出相应改变 -->
+            <!--app:layout_behavior="@string/behavior_recyclerview"-->
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <include layout="@layout/item_card" />
+
+                    <include layout="@layout/item_card" />
+
+                    <include layout="@layout/item_card" />
+
+                    <include layout="@layout/item_card" />
+
+                    <include layout="@layout/item_card" />
+
+                    <include layout="@layout/item_card" />
+
+                    <include layout="@layout/item_card" />
+
+                    <include layout="@layout/item_card" />
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </LinearLayout>
+</layout>

@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.aotuman.nbahubu.data.entity.player.Player
+import com.aotuman.nbahubu.data.entity.player.PlayerDetail
 import com.aotuman.nbahubu.data.entity.player.PlayerEntity
 import com.aotuman.nbahubu.data.entity.player.PlayerInfoEntity
 import com.aotuman.nbahubu.data.local.AppDataBase
@@ -96,6 +97,13 @@ class PlayerPlayerRepositoryImpl(
             }
             // 发射转换后的数据
             emit(players)
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun fetchPlayerDetail(playerId: String): Flow<PlayerDetail> {
+        return flow {
+            val response = api.fetchPlayerDetail(playerId)
+            emit(response.data)
         }.flowOn(Dispatchers.IO)
     }
 
