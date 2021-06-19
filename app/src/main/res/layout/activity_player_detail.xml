@@ -253,6 +253,51 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <RadioGroup
+                        android:id="@+id/radioGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal" >
+
+                        <RadioButton
+                            android:id="@+id/rb_season"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dip"
+                            android:layout_marginTop="5dip"
+                            android:background="@drawable/btn_left_selector"
+                            android:button="@null"
+                            android:checked="true"
+                            android:gravity="center"
+                            android:paddingBottom="5dip"
+                            android:paddingTop="5dip"
+                            android:text="赛季数据"
+                            android:textColor="@drawable/btn_font_selector" />
+
+                        <RadioButton
+                            android:id="@+id/rb_career"
+                            android:layout_width="100dip"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dip"
+                            android:layout_marginTop="5dip"
+                            android:background="@drawable/btn_right_selector"
+                            android:button="@null"
+                            android:gravity="center"
+                            android:paddingBottom="5dip"
+                            android:paddingTop="5dip"
+                            android:text="生涯数据"
+                            android:textColor="@drawable/btn_font_selector" />
+                    </RadioGroup>
+
+                    <FrameLayout
+                        android:id="@+id/dataLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </FrameLayout>
+
                     <include layout="@layout/item_card" />
 
                     <include layout="@layout/item_card" />
