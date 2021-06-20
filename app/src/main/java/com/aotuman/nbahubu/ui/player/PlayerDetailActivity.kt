@@ -64,6 +64,16 @@ class PlayerDetailActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeList
                 playerDetailBinding.playerDetail = playerDetail
                 initRadarChart(playerDetail.stats, playerDetail.maxStats)
             })
+            viewModel.fetchPlayerSeasonData(playerId).observe(this, androidx.lifecycle.Observer {
+                    playerSeasonData ->
+                playerSeasonFragment.dataAverageLayout?.addViewBySeasonData(playerSeasonData, 1)
+                playerSeasonFragment.dataLatest5Layout?.addViewBySeasonData(playerSeasonData, 2)
+            })
+            viewModel.fetchPlayerCareerData(playerId).observe(this, androidx.lifecycle.Observer {
+                    playerCareerData ->
+                playerCareerFragment.dataRegularLayout?.addViewByCareerData(playerCareerData, 1)
+                playerCareerFragment.dataPlayOff5Layout?.addViewByCareerData(playerCareerData, 2)
+            })
         }
     }
 

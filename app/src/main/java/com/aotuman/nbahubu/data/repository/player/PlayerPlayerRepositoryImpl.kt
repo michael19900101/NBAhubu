@@ -3,10 +3,7 @@ package com.aotuman.nbahubu.data.repository.player
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.aotuman.nbahubu.data.entity.player.Player
-import com.aotuman.nbahubu.data.entity.player.PlayerDetail
-import com.aotuman.nbahubu.data.entity.player.PlayerEntity
-import com.aotuman.nbahubu.data.entity.player.PlayerInfoEntity
+import com.aotuman.nbahubu.data.entity.player.*
 import com.aotuman.nbahubu.data.local.AppDataBase
 import com.aotuman.nbahubu.data.mapper.Entity2ItemModelMapper
 import com.aotuman.nbahubu.data.mapper.InfoEntity2InfoModelMapper
@@ -104,6 +101,28 @@ class PlayerPlayerRepositoryImpl(
         return flow {
             val response = api.fetchPlayerDetail(playerId)
             emit(response.data)
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun fetchPlayerSeasonData(playerId: String): Flow<PlayerSeasonData> {
+        return flow {
+            try {
+                val response = api.fetchPlayerSeasonData(playerId, 1)
+                emit(response.data)
+            } catch (e : Exception) {
+                e.printStackTrace()
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun fetchPlayerCareerData(playerId: String): Flow<PlayerCareerData> {
+        return flow {
+            try {
+                val response = api.fetchPlayerCareerData(playerId, 2)
+                emit(response.data)
+            } catch (e : Exception) {
+                e.printStackTrace()
+            }
         }.flowOn(Dispatchers.IO)
     }
 
