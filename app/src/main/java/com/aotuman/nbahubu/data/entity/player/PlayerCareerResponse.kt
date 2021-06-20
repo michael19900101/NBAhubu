@@ -14,6 +14,6 @@ data class PlayerCareerResponse(
 )
 
 data class PlayerCareerData(
-        val reg: PlayerStatsData,
-        val playoff: PlayerStatsData
+        val reg: PlayerStatsData?,
+        val playoff: PlayerStatsData?
 )

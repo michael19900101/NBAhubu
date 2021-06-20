@@ -14,6 +14,6 @@ data class PlayerSeasonResponse(
 )
 
 data class PlayerSeasonData(
-        val lastMatches: PlayerStatsData,
-        val stats: PlayerStatsData
+        val lastMatches: PlayerStatsData?,
+        val stats: PlayerStatsData?
 )

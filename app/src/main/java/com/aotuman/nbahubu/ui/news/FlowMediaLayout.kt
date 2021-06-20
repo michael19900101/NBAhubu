@@ -47,9 +47,9 @@ class FlowMediaLayout @JvmOverloads constructor(
         }
     }
 
-    fun addViewBySeasonData(data: PlayerSeasonData, type: Int) {
-        val headDatas: List<String> = if (type == 1) data.stats.head else data.lastMatches.head
-        val rowDatas: List<List<String>> = if (type == 1) data.stats.rows else data.lastMatches.rows
+    fun addViewBySeasonData(data: PlayerSeasonData?, type: Int) {
+        val headDatas: List<String>? = if (type == 1) data?.stats?.head else data?.lastMatches?.head
+        val rowDatas: List<List<String>>? = if (type == 1) data?.stats?.rows else data?.lastMatches?.rows
         val headLayout = LinearLayout(context)
         headLayout.orientation = HORIZONTAL
         headLayout.setBackgroundResource(R.drawable.player_stat_table_head)
@@ -66,20 +66,22 @@ class FlowMediaLayout @JvmOverloads constructor(
             LayoutParams(dp2px(125), dp2px(40))
         }
         headTextParams0.leftMargin = dp2px(10)
-        for (i in headDatas.indices){
-            val textView = TextView(context)
-            textView.text = headDatas[i]
-            textView.textSize = 14f
-            textView.setTextColor(Color.parseColor("#FF11202B"))
-            if (i == 0) {
-                textView.gravity = Gravity.CENTER_VERTICAL
-                headLayout.addView(textView, headTextParams0)
-            } else {
-                textView.gravity = Gravity.CENTER
-                headLayout.addView(textView, headTextParams)
+        headDatas?.let {
+            for (i in headDatas.indices){
+                val textView = TextView(context)
+                textView.text = headDatas[i]
+                textView.textSize = 14f
+                textView.setTextColor(Color.parseColor("#FF11202B"))
+                if (i == 0) {
+                    textView.gravity = Gravity.CENTER_VERTICAL
+                    headLayout.addView(textView, headTextParams0)
+                } else {
+                    textView.gravity = Gravity.CENTER
+                    headLayout.addView(textView, headTextParams)
+                }
             }
         }
-        rowDatas.forEach{
+        rowDatas?.forEach{
             val rowLayout = LinearLayout(context)
             rowLayout.orientation = HORIZONTAL
             for(i in it.indices){
@@ -101,9 +103,9 @@ class FlowMediaLayout @JvmOverloads constructor(
         addView(contentLayout, contentLayoutParams)
     }
 
-    fun addViewByCareerData(data: PlayerCareerData, type: Int) {
-        val headDatas: List<String> = if (type == 1) data.reg.head else data.playoff.head
-        val rowDatas: List<List<String>> = if (type == 1) data.reg.rows else data.playoff.rows
+    fun addViewByCareerData(data: PlayerCareerData?, type: Int) {
+        val headDatas: List<String>? = if (type == 1) data?.reg?.head else data?.playoff?.head
+        val rowDatas: List<List<String>>? = if (type == 1) data?.reg?.rows else data?.playoff?.rows
         val headLayout = LinearLayout(context)
         headLayout.orientation = HORIZONTAL
         headLayout.setBackgroundResource(R.drawable.player_stat_table_head)
@@ -116,20 +118,22 @@ class FlowMediaLayout @JvmOverloads constructor(
         val headTextParams = LayoutParams(dp2px(65), dp2px(40))
         val headTextParams0 =  LayoutParams(dp2px(90), dp2px(40))
         headTextParams0.leftMargin = dp2px(10)
-        for (i in headDatas.indices){
-            val textView = TextView(context)
-            textView.text = headDatas[i]
-            textView.textSize = 14f
-            textView.setTextColor(Color.parseColor("#FF11202B"))
-            if (i == 0) {
-                textView.gravity = Gravity.CENTER_VERTICAL
-                headLayout.addView(textView, headTextParams0)
-            } else {
-                textView.gravity = Gravity.CENTER
-                headLayout.addView(textView, headTextParams)
+        headDatas?.let {
+            for (i in headDatas.indices){
+                val textView = TextView(context)
+                textView.text = headDatas[i]
+                textView.textSize = 14f
+                textView.setTextColor(Color.parseColor("#FF11202B"))
+                if (i == 0) {
+                    textView.gravity = Gravity.CENTER_VERTICAL
+                    headLayout.addView(textView, headTextParams0)
+                } else {
+                    textView.gravity = Gravity.CENTER
+                    headLayout.addView(textView, headTextParams)
+                }
             }
         }
-        rowDatas.forEach{
+        rowDatas?.forEach{
             val rowLayout = LinearLayout(context)
             rowLayout.orientation = HORIZONTAL
             for(i in it.indices){
