@@ -291,29 +291,10 @@
                             android:textColor="@drawable/btn_font_selector" />
                     </RadioGroup>
 
-                    <FrameLayout
-                        android:id="@+id/dataLayout"
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/viewPager"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                    </FrameLayout>
-
-                    <include layout="@layout/item_card" />
-
-                    <include layout="@layout/item_card" />
-
-                    <include layout="@layout/item_card" />
-
-                    <include layout="@layout/item_card" />
-
-                    <include layout="@layout/item_card" />
-
-                    <include layout="@layout/item_card" />
-
-                    <include layout="@layout/item_card" />
-
-                    <include layout="@layout/item_card" />
-
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
 
