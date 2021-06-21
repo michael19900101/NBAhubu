@@ -25,6 +25,7 @@ class Entity2ItemModelMapper : Mapper<NewsEntity, NewsItemModel> {
             upNum = input.upNum,
             commentNum = input.commentNum,
             shareUrl = input.shareUrl,
-            content = input.content
+            content = input.content,
+            commentId = input.commentId
         )
 }

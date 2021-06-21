@@ -18,9 +18,9 @@ data class NewsCommentResponse(
         val hasnext: Boolean,
         val hotCommList: List<Any>,
         val oriCommList: List<OriComm>,
-        val repCommList: Map<String, List<OriComm>>,
+        val repCommList: Map<Long, List<OriComm>>,
         val targetInfo: TargetInfo,
-        val userList: Map<String, List<User>>
+        val userList: Map<Long, User>
     )
 
     data class User(

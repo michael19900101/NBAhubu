@@ -22,7 +22,8 @@ data class NewsItem(
         var upNum: Int = 0,
         var commentNum: Int = 0,
         var shareUrl: String = "",
-        var content: List<NewsContentItem>
+        var content: List<NewsContentItem>,
+        var commentParams: CommentParams
 )
 
 data class NewsContentItem(
@@ -35,4 +36,9 @@ data class NewsContentImg(
         var height: String,
         var width: String,
         var imgurl: String
+)
+
+data class CommentParams(
+        var targetId: Long = 0,
+        var commentsNum: Long = 0
 )

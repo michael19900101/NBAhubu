@@ -29,6 +29,6 @@ class NewsDetailViewModel @ViewModelInject constructor(
     private val newsRepository: NewsCommentRepository
 ) : ViewModel() {
 
-    fun fetchComments(articleId: String): LiveData<NewsCommentResponse.Data> =
+    fun fetchComments(articleId: Long): LiveData<NewsCommentResponse.Data> =
         newsRepository.fetchComments(articleId).asLiveData()
 }

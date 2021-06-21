@@ -12,5 +12,5 @@ import kotlinx.coroutines.flow.Flow
  */
 interface NewsCommentRepository {
 
-    fun fetchComments(articleId: String): Flow<NewsCommentResponse.Data>
+    fun fetchComments(articleId: Long): Flow<NewsCommentResponse.Data>
 }

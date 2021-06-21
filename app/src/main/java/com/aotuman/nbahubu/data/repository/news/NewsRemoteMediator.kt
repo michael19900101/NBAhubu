@@ -187,7 +187,8 @@ class NewsRemoteMediator(
                 upNum = newsItem.upNum,
                 commentNum = newsItem.commentNum,
                 shareUrl = newsItem.shareUrl,
-                content = gson.toJson(newsItem.content)
+                content = gson.toJson(newsItem.content),
+                commentId = newsItem.commentParams.targetId
             )
         }
     }

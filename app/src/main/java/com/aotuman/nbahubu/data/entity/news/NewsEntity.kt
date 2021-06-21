@@ -14,5 +14,6 @@ data class NewsEntity (
     var upNum: Int,
     var commentNum: Int,
     var shareUrl: String,
-    var content: String
+    var content: String,
+    var commentId: Long
 )

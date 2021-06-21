@@ -49,8 +49,8 @@ class NewsDetailActivity : AppCompatActivity() {
             mBindingActivity.tvNewsPubDate.text = newsItemModel.pub_time
             contentLayout.addViewByModel(newsItemModel)
         }
-        viewModel.fetchComments(newsItemModel.newsId.toString()).observe(this, Observer {
-            Log.d("jjjj","")
+        viewModel.fetchComments(newsItemModel.commentId).observe(this, Observer {
+            Log.d("jjjj","aaa")
         })
     }
 
