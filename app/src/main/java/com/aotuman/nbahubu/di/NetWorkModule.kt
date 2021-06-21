@@ -1,6 +1,7 @@
 package com.aotuman.nbahubu.di
 
 import com.aotuman.nbahubu.BuildConfig
+import com.aotuman.nbahubu.data.remote.news.NewsCommentService
 import com.aotuman.nbahubu.data.remote.news.NewsService
 import com.aotuman.nbahubu.data.remote.player.PlayerService
 import dagger.Module
@@ -12,6 +13,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 
@@ -49,7 +51,8 @@ object NetWorkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    @Named("retrofit_nba")
+    fun provideRetrofitNBA(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl("https://sportsnba.qq.com/")
@@ -59,13 +62,30 @@ object NetWorkModule {
 
     @Provides
     @Singleton
-    fun providePlayerService(retrofit: Retrofit): PlayerService {
+    @Named("retrofit_kbs")
+    fun provideRetrofitKBS(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl("https://kbs.coral.qq.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun providePlayerService(@Named("retrofit_nba")retrofit: Retrofit): PlayerService {
         return retrofit.create(PlayerService::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideNewsService(retrofit: Retrofit): NewsService {
+    fun provideNewsService(@Named("retrofit_nba")retrofit: Retrofit): NewsService {
         return retrofit.create(NewsService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsCommentService(@Named("retrofit_kbs")retrofit: Retrofit): NewsCommentService {
+        return retrofit.create(NewsCommentService::class.java)
     }
 }

@@ -2,8 +2,11 @@ package com.aotuman.nbahubu.ui.news
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.aotuman.nbahubu.databinding.ActivityNewsDetailBinding
 import com.aotuman.nbahubu.model.news.NewsItemModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +29,7 @@ class NewsDetailActivity : AppCompatActivity() {
 
     private lateinit var mBindingActivity: ActivityNewsDetailBinding
     lateinit var newsItemModel: NewsItemModel
+    private val viewModel: NewsDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +49,9 @@ class NewsDetailActivity : AppCompatActivity() {
             mBindingActivity.tvNewsPubDate.text = newsItemModel.pub_time
             contentLayout.addViewByModel(newsItemModel)
         }
+        viewModel.fetchComments(newsItemModel.newsId.toString()).observe(this, Observer {
+            Log.d("jjjj","")
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
