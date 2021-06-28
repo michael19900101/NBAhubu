@@ -20,7 +20,7 @@ class PlayerFragment : Fragment(R.layout.fragment_player) {
 
     private var fragmentPlayerBinding: FragmentPlayerBinding? = null
     private val viewModel: PlayerViewModel by viewModels()
-    private val playerAdapter by lazy { PlayerAdapter(arrayListOf()) }
+    private val playerAdapter by lazy { PlayerAdapter(this, arrayListOf()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

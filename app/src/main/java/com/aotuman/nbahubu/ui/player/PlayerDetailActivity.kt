@@ -7,6 +7,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.aotuman.nbahubu.common.radarview.RadarData
@@ -30,6 +31,11 @@ class PlayerDetailActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeList
     lateinit var playerSeasonFragment: PlayerSeasonFragment
     lateinit var playerCareerFragment: PlayerCareerFragment
     val fragmentList = mutableListOf<Fragment>()
+
+    companion object {
+        // View name of the header image. Used for activity scene transitions
+        val VIEW_NAME_HEADER_IMAGE = "detail:header:image"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +81,8 @@ class PlayerDetailActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeList
                 playerCareerFragment.dataPlayOff5Layout?.addViewByCareerData(playerCareerData, 2)
             })
         }
+
+        ViewCompat.setTransitionName(playerDetailBinding.ivPlayer, VIEW_NAME_HEADER_IMAGE);
     }
 
     private fun initRadarChart(stats: StatsData, maxStats: StatsData) {

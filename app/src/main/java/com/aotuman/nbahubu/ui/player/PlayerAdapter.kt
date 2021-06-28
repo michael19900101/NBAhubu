@@ -1,18 +1,22 @@
 package com.aotuman.nbahubu.ui.player
 
+import android.app.ActivityOptions
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.aotuman.nbahubu.R
 import com.aotuman.nbahubu.data.entity.player.Player
-import org.jetbrains.anko.startActivity
 
 
-class PlayerAdapter(private val players: ArrayList<Player>) : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
+class PlayerAdapter(private val fragment: Fragment,
+                    private val players: ArrayList<Player>) : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
 
     class PlayerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -69,7 +73,12 @@ class PlayerAdapter(private val players: ArrayList<Player>) : RecyclerView.Adapt
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
         holder.bind(players[position])
         holder.itemView.setOnClickListener{
-            it.context.startActivity<PlayerDetailActivity>("playerId" to players[position].id)
+            val intent = Intent()
+            intent.setClass(it.context, PlayerDetailActivity::class.java)
+            intent.putExtra("playerId", players[position].id)
+            val options = ActivityOptions.makeSceneTransitionAnimation(fragment.activity, holder.mImgPlayer,
+                PlayerDetailActivity.VIEW_NAME_HEADER_IMAGE)
+            ActivityCompat.startActivity(it.context, intent, options.toBundle())
         }
     }
 
