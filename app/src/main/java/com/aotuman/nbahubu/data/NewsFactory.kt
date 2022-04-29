@@ -5,10 +5,13 @@ import com.aotuman.nbahubu.data.local.AppDataBase
 import com.aotuman.nbahubu.data.mapper.news.Entity2ItemModelMapper
 import com.aotuman.nbahubu.data.remote.news.NewsCommentService
 import com.aotuman.nbahubu.data.remote.news.NewsService
+import com.aotuman.nbahubu.data.remote.temp.NewsServiceTemp
 import com.aotuman.nbahubu.data.repository.news.NewsCommentRepository
 import com.aotuman.nbahubu.data.repository.news.NewsCommentRepositoryImpl
 import com.aotuman.nbahubu.data.repository.news.NewsRepository
 import com.aotuman.nbahubu.data.repository.news.NewsRepositoryImpl
+import com.aotuman.nbahubu.data.repository.temp.NewsRepositoryImplTemp
+import com.aotuman.nbahubu.data.repository.temp.NewsRepositoryTemp
 
 /**
  * <pre>
@@ -18,6 +21,9 @@ import com.aotuman.nbahubu.data.repository.news.NewsRepositoryImpl
  * </pre>
  */
 object NewsFactory {
+
+    fun makeNewsRepositoryTemp(api: NewsServiceTemp): NewsRepositoryTemp =
+        NewsRepositoryImplTemp(api)
 
     fun makeNewsCommentRepository(api: NewsCommentService):NewsCommentRepository =
         NewsCommentRepositoryImpl(api)

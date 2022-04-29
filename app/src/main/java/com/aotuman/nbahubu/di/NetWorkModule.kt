@@ -4,6 +4,7 @@ import com.aotuman.nbahubu.BuildConfig
 import com.aotuman.nbahubu.data.remote.news.NewsCommentService
 import com.aotuman.nbahubu.data.remote.news.NewsService
 import com.aotuman.nbahubu.data.remote.player.PlayerService
+import com.aotuman.nbahubu.data.remote.temp.NewsServiceTemp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -51,6 +52,17 @@ object NetWorkModule {
 
     @Provides
     @Singleton
+    @Named("retrofit_nba_new")
+    fun provideRetrofitNBANew(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl("https://api.nba.cn/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    @Provides
+    @Singleton
     @Named("retrofit_nba")
     fun provideRetrofitNBA(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
@@ -81,6 +93,12 @@ object NetWorkModule {
     @Singleton
     fun provideNewsService(@Named("retrofit_nba")retrofit: Retrofit): NewsService {
         return retrofit.create(NewsService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsServiceTemp(@Named("retrofit_nba_new")retrofit: Retrofit): NewsServiceTemp {
+        return retrofit.create(NewsServiceTemp::class.java)
     }
 
     @Provides

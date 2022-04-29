@@ -1,6 +1,7 @@
 package com.aotuman.nbahubu.ui.news
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.aotuman.nbahubu.R
 import com.aotuman.nbahubu.databinding.FragmentNewsBinding
+import com.aotuman.nbahubu.ui.temp.NewsViewModelTemp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -26,6 +28,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
     private var fragmentNewsBinding: FragmentNewsBinding? = null
     private val viewModel: NewsViewModel by viewModels()
     private val newsAdapter by lazy { NewsAdapter() }
+    private val newsTempVM: NewsViewModelTemp by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +56,11 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
 
         viewModel.postOfData().observe(viewLifecycleOwner, Observer {
             newsAdapter.submitData(lifecycle, it)
+        })
+
+        newsTempVM.fetchNews().observe(viewLifecycleOwner, Observer {
+
+            Log.e("jbjb","回调")
         })
     }
 
