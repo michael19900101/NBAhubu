@@ -8,6 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.aotuman.nbahubu.R
 import com.aotuman.nbahubu.databinding.ActivityMainBinding
+import com.aotuman.nbahubu.ui.latest.LatestFragment
 import com.aotuman.nbahubu.ui.news.NewsFragment
 import com.aotuman.nbahubu.ui.player.PlayerFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,6 +22,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mainBinding: ActivityMainBinding
     private var fragmentList = mutableListOf<Fragment>()
+
+    lateinit var latestFragment: LatestFragment
 
     lateinit var newsFragment: NewsFragment
 
@@ -56,7 +59,7 @@ class MainActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 when (position) {
-                    0 ->  mainBinding.toolbar.visibility = View.VISIBLE
+                    0 ->  mainBinding.toolbar.visibility = View.GONE
                     1 ->  mainBinding.toolbar.visibility = View.GONE
                 }
                 bottomNavigationView.menu.getItem(position).isChecked = true
@@ -84,9 +87,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFragments() {
+        latestFragment = LatestFragment()
         newsFragment = NewsFragment()
 //        playerFragment = PlayerFragment()
-        fragmentList.add(newsFragment)
+        fragmentList.add(latestFragment)
 //        fragmentList.add(playerFragment)
     }
 }

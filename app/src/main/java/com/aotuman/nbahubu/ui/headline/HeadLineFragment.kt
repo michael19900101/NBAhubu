@@ -39,6 +39,9 @@ class HeadLineFragment : Fragment(R.layout.fragment_headline) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        fragmentNewsBinding?.apply {
+
+        }
     }
 
     override fun onDestroyView() {

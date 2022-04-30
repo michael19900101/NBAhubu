@@ -75,6 +75,7 @@
     <dimen name="dp_160">160dp</dimen>
 
     <dimen name="common_radius_8dp">8dp</dimen>
+    <dimen name="common_navigator_height">40dp</dimen>
 
     <dimen name="card_vertical_height">100dp</dimen>
     <dimen name="recycle_item_avrtor">100dp</dimen>

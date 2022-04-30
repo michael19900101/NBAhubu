@@ -43,6 +43,7 @@ object Versions {
     const val legacy = "1.0.0"
     const val smartRefresh = "2.0.3"
     const val lottie = "3.7.0"
+    const val magicIndicator = "1.7.0"
 }
 
 object AndroidX {
@@ -138,5 +139,6 @@ object Depend {
     const val xxPermissions = "com.github.getActivity:XXPermissions:${Versions.xxPermissions}"
     const val smartRefresh = "com.scwang.smart:refresh-layout-kernel:${Versions.smartRefresh}"
     const val lottie = "com.airbnb.android:lottie:${Versions.lottie}"
+    const val magicIndicator = "com.github.hackware1993:MagicIndicator:${Versions.magicIndicator}"
 }
 
