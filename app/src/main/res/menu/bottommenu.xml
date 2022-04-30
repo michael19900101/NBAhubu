@@ -3,7 +3,7 @@
     <item
         android:id="@id/newsFragment"
         android:icon="@drawable/tab_news_selector"
-        android:title="@string/tab_news" />
+        android:title="@string/tab_latest" />
     <item
         android:id="@id/playerFragment"
         android:icon="@drawable/tab_player_selector"
