@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var newsFragment: NewsFragment
 
-    lateinit var playerFragment: PlayerFragment
+//    lateinit var playerFragment: PlayerFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,8 +85,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initFragments() {
         newsFragment = NewsFragment()
-        playerFragment = PlayerFragment()
+//        playerFragment = PlayerFragment()
         fragmentList.add(newsFragment)
-        fragmentList.add(playerFragment)
+//        fragmentList.add(playerFragment)
     }
 }

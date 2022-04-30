@@ -15,6 +15,7 @@ import com.google.gson.Gson
 import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
+import kotlin.Exception
 
 /**
  * <pre>
@@ -126,41 +127,46 @@ class NewsRemoteMediator(
         Timber.tag(TAG).e("localMaxID = ${localMaxID}")
         if (!AppHelper.mContext.isConnectedNetwork()) return localMaxID
         // 首次访问，请求网络获取新闻id集合（服务器默认返回200条）
-        val response = api.fetchNewsID()
-        // 筛选比本地数据库还要新的新闻
-        if (localMaxID > 0) {
-            val latestNewsID = response.data?.filter { it.id > localMaxID }
-            val latestNewsIDEntities = latestNewsID?.map {
-                NewsIDEntity(
-                    id = it.id,
-                    type = it.type,
-                    column = it.column,
-                    needUpdate = it.needUpdate
-                )
-            }
-            latestNewsIDEntities?.let {
-                // 插入新闻ID表
-                db.withTransaction {
-                    newsIDDao.insertNewsID(it)
+        try {
+            val response = api.fetchNewsID()
+            // 筛选比本地数据库还要新的新闻
+            if (localMaxID > 0) {
+                val latestNewsID = response.data?.filter { it.id > localMaxID }
+                val latestNewsIDEntities = latestNewsID?.map {
+                    NewsIDEntity(
+                        id = it.id,
+                        type = it.type,
+                        column = it.column,
+                        needUpdate = it.needUpdate
+                    )
+                }
+                latestNewsIDEntities?.let {
+                    // 插入新闻ID表
+                    db.withTransaction {
+                        newsIDDao.insertNewsID(it)
+                    }
+                }
+            } else {
+                // 数据库新闻表是空表，全部插入
+                val latestNewsIDEntities = response.data?.map {
+                    NewsIDEntity(
+                        id = it.id,
+                        type = it.type,
+                        column = it.column,
+                        needUpdate = it.needUpdate
+                    )
+                }
+                latestNewsIDEntities?.let {
+                    // 插入新闻ID表
+                    db.withTransaction {
+                        newsIDDao.insertNewsID(it)
+                    }
                 }
             }
-        } else {
-            // 数据库新闻表是空表，全部插入
-            val latestNewsIDEntities = response.data?.map {
-                NewsIDEntity(
-                    id = it.id,
-                    type = it.type,
-                    column = it.column,
-                    needUpdate = it.needUpdate
-                )
-            }
-            latestNewsIDEntities?.let {
-                // 插入新闻ID表
-                db.withTransaction {
-                    newsIDDao.insertNewsID(it)
-                }
-            }
+        } catch (e:Exception) {
+            e.printStackTrace()
         }
+
         return newsIDDao.queryMaxNewsID()
     }
 
@@ -176,21 +182,26 @@ class NewsRemoteMediator(
             }
         }
         val gson = Gson()
-        return api.fetchNewsByIDs("app", "banner", articleIds.toString()).data.map {
-            val newsItem = it.value
-            NewsEntity(
-                newsId = newsItem.newsId,
-                title = newsItem.title,
-                url = newsItem.url,
-                imgurl = newsItem.imgurl,
-                pub_time = newsItem.pub_time,
-                upNum = newsItem.upNum,
-                commentNum = newsItem.commentNum,
-                shareUrl = newsItem.shareUrl,
-                content = gson.toJson(newsItem.content),
-                commentId = newsItem.commentParams.targetId
-            )
+        try {
+            return api.fetchNewsByIDs("app", "banner", articleIds.toString()).data.map {
+                val newsItem = it.value
+                NewsEntity(
+                    newsId = newsItem.newsId,
+                    title = newsItem.title,
+                    url = newsItem.url,
+                    imgurl = newsItem.imgurl,
+                    pub_time = newsItem.pub_time,
+                    upNum = newsItem.upNum,
+                    commentNum = newsItem.commentNum,
+                    shareUrl = newsItem.shareUrl,
+                    content = gson.toJson(newsItem.content),
+                    commentId = newsItem.commentParams.targetId
+                )
+            }
+        }catch (e: Exception){
+            e.printStackTrace()
         }
+        return null
     }
 
 

@@ -32,13 +32,17 @@ class NewsRepositoryImpl(
 
     override fun fetchNewsID(): Flow<List<NewsID>> {
         return flow {
-            val response = api.fetchNewsID()
-            var newsIDs: List<NewsID> = mutableListOf()
-            response.data?.let {
-                newsIDs = it
+            try {
+                val response = api.fetchNewsID()
+                var newsIDs: List<NewsID> = mutableListOf()
+                response.data?.let {
+                    newsIDs = it
+                }
+                // 发射转换后的数据
+                emit(newsIDs)
+            } catch (e:Exception) {
+                e.printStackTrace()
             }
-            // 发射转换后的数据
-            emit(newsIDs)
         }.flowOn(Dispatchers.IO)
     }
 

@@ -1,6 +1,7 @@
 package com.aotuman.nbahubu.di
 
 import com.aotuman.nbahubu.BuildConfig
+import com.aotuman.nbahubu.data.remote.headline.HeadLineService
 import com.aotuman.nbahubu.data.remote.news.NewsCommentService
 import com.aotuman.nbahubu.data.remote.news.NewsService
 import com.aotuman.nbahubu.data.remote.player.PlayerService
@@ -105,5 +106,11 @@ object NetWorkModule {
     @Singleton
     fun provideNewsCommentService(@Named("retrofit_kbs")retrofit: Retrofit): NewsCommentService {
         return retrofit.create(NewsCommentService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideHeadLineService(@Named("retrofit_nba_new")retrofit: Retrofit): HeadLineService {
+        return retrofit.create(HeadLineService::class.java)
     }
 }
