@@ -9,7 +9,7 @@ import coil.load
 import com.aotuman.nbahubu.R
 import com.aotuman.nbahubu.model.news.NewsItemModel
 import com.aotuman.nbahubu.ui.news.NewsDetailActivity
-import com.hi.dhl.jprogressview.JProgressView
+//import com.hi.dhl.jprogressview.JProgressView
 import timber.log.Timber
 
 /**
@@ -54,13 +54,13 @@ fun bindingLoading(swipe: SwipeRefreshLayout, isLoading: Boolean) {
     if (!isLoading) swipe.isEnabled = false
 }
 
-@BindingAdapter("bindProgressValue", "bindProgressMaxValue")
-fun bindingProgressView(progress: JProgressView, progressValue: Int, maxProgressValue: Int) {
-    progress
-        .setProgress(progressValue.toFloat())
-        .setMaxProgress(maxProgressValue)
-        .startAnimal()
-}
+//@BindingAdapter("bindProgressValue", "bindProgressMaxValue")
+//fun bindingProgressView(progress: JProgressView, progressValue: Int, maxProgressValue: Int) {
+//    progress
+//        .setProgress(progressValue.toFloat())
+//        .setMaxProgress(maxProgressValue)
+//        .startAnimal()
+//}
 
 @BindingAdapter("bindFinish")
 fun bindingFinish(view: View, finish: Boolean) {

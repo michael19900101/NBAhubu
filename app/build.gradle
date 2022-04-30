@@ -79,7 +79,7 @@ dependencies {
     kapt Hilt.compiler
 
     implementation Depend.jDatabinding
-    implementation Depend.progressview
+//    implementation Depend.progressview
 
     testImplementation Depend.junit
     androidTestImplementation Depend.androidTestJunit

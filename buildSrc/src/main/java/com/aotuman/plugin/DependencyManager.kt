@@ -31,7 +31,7 @@ object Versions {
     const val junitExt = "1.1.2"
     const val espressoCore = "3.3.0"
     const val jDatabinding = "1.0.4"
-    const val progressview = "1.0.2"
+//    const val progressview = "1.0.2"
     const val runtime = "1.1.0"
     const val hit = "2.28-alpha"
     const val hitViewModule = "1.0.0-alpha01"
@@ -132,7 +132,7 @@ object Depend {
     const val androidTestJunit = "androidx.test.ext:junit:${Versions.junitExt}"
     const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
     const val jDatabinding = "com.hi-dhl:jdatabinding:${Versions.jDatabinding}"
-    const val progressview = "com.hi-dhl:progressview:${Versions.progressview}"
+//    const val progressview = "com.hi-dhl:progressview:${Versions.progressview}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     // 权限请求框架
     const val xxPermissions = "com.github.getActivity:XXPermissions:${Versions.xxPermissions}"
