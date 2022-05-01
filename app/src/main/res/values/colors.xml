@@ -28,6 +28,9 @@
     <color name="nba_light_grey">#7ba7f2</color>
     <color name="news_item_text_gray">#5B5E63</color>
 
+    <color name="page_bg_white_color_day">#ffffff</color>
+    <color name="page_bg_white_color_night">#0E1A20</color>
+
 
 
     <!--【全局颜色】页遍历开始-->
