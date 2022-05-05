@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tool="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/margin_100dp"
+  android:gravity="center_vertical"
+  android:orientation="horizontal"
+  android:padding="@dimen/space_12dp">
+
+  <ImageView
+    android:layout_width="@dimen/dp_24"
+    android:layout_height="@dimen/dp_24"
+    android:src="@mipmap/ic_launcher" />
+
+  <Space
+    android:layout_width="@dimen/space_12dp"
+    android:layout_height="0dp" />
+
+  <TextView
+    android:id="@+id/title"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:textColor="@android:color/black"
+    tool:text="title" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    app:drawableEndCompat="@drawable/ic_zan"
+    android:text="更多" />
+
+</LinearLayout>

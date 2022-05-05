@@ -89,4 +89,5 @@ dependencies {
     implementation Depend.smartRefresh
     implementation Depend.lottie
     implementation Depend.magicIndicator
+    implementation Depend.multitype
 }

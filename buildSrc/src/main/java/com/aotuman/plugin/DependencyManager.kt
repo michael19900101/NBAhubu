@@ -44,6 +44,7 @@ object Versions {
     const val smartRefresh = "2.0.3"
     const val lottie = "3.7.0"
     const val magicIndicator = "1.7.0"
+    const val multitype = "4.3.0"
 }
 
 object AndroidX {
@@ -140,5 +141,6 @@ object Depend {
     const val smartRefresh = "com.scwang.smart:refresh-layout-kernel:${Versions.smartRefresh}"
     const val lottie = "com.airbnb.android:lottie:${Versions.lottie}"
     const val magicIndicator = "com.github.hackware1993:MagicIndicator:${Versions.magicIndicator}"
+    const val multitype = "com.drakeet.multitype:multitype:${Versions.multitype}"
 }
 
