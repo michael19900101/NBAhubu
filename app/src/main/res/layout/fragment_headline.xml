@@ -32,15 +32,25 @@
         android:background="@drawable/status_and_tab_shadow"
         android:visibility="visible">
 
+        <!--这一块其实用来设置跟状态栏的高度-->
         <View
-            android:id="@+id/fig_status_shadow"
+            android:id="@+id/status_bar_shadow"
             android:layout_width="match_parent"
             android:layout_height="0dp"/>
 
+        <!--这一块其实用来设置跟LatestFragment的MagicIndicator一样高-->
         <View
-            android:id="@+id/fig_tab_shadow"
+            android:id="@+id/magic_indicator_shadow"
             android:layout_width="match_parent"
             android:layout_height="44dp" />
     </LinearLayout>
+
+    <!--这一块其实用来设置滑动列表后，固定在顶部的状态栏+magic_indicator高度-->
+    <View
+        android:id="@+id/fixed_status_shadow_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/page_bg_grey_color"
+        android:visibility="gone" />
 
 </FrameLayout>

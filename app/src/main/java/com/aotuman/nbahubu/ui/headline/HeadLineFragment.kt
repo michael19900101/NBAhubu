@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aotuman.nbahubu.R
 import com.aotuman.nbahubu.databinding.FragmentHeadlineBinding
 import com.aotuman.nbahubu.utils.StatusBarUtil
+import com.aotuman.nbahubu.utils.SystemUiUtils
 import com.drakeet.multitype.MultiTypeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,6 +30,11 @@ class HeadLineFragment : Fragment(R.layout.fragment_headline) {
     private var adapter: MultiTypeAdapter? = null
     private var items: MutableList<Any> = ArrayList()
     private var bannerHolderInflater: BannerHolderInflater ? = null
+
+    var mStatusShadow: View? = null
+    var mTopStatusShadow: View? = null
+    private var MIN_SCROLL_SHADOW_SHOW = -50
+    private var MAX_SCROLL_SHADOW_SHOW = -200
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,10 +54,43 @@ class HeadLineFragment : Fragment(R.layout.fragment_headline) {
         fragmentHeadlineBinding?.apply {
             recyleView.adapter = adapter
 
-            // 设置顶部阴影高度
-            val statusParams = figStatusShadow.layoutParams
+            // 这一块其实用来设置[滑动列表前]，固定在顶部的(状态栏+magic_indicator)高度
+            mTopStatusShadow = statusTopShadowView
+            onFirstViewTopChange(0)
+
+            // 设置状态栏阴影高度
+            val statusParams = statusBarShadow.layoutParams
             statusParams.height = StatusBarUtil.getStatusBarHeight()
             statusTopShadowView.visibility = View.VISIBLE
+
+            // 这一块其实用来设置[滑动列表后]，固定在顶部的(状态栏+magic_indicator)高度
+            mStatusShadow = fixedStatusShadowView
+            val statusShadowParams = mStatusShadow?.layoutParams
+            statusShadowParams?.height = StatusBarUtil.getStatusBarHeight() + context?.resources?.getDimensionPixelSize(R.dimen.dp_44)!!
+            mStatusShadow?.layoutParams = statusShadowParams
+            MAX_SCROLL_SHADOW_SHOW = -(SystemUiUtils.getDisplayHeight()) / 4
+
+            recyleView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                }
+
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val manager = (recyclerView.layoutManager as LinearLayoutManager)
+                    val pos = manager.findFirstVisibleItemPosition()
+                    if (pos == 0) {
+                        val firstView = manager.findViewByPosition(pos)
+                        firstView?.let { first ->
+                            onFirstViewTopChange(first.top)
+                        }
+                    } else {
+                        onFirstViewTopChange(-10000)
+                    }
+                }
+            })
+
         }
         adapter?.items = items
         adapter?.notifyDataSetChanged()
@@ -57,6 +98,24 @@ class HeadLineFragment : Fragment(R.layout.fragment_headline) {
             Log.e("jbjb","回调fetchTopBanner")
             bannerHolderInflater?.updateViewHolder(it)
         })
+    }
+
+    fun onFirstViewTopChange(top: Int) {
+        mTopStatusShadow?.visibility = View.VISIBLE
+        if (top > MIN_SCROLL_SHADOW_SHOW) {
+            mStatusShadow?.visibility = View.GONE
+            mTopStatusShadow?.alpha = 1f
+        } else {
+            mStatusShadow?.visibility = View.VISIBLE
+            var alpha = (MIN_SCROLL_SHADOW_SHOW - top.toFloat()) / (MIN_SCROLL_SHADOW_SHOW - MAX_SCROLL_SHADOW_SHOW)
+            if (alpha > 1) {
+                alpha = 1f
+            } else if (alpha < 0) {
+                alpha = 0f
+            }
+            mStatusShadow?.alpha = alpha
+            mTopStatusShadow?.alpha = (1 - alpha)
+        }
     }
 
     override fun onDestroyView() {
