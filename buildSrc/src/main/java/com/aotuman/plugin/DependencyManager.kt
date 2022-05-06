@@ -12,7 +12,7 @@ object Versions {
     const val retrofit = "2.9.0"
     const val okhttpLogging = "4.9.0"
     const val appcompat = "1.2.0"
-    const val coreKtx = "1.3.2"
+    const val coreKtx = "1.6.0"
     const val constraintlayout = "2.0.4"
     const val paging = "3.0.0-alpha02"
     const val timber = "4.7.1"
@@ -45,6 +45,7 @@ object Versions {
     const val lottie = "3.7.0"
     const val magicIndicator = "1.7.0"
     const val multitype = "4.3.0"
+    const val banner = "2.2.2"
 }
 
 object AndroidX {
@@ -142,5 +143,6 @@ object Depend {
     const val lottie = "com.airbnb.android:lottie:${Versions.lottie}"
     const val magicIndicator = "com.github.hackware1993:MagicIndicator:${Versions.magicIndicator}"
     const val multitype = "com.drakeet.multitype:multitype:${Versions.multitype}"
+    const val banner = "io.github.youth5201314:banner:${Versions.banner}"
 }
 

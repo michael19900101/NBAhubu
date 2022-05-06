@@ -90,4 +90,5 @@ dependencies {
     implementation Depend.lottie
     implementation Depend.magicIndicator
     implementation Depend.multitype
+    implementation Depend.banner
 }
