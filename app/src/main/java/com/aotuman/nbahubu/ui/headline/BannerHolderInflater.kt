@@ -16,15 +16,13 @@
 
 package com.aotuman.nbahubu.ui.headline
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.aotuman.nbahubu.R
+import com.aotuman.nbahubu.model.headline.TopBannerItemModel
 import com.drakeet.multitype.ViewHolderInflater
 import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.holder.BannerImageHolder
@@ -39,15 +37,41 @@ class BannerHolderInflater : ViewHolderInflater<Banner, BannerHolderInflater.Vie
     "https://img.zcool.cn/community/01700557a7f42f0000018c1bd6eb23.jpg"
   )
 
+  private var viewHolder: ViewHolder? = null
+
 
   override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
-    return ViewHolder(inflater.inflate(R.layout.item_banner, parent, false))
+    viewHolder = ViewHolder(inflater.inflate(R.layout.item_banner, parent, false))
+    return viewHolder!!
   }
 
   override fun onBindViewHolder(holder: ViewHolder, item: Banner) {
-    holder.bannerLayout.apply {
+//    holder.bannerLayout.apply {
+//      indicator = CircleIndicator(context)
+//      setAdapter(object : BannerImageAdapter<String>(imageUrls) {
+//        override fun onBindView(holder: BannerImageHolder, data: String, position: Int, size: Int) {
+//          holder.imageView.load(data) {
+//            crossfade(true)
+//            placeholder(R.mipmap.ic_launcher)
+//          }
+//        }
+//      })
+//    }
+  }
+
+  fun updateViewHolder(topBanners: List<TopBannerItemModel>?){
+    val urls = mutableListOf<String>()
+    topBanners?.forEach {
+      if (!it.thumb.isNullOrEmpty()) {
+        urls.add(it.thumb!!)
+      } else {
+        urls.add("")
+      }
+    }
+    if (urls.isNullOrEmpty()) return
+    viewHolder?.bannerLayout?.apply {
       indicator = CircleIndicator(context)
-      setAdapter(object : BannerImageAdapter<String>(imageUrls) {
+      setAdapter(object : BannerImageAdapter<String>(urls) {
         override fun onBindView(holder: BannerImageHolder, data: String, position: Int, size: Int) {
           holder.imageView.load(data) {
             crossfade(true)

@@ -1,6 +1,7 @@
 package com.aotuman.nbahubu.data.remote.headline
 
 import com.aotuman.nbahubu.data.entity.headline.HeadLineResponse
+import com.aotuman.nbahubu.data.entity.headline.TopBannerResponse
 import com.aotuman.nbahubu.data.entity.temp.NewsResponse
 import retrofit2.http.GET
 
@@ -14,4 +15,7 @@ import retrofit2.http.GET
 interface HeadLineService {
     @GET("cms/v1/news/list?column_id=3002")
     suspend fun fetchNews(): HeadLineResponse
+
+    @GET("cms/v1/news/config?category=top_banner")
+    suspend fun fetchTopBanner(): TopBannerResponse
 }

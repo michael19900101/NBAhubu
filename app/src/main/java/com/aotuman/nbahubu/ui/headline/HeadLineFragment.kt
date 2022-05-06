@@ -1,11 +1,13 @@
 package com.aotuman.nbahubu.ui.headline
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.aotuman.nbahubu.R
 import com.aotuman.nbahubu.databinding.FragmentHeadlineBinding
 import com.drakeet.multitype.MultiTypeAdapter
@@ -20,16 +22,18 @@ import kotlinx.coroutines.FlowPreview
 class HeadLineFragment : Fragment(R.layout.fragment_headline) {
 
     private var fragmentHeadlineBinding: FragmentHeadlineBinding? = null
-    private val viewModel: HeadLineViewModel by viewModels()
+    private val headLineViewModel: HeadLineViewModel by viewModels()
     private var adapter: MultiTypeAdapter? = null
     private var items: MutableList<Any> = ArrayList()
+    private var bannerHolderInflater: BannerHolderInflater ? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         adapter = MultiTypeAdapter()
-        adapter?.register(BannerHolderInflater())
+        bannerHolderInflater = BannerHolderInflater()
+        adapter?.register(bannerHolderInflater!!)
         adapter?.register(HeadLineHolderInflater())
         testData()
         fragmentHeadlineBinding = FragmentHeadlineBinding.inflate(inflater, container, false)
@@ -43,6 +47,10 @@ class HeadLineFragment : Fragment(R.layout.fragment_headline) {
         }
         adapter?.items = items
         adapter?.notifyDataSetChanged()
+        headLineViewModel.fetchTopBanner().observe(viewLifecycleOwner, Observer {
+            Log.e("jbjb","回调fetchTopBanner")
+            bannerHolderInflater?.updateViewHolder(it)
+        })
     }
 
     override fun onDestroyView() {
