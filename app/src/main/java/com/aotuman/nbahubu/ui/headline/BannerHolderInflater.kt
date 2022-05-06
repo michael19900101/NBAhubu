@@ -19,6 +19,7 @@ package com.aotuman.nbahubu.ui.headline
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.aotuman.nbahubu.R
@@ -30,33 +31,15 @@ import com.youth.banner.indicator.CircleIndicator
 
 class BannerHolderInflater : ViewHolderInflater<Banner, BannerHolderInflater.ViewHolder>() {
 
-  var imageUrls = listOf(
-    "https://img.zcool.cn/community/01b72057a7e0790000018c1bf4fce0.png",
-    "https://img.zcool.cn/community/016a2256fb63006ac7257948f83349.jpg",
-    "https://img.zcool.cn/community/01233056fb62fe32f875a9447400e1.jpg",
-    "https://img.zcool.cn/community/01700557a7f42f0000018c1bd6eb23.jpg"
-  )
-
-  private var viewHolder: ViewHolder? = null
+  private var bannerViewHolder: ViewHolder? = null
 
 
   override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
-    viewHolder = ViewHolder(inflater.inflate(R.layout.item_banner, parent, false))
-    return viewHolder!!
+    bannerViewHolder = ViewHolder(inflater.inflate(R.layout.item_banner, parent, false))
+    return bannerViewHolder!!
   }
 
   override fun onBindViewHolder(holder: ViewHolder, item: Banner) {
-//    holder.bannerLayout.apply {
-//      indicator = CircleIndicator(context)
-//      setAdapter(object : BannerImageAdapter<String>(imageUrls) {
-//        override fun onBindView(holder: BannerImageHolder, data: String, position: Int, size: Int) {
-//          holder.imageView.load(data) {
-//            crossfade(true)
-//            placeholder(R.mipmap.ic_launcher)
-//          }
-//        }
-//      })
-//    }
   }
 
   fun updateViewHolder(topBanners: List<TopBannerItemModel>?){
@@ -69,7 +52,7 @@ class BannerHolderInflater : ViewHolderInflater<Banner, BannerHolderInflater.Vie
       }
     }
     if (urls.isNullOrEmpty()) return
-    viewHolder?.bannerLayout?.apply {
+    bannerViewHolder?.bannerLayout?.apply {
       indicator = CircleIndicator(context)
       setAdapter(object : BannerImageAdapter<String>(urls) {
         override fun onBindView(holder: BannerImageHolder, data: String, position: Int, size: Int) {
@@ -77,12 +60,38 @@ class BannerHolderInflater : ViewHolderInflater<Banner, BannerHolderInflater.Vie
             crossfade(true)
             placeholder(R.mipmap.ic_launcher)
           }
+
+          val originTitle = topBanners?.get(position)?.title?: ""
+          bannerViewHolder?.bannerTitle?.text = convert(originTitle)
         }
       })
     }
   }
 
   class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    val bannerTitle: TextView = itemView.findViewById(R.id.bannerTitle)
     val bannerLayout: com.youth.banner.Banner<String, BannerImageAdapter<String>> = itemView.findViewById(R.id.bannerLayout)
+  }
+
+
+  /**
+   * 这里只记录一个场景，那就是服务器下发的text中包含 “\n”，TextView.setText 后没有识别到，导致无法换行。
+  我的理解是text中 "\n"是包含两个字符 "\" 和 "n" ，然后单独的去展示了。
+  所以我会扫描一遍字符串，如果遇到这两个字符连在一起的时候，就用
+   */
+  private fun convert(oriStr: String):String {
+    val chars: CharArray = oriStr.toCharArray()
+    val stringBuilder: StringBuilder = StringBuilder()
+    var i = 0
+    while (i <= chars.size - 1) {
+      if (i != chars.size - 1 && chars[i] == '\\' && chars[i + 1] == 'n') {
+        stringBuilder.append("\n")
+        i++
+      } else {
+        stringBuilder.append(chars[i])
+      }
+      i++
+    }
+    return stringBuilder.toString()
   }
 }
