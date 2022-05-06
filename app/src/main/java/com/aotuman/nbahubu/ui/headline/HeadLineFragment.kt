@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.aotuman.nbahubu.R
 import com.aotuman.nbahubu.databinding.FragmentHeadlineBinding
+import com.aotuman.nbahubu.utils.StatusBarUtil
 import com.drakeet.multitype.MultiTypeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -44,6 +45,11 @@ class HeadLineFragment : Fragment(R.layout.fragment_headline) {
         super.onViewCreated(view, savedInstanceState)
         fragmentHeadlineBinding?.apply {
             recyleView.adapter = adapter
+
+            // 设置顶部阴影高度
+            val statusParams = figStatusShadow.layoutParams
+            statusParams.height = StatusBarUtil.getStatusBarHeight()
+            statusTopShadowView.visibility = View.VISIBLE
         }
         adapter?.items = items
         adapter?.notifyDataSetChanged()

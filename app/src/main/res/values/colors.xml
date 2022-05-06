@@ -32,6 +32,18 @@
     <color name="page_bg_white_color_night">#0E1A20</color>
 
 
+    <color name="black_transparent_10">#19000000</color>
+    <color name="black_transparent_15">#26000000</color>
+    <color name="black_transparent_20">#33000000</color>
+    <color name="black_transparent_30">#4c000000</color>
+    <color name="black_transparent_40">#66000000</color>
+    <color name="black_transparent_50">#7f000000</color>
+    <color name="black_transparent_60">#99000000</color>
+    <color name="black_transparent_70">#b3000000</color>
+    <color name="black_transparent_75">#c0000000</color>
+    <color name="black_transparent_80">#cc000000</color>
+    <color name="black_transparent_85">#d9000000</color>
+    <color name="black_transparent_90">#E5000000</color>
 
     <!--【全局颜色】页遍历开始-->
     <color name="page_bg_grey_color">#0E1A20</color>
@@ -123,4 +135,8 @@
     <color name="btn_bg_white_color">#212121</color>
     <color name="btn_disabled_color">#979797</color>
     <!--【按钮】页遍历结束-->
+
+    <color name="fig_recommend_status_and_tab_default_start">@color/black_transparent_70</color>
+    <color name="fig_recommend_status_and_tab_default_center">@color/black_transparent_30</color>
+    <color name="fig_recommend_status_and_tab_default_end">#0013232b</color>
 </resources>

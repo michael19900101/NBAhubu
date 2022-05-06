@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="270"
+        android:startColor="@color/fig_recommend_status_and_tab_default_start"
+        android:centerColor="@color/fig_recommend_status_and_tab_default_center"
+        android:endColor="@color/fig_recommend_status_and_tab_default_end" />
+</shape>
