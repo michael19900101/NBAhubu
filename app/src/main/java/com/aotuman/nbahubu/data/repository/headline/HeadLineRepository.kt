@@ -1,5 +1,6 @@
 package com.aotuman.nbahubu.data.repository.headline
 
+import com.aotuman.nbahubu.model.headline.HeadLineNewsItemModel
 import com.aotuman.nbahubu.model.headline.TopBannerItemModel
 import kotlinx.coroutines.flow.Flow
 
@@ -12,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
  */
 interface HeadLineRepository {
 
-    fun fetchNews(): Flow<Int>
+    fun fetchHeadLineNews(): Flow<List<HeadLineNewsItemModel>?>
 
     fun fetchTopBanner(): Flow<List<TopBannerItemModel>?>
 }

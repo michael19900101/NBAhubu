@@ -8,18 +8,19 @@ package com.aotuman.nbahubu.data.entity.headline
  * </pre>
  */
 
-data class HeadLineResponse(
+data class HeadLineNewsResponse(
         val code: String?,
-        val data: List<HeadLineItem>?,
+        val data: List<HeadLineNewsItem>?,
         val msg: String?,
 )
 
-data class HeadLineItem(
+data class HeadLineNewsItem(
         var id: Long,
         var newsId: Long,
         var title: String = "",
         var thumbnail: String = "",
         var thumbnail_2x: String = "",
         var publish_time: String = "",
-        var like_num: Int = 0
+        var like_num: Int = 0,
+        var lock_at: String = ""
 )

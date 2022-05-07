@@ -2,6 +2,7 @@ package com.aotuman.nbahubu.data.repository.headline
 
 import android.util.Log
 import com.aotuman.nbahubu.data.remote.headline.HeadLineService
+import com.aotuman.nbahubu.model.headline.HeadLineNewsItemModel
 import com.aotuman.nbahubu.model.headline.TopBannerItemModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -19,19 +20,31 @@ class HeadLineRepositoryImpl (
     val api: HeadLineService
 ) : HeadLineRepository {
 
-    override fun fetchNews(): Flow<Int> {
+    override fun fetchHeadLineNews(): Flow<List<HeadLineNewsItemModel>?> {
         return flow{
-            val response = api.fetchNews()
+            val response = api.fetchHeadLineNews()
+            val headLineNews = response.data?.map {
+                HeadLineNewsItemModel(
+                    id = it.id,
+                    newsId = it.newsId,
+                    title = it.title,
+                    thumbnail = it.thumbnail,
+                    thumbnail2x = it.thumbnail_2x,
+                    publishTime = it.publish_time,
+                    likeNum = it.like_num,
+                    lockAt = it.lock_at
+                )
+            }
             Log.e("jbjb","respnes:${response}")
             // 发射转换后的数据
-            emit(2)
+            emit(headLineNews)
         }.flowOn(Dispatchers.IO)
     }
 
     override fun fetchTopBanner(): Flow<List<TopBannerItemModel>?> {
         return flow{
             val response = api.fetchTopBanner()
-            var topBanners = response.data["top_banner"]?.map {
+            val topBanners = response.data["top_banner"]?.map {
                 TopBannerItemModel(
                     id = it.id,
                     news_id = it.news_id,

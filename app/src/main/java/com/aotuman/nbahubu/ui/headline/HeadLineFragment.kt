@@ -30,6 +30,7 @@ class HeadLineFragment : Fragment(R.layout.fragment_headline) {
     private var adapter: MultiTypeAdapter? = null
     private var items: MutableList<Any> = ArrayList()
     private var bannerHolderInflater: BannerHolderInflater ? = null
+    private var headLineHolderInflater: HeadLineHolderInflater ? = null
 
     var mStatusShadow: View? = null
     var mTopStatusShadow: View? = null
@@ -42,8 +43,9 @@ class HeadLineFragment : Fragment(R.layout.fragment_headline) {
     ): View? {
         adapter = MultiTypeAdapter()
         bannerHolderInflater = BannerHolderInflater()
+        headLineHolderInflater = HeadLineHolderInflater()
         adapter?.register(bannerHolderInflater!!)
-        adapter?.register(HeadLineHolderInflater())
+        adapter?.register(headLineHolderInflater!!)
         testData()
         fragmentHeadlineBinding = FragmentHeadlineBinding.inflate(inflater, container, false)
         return fragmentHeadlineBinding?.root
@@ -98,6 +100,13 @@ class HeadLineFragment : Fragment(R.layout.fragment_headline) {
             Log.e("jbjb","回调fetchTopBanner")
             bannerHolderInflater?.updateViewHolder(it)
         })
+        headLineViewModel.fetchHeadLineNews().observe(viewLifecycleOwner, Observer {
+            Log.e("jbjb","回调fetchHeadLineNews")
+            it?.let {
+                items.addAll(it)
+                adapter?.notifyDataSetChanged()
+            }
+        })
     }
 
     fun onFirstViewTopChange(top: Int) {
@@ -130,9 +139,6 @@ class HeadLineFragment : Fragment(R.layout.fragment_headline) {
 
     private fun testData() {
         items.add(Banner("banner title"))
-        for (i in 1..9) {
-            items.add(HeadLine("headline title[${i}]"))
-        }
     }
 
 }
