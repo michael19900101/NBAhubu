@@ -58,10 +58,10 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
             newsAdapter.submitData(lifecycle, it)
         })
 
-        newsTempVM.fetchNews().observe(viewLifecycleOwner, Observer {
-
-            Log.e("jbjb","回调")
-        })
+//        newsTempVM.fetchNews().observe(viewLifecycleOwner, Observer {
+//
+//            Log.e("jbjb","回调")
+//        })
     }
 
     override fun onDestroyView() {

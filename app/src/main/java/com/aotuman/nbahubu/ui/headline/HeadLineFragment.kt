@@ -111,16 +111,8 @@ class HeadLineFragment : Fragment(R.layout.fragment_headline) {
         var topBannerItemModels: List<TopBannerItemModel>? = null
         var headLineNewsItemModels: List<HeadLineNewsItemModel>? = null
         activity.lifecycleScopeLaunch(Dispatchers.IO) {
-            val job1 = async {
-//                topBannerItemModels = headLineViewModel.fetchTopBannerData()
-                Log.e("jbjb","成功获取banner数据")
-            }
-            val job2 = async {
-                headLineNewsItemModels = headLineViewModel.fetchHeadLineNewsData(2,"2022-05-07 12:54:34")
-                Log.e("jbjb","成功获取news数据")
-            }
-            job1.await()
-            job2.await()
+            topBannerItemModels = headLineViewModel.fetchTopBannerData()
+            headLineNewsItemModels = headLineViewModel.fetchHeadLineNewsData(2,"2022-05-07 12:54:34")
             activity.lifecycleScopeLaunch(Dispatchers.Main) {
                 Log.e("jbjb","切换到主线程,组装数据,刷新列表UI")
                 topBannerItemModels?.let {
