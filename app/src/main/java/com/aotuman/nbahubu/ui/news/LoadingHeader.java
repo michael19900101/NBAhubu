@@ -1,5 +1,6 @@
 package com.aotuman.nbahubu.ui.news;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -52,37 +53,44 @@ class LoadingHeader extends LinearLayout implements RefreshHeader {
         return SpinnerStyle.Translate;
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void setPrimaryColors(int... colors) {
 
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onInitialized(@NonNull @NotNull RefreshKernel kernel, int height, int maxDragHeight) {
 
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onMoving(boolean isDragging, float percent, int offset, int height, int maxDragHeight) {
 
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onReleased(@NonNull @NotNull RefreshLayout refreshLayout, int height, int maxDragHeight) {
 
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onStartAnimator(@NonNull @NotNull RefreshLayout refreshLayout, int height, int maxDragHeight) {
         mAnimationView.playAnimation();
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public int onFinish(@NonNull @NotNull RefreshLayout refreshLayout, boolean success) {
         mAnimationView.cancelAnimation();
         return 0;
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onHorizontalDrag(float percentX, int offsetX, int offsetMax) {
 
@@ -93,6 +101,7 @@ class LoadingHeader extends LinearLayout implements RefreshHeader {
         return false;
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onStateChanged(@NonNull @NotNull RefreshLayout refreshLayout, @NonNull @NotNull RefreshState oldState, @NonNull @NotNull RefreshState newState) {
 

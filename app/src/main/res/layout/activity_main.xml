@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/page_bg_grey_color"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,31 +11,23 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toTopOf="@+id/bottomDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent" />
+        android:layout_above="@+id/bottomDivider" />
 
     <View
         android:id="@+id/bottomDivider"
         android:layout_width="wrap_content"
         android:layout_height="0.5dp"
-        android:background="@color/divider_line1_color"
-        app:layout_constraintTop_toBottomOf="@+id/viewpager"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_above="@+id/bottomNavigationView"
+        android:background="@color/divider_line1_color" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
-        android:background="@color/page_bg_grey_color"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="56dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_alignParentBottom="true"
+        android:background="@color/page_bg_grey_color"
         app:itemTextColor="@drawable/hometab_selector_item_color"
         app:itemIconTint="@drawable/hometab_selector_item_color"
         app:menu="@menu/bottommenu" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
