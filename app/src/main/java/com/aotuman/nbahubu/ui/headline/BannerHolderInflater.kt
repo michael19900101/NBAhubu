@@ -13,22 +13,16 @@ import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.holder.BannerImageHolder
 import com.youth.banner.indicator.CircleIndicator
 
-class BannerHolderInflater : ViewHolderInflater<Banner, BannerHolderInflater.ViewHolder>() {
-
-  private var bannerViewHolder: ViewHolder? = null
-
+class BannerHolderInflater : ViewHolderInflater<BannerInflaterModel, BannerHolderInflater.ViewHolder>() {
 
   override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
-    bannerViewHolder = ViewHolder(inflater.inflate(R.layout.item_banner, parent, false))
-    return bannerViewHolder!!
+    return ViewHolder(inflater.inflate(R.layout.item_banner, parent, false))
   }
 
-  override fun onBindViewHolder(holder: ViewHolder, item: Banner) {
-  }
-
-  fun updateViewHolder(topBanners: List<TopBannerItemModel>?){
+  override fun onBindViewHolder(bannerViewHolder: ViewHolder, item: BannerInflaterModel) {
+    val topBanners = item.topBanners
     val urls = mutableListOf<String>()
-    topBanners?.forEach {
+    topBanners.forEach {
       if (!it.thumb.isNullOrEmpty()) {
         urls.add(it.thumb!!)
       } else {
@@ -36,7 +30,7 @@ class BannerHolderInflater : ViewHolderInflater<Banner, BannerHolderInflater.Vie
       }
     }
     if (urls.isNullOrEmpty()) return
-    bannerViewHolder?.bannerLayout?.apply {
+    bannerViewHolder.bannerLayout?.apply {
       indicator = CircleIndicator(context)
       setAdapter(object : BannerImageAdapter<String>(urls) {
         override fun onBindView(holder: BannerImageHolder, data: String, position: Int, size: Int) {
@@ -45,8 +39,8 @@ class BannerHolderInflater : ViewHolderInflater<Banner, BannerHolderInflater.Vie
             placeholder(R.mipmap.ic_launcher)
           }
 
-          val originTitle = topBanners?.get(position)?.title?: ""
-          bannerViewHolder?.bannerTitle?.text = convert(originTitle)
+          val originTitle = topBanners[position].title?: ""
+          bannerViewHolder.bannerTitle.text = convert(originTitle)
         }
       })
     }

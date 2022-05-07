@@ -3,6 +3,7 @@ package com.aotuman.nbahubu.data.remote.headline
 import com.aotuman.nbahubu.data.entity.headline.HeadLineNewsResponse
 import com.aotuman.nbahubu.data.entity.headline.TopBannerResponse
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 /**
  * <pre>
@@ -14,6 +15,10 @@ import retrofit2.http.GET
 interface HeadLineService {
     @GET("cms/v1/news/list?column_id=57&page_no=1&last_time=")
     suspend fun fetchHeadLineNews(): HeadLineNewsResponse
+
+    @GET("cms/v1/news/list?column_id=57")
+    suspend fun fetchHeadLineNews(@Query("page_no") pageNum: Int,
+                                      @Query("last_time") lastTime: String): HeadLineNewsResponse
 
     @GET("cms/v1/news/config?category=top_banner")
     suspend fun fetchTopBanner(): TopBannerResponse

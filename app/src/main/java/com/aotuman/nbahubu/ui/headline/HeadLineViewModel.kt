@@ -27,6 +27,19 @@ class HeadLineViewModel @ViewModelInject constructor(
     fun fetchHeadLineNews(): LiveData<List<HeadLineNewsItemModel>?> =
         headLineRepository.fetchHeadLineNews().asLiveData()
 
+    fun fetchHeadLineNews(pageNum: Int,lastTime: String): LiveData<List<HeadLineNewsItemModel>?> =
+        headLineRepository.fetchHeadLineNews(pageNum, lastTime).asLiveData()
+
     fun fetchTopBanner(): LiveData<List<TopBannerItemModel>?> =
         headLineRepository.fetchTopBanner().asLiveData()
+
+
+    /**以下方法不用flow实现*/
+
+    suspend fun fetchTopBannerData(): List<TopBannerItemModel>? =
+        headLineRepository.fetchTopBannerData()
+
+    suspend fun fetchHeadLineNewsData(pageNum: Int,lastTime: String): List<HeadLineNewsItemModel>? =
+        headLineRepository.fetchHeadLineNewsData(pageNum, lastTime)
+
 }
