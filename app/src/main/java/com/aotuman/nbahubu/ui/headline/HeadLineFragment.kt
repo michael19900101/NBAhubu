@@ -11,17 +11,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aotuman.nbahubu.R
 import com.aotuman.nbahubu.databinding.FragmentHeadlineBinding
-import com.aotuman.nbahubu.model.headline.HeadLineNewsItemModel
-import com.aotuman.nbahubu.model.headline.TopBannerItemModel
 import com.aotuman.nbahubu.utils.StatusBarUtil
 import com.aotuman.nbahubu.utils.SystemUiUtils
 import com.aotuman.nbahubu.utils.lifecycleScopeLaunch
 import com.drakeet.multitype.MultiTypeAdapter
+import com.scwang.smart.refresh.layout.api.RefreshLayout
+import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.async
 
 
 @FlowPreview
@@ -32,9 +31,7 @@ class HeadLineFragment : Fragment(R.layout.fragment_headline) {
     private var fragmentHeadlineBinding: FragmentHeadlineBinding? = null
     private val headLineViewModel: HeadLineViewModel by viewModels()
     private var adapter: MultiTypeAdapter? = null
-    private var items: MutableList<Any> = ArrayList()
-    private var bannerHolderInflater: BannerHolderInflater ? = null
-    private var headLineHolderInflater: HeadLineHolderInflater ? = null
+    private var multiTypeAdapterItems: MutableList<Any> = ArrayList()
     private var curPage = 1
     private var lastNewsTime = "" // 最近同步的最新的一条新闻的时间
 
@@ -48,10 +45,8 @@ class HeadLineFragment : Fragment(R.layout.fragment_headline) {
         savedInstanceState: Bundle?
     ): View? {
         adapter = MultiTypeAdapter()
-        bannerHolderInflater = BannerHolderInflater()
-        headLineHolderInflater = HeadLineHolderInflater()
-        adapter?.register(bannerHolderInflater!!)
-        adapter?.register(headLineHolderInflater!!)
+        adapter?.register(BannerHolderInflater())
+        adapter?.register(HeadLineHolderInflater())
         fragmentHeadlineBinding = FragmentHeadlineBinding.inflate(inflater, container, false)
         return fragmentHeadlineBinding?.root
     }
@@ -98,32 +93,40 @@ class HeadLineFragment : Fragment(R.layout.fragment_headline) {
                 }
             })
 
+            // 进入页面自动加载数据
+            smartRefreshLayout.autoRefresh()
 
-            smartRefreshLayout.setOnRefreshListener {
-                curPage = 1
-                lastNewsTime = ""
-            }
-            smartRefreshLayout.setOnLoadMoreListener {
+            smartRefreshLayout.setOnRefreshLoadMoreListener(object :OnRefreshLoadMoreListener{
+                override fun onRefresh(refreshLayout: RefreshLayout) {
+                    // 重设 curPage和lastNewsTime
+                    curPage = 1
+                    lastNewsTime = ""
 
-            }
-        }
+                    // 清空items
+                    multiTypeAdapterItems.clear()
 
-        var topBannerItemModels: List<TopBannerItemModel>? = null
-        var headLineNewsItemModels: List<HeadLineNewsItemModel>? = null
-        activity.lifecycleScopeLaunch(Dispatchers.IO) {
-            topBannerItemModels = headLineViewModel.fetchTopBannerData()
-            headLineNewsItemModels = headLineViewModel.fetchHeadLineNewsData(2,"2022-05-07 12:54:34")
-            activity.lifecycleScopeLaunch(Dispatchers.Main) {
-                Log.e("jbjb","切换到主线程,组装数据,刷新列表UI")
-                topBannerItemModels?.let {
-                    items.add(BannerInflaterModel(it))
+                    fetPageData(curPage, lastNewsTime){
+                        // update ui
+                        Log.e("jbjb","update ui")
+                        smartRefreshLayout.finishRefresh()
+                        adapter?.items = multiTypeAdapterItems
+                        adapter?.notifyDataSetChanged()
+                    }
+
                 }
-                headLineNewsItemModels?.let {
-                    items.addAll(it)
+
+                override fun onLoadMore(refreshLayout: RefreshLayout) {
+                    curPage++
+                    fetPageData(curPage, lastNewsTime){
+                        // update ui
+                        Log.e("jbjb","update ui load more")
+                        fragmentHeadlineBinding?.smartRefreshLayout?.finishLoadMore()
+                        adapter?.items = multiTypeAdapterItems
+                        adapter?.notifyDataSetChanged()
+                    }
                 }
-                adapter?.items = items
-                adapter?.notifyDataSetChanged()
-            }
+
+            })
         }
     }
 
@@ -142,6 +145,31 @@ class HeadLineFragment : Fragment(R.layout.fragment_headline) {
             }
             mStatusShadow?.alpha = alpha
             mTopStatusShadow?.alpha = (1 - alpha)
+        }
+    }
+
+    private fun fetPageData(pageNum: Int, lastTime: String, updateUI: () -> Unit){
+        activity.lifecycleScopeLaunch(Dispatchers.IO) {
+            val topBannerItemModels = headLineViewModel.fetchTopBannerData()
+            val headLineNewsItemModels = headLineViewModel.fetchHeadLineNewsData(pageNum, lastTime)
+
+            activity.lifecycleScopeLaunch(Dispatchers.Main) {
+                Log.e("jbjb","pageNum:${pageNum} ,切换到主线程,组装数据,刷新列表UI")
+
+                topBannerItemModels?.let {
+                    multiTypeAdapterItems.add(BannerInflaterModel(topBannerItemModels))
+                }
+                headLineNewsItemModels?.let {
+                    multiTypeAdapterItems.addAll(headLineNewsItemModels)
+
+                    if (it[0].publishTime?.isEmpty() == false) {
+                        lastNewsTime = it[0].publishTime.toString()
+                        Log.e("jbjb","入参：pageNum:${pageNum} ,lastTime:${lastTime}" +
+                                "\n出参：lastNewsTime:${lastNewsTime}")
+                    }
+                }
+                updateUI()
+            }
         }
     }
 
