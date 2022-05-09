@@ -1,5 +1,6 @@
 package com.aotuman.nbahubu.data.repository.headline
 
+import com.aotuman.nbahubu.model.headline.HeadLineNewsDetailModel
 import com.aotuman.nbahubu.model.headline.HeadLineNewsItemModel
 import com.aotuman.nbahubu.model.headline.TopBannerItemModel
 import kotlinx.coroutines.flow.Flow
@@ -24,5 +25,5 @@ interface HeadLineRepository {
 
     suspend fun fetchHeadLineNewsData(pageNum: Int,lastTime: String): List<HeadLineNewsItemModel>?
 
-    suspend fun fetchNewsDetailData()
+    suspend fun fetchNewsDetailData(): HeadLineNewsDetailModel?
 }

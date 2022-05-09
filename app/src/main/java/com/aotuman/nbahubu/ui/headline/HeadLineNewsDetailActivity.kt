@@ -32,7 +32,8 @@ class HeadLineNewsDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         this.lifecycleScopeLaunch(Dispatchers.IO) {
-            viewModel.fetchNewsDetailData()
+            val datas = viewModel.fetchNewsDetailData()
+            datas
         }
     }
 

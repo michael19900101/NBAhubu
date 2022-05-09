@@ -1,8 +1,7 @@
 package com.aotuman.nbahubu.data.repository.headline
 
 import com.aotuman.nbahubu.data.remote.headline.HeadLineService
-import com.aotuman.nbahubu.model.headline.HeadLineNewsItemModel
-import com.aotuman.nbahubu.model.headline.TopBannerItemModel
+import com.aotuman.nbahubu.model.headline.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -116,7 +115,27 @@ class HeadLineRepositoryImpl (
         return headLineNews
     }
 
-    override suspend fun fetchNewsDetailData() {
+    override suspend fun fetchNewsDetailData(): HeadLineNewsDetailModel? {
         val response = api.fetchHeadLineNewsDetail()
+        response.data?.let {
+            val attList = it.cnt_attr?.map {
+                cnt_attr_item ->
+                HeadLineNewsDetailAttr(
+                    itype = cnt_attr_item.itype,
+                    placeholder = cnt_attr_item.placeholder,
+                    objectStr = cnt_attr_item.objectStr
+                )
+            }
+            return HeadLineNewsDetailModel(
+                id = it.id,
+                newsId = it.news_id,
+                title = it.title,
+                thumbnail = it.thumbnail,
+                thumbnail2x = it.thumbnail_2x,
+                publishTime = it.publish_time,
+                attributes = attList
+            )
+        }
+        return null
     }
 }
