@@ -30,7 +30,7 @@ class HeadLineHolderInflater : ViewHolderInflater<HeadLineNewsItemModel, HeadLin
       }
     }
     holder.itemView.setOnClickListener {
-      HeadLineNewsDetailActivity.jumpActivity(it.context, "")
+      HeadLineNewsDetailActivity.jumpActivity(it.context, item.newsId.toString())
     }
   }
 

@@ -1,5 +1,7 @@
 package com.aotuman.nbahubu.model.headline
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * <pre>
  *     author: aotuman
@@ -29,6 +31,7 @@ data class HeadLineNewsDetailTxtAttr(
 
 data class HeadLineNewsDetailImgAttr(
     var id: Long,
+    @SerializedName("imgurl")
     var imgUrl: String?
 )
 

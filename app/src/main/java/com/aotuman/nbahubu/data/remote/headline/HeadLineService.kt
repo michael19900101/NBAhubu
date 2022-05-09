@@ -25,6 +25,6 @@ interface HeadLineService {
     suspend fun fetchHeadLineNews(@Query("page_no") pageNum: Int,
                                   @Query("last_time") lastTime: String): HeadLineNewsResponse
 
-    @GET("cms/v1/news/info?news_id=20220509062000")
-    suspend fun fetchHeadLineNewsDetail(): HeadLineNewsDetailResponse
+    @GET("cms/v1/news/info")
+    suspend fun fetchHeadLineNewsDetail(@Query("news_id") newsID: String): HeadLineNewsDetailResponse
 }

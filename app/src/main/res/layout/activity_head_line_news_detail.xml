@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/page_bg_grey_color"
     tools:context="com.aotuman.nbahubu.ui.headline.HeadLineNewsDetailActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -43,7 +44,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
-                android:textColor="#FF11202B"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_22sp"
                 tools:text="防守失策约基奇失去威力 掘金无后卫弊端尽显" />
 
@@ -53,11 +54,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:textColor="#FF6F7C84"
+                android:textColor="@color/white"
                 android:textSize="14sp"
-                tools:text="2021年06月08日 13::53" />
+                tools:text="2021年06月08日 13:53" />
 
-            <com.aotuman.nbahubu.ui.news.FlowMediaLayout
+            <com.aotuman.nbahubu.ui.headline.HeadLineNewsFlowMediaLayout
                 android:id="@+id/contentLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

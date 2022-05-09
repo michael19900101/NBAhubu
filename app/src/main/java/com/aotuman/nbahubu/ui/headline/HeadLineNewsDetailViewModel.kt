@@ -20,8 +20,8 @@ class HeadLineNewsDetailViewModel  @ViewModelInject constructor(
     private val headLineRepository: HeadLineRepository
 ) : ViewModel() {
 
-    suspend fun fetchNewsDetailData(): HeadLineNewsDetailModel? {
-        return headLineRepository.fetchNewsDetailData()
+    suspend fun fetchNewsDetailData(newsID: String): HeadLineNewsDetailModel? {
+        return headLineRepository.fetchNewsDetailData(newsID)
     }
 
 }

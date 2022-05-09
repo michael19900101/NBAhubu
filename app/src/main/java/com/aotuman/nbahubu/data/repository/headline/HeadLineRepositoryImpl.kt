@@ -115,8 +115,8 @@ class HeadLineRepositoryImpl (
         return headLineNews
     }
 
-    override suspend fun fetchNewsDetailData(): HeadLineNewsDetailModel? {
-        val response = api.fetchHeadLineNewsDetail()
+    override suspend fun fetchNewsDetailData(newsID: String): HeadLineNewsDetailModel? {
+        val response = api.fetchHeadLineNewsDetail(newsID)
         response.data?.let {
             val attList = it.cnt_attr?.map {
                 cnt_attr_item ->

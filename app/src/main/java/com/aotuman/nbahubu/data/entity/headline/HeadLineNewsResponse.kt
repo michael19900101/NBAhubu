@@ -1,5 +1,7 @@
 package com.aotuman.nbahubu.data.entity.headline
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * <pre>
  *     author: aotuman
@@ -16,6 +18,7 @@ data class HeadLineNewsResponse(
 
 data class HeadLineNewsItem(
         var id: Long,
+        @SerializedName("news_id")
         var newsId: Long,
         var title: String = "",
         var thumbnail: String = "",

@@ -25,5 +25,5 @@ interface HeadLineRepository {
 
     suspend fun fetchHeadLineNewsData(pageNum: Int,lastTime: String): List<HeadLineNewsItemModel>?
 
-    suspend fun fetchNewsDetailData(): HeadLineNewsDetailModel?
+    suspend fun fetchNewsDetailData(newsID: String): HeadLineNewsDetailModel?
 }
