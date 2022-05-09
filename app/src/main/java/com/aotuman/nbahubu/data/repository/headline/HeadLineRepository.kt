@@ -23,4 +23,6 @@ interface HeadLineRepository {
     suspend fun fetchTopBannerData():List<TopBannerItemModel>?
 
     suspend fun fetchHeadLineNewsData(pageNum: Int,lastTime: String): List<HeadLineNewsItemModel>?
+
+    suspend fun fetchNewsDetailData()
 }

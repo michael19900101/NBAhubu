@@ -29,6 +29,9 @@ class HeadLineHolderInflater : ViewHolderInflater<HeadLineNewsItemModel, HeadLin
         placeholder(R.mipmap.ic_launcher)
       }
     }
+    holder.itemView.setOnClickListener {
+      HeadLineNewsDetailActivity.jumpActivity(it.context, "")
+    }
   }
 
   class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

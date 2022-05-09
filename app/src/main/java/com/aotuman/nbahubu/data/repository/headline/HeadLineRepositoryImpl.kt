@@ -1,7 +1,5 @@
 package com.aotuman.nbahubu.data.repository.headline
 
-import android.util.Log
-import com.aotuman.nbahubu.data.entity.headline.HeadLineNewsResponse
 import com.aotuman.nbahubu.data.remote.headline.HeadLineService
 import com.aotuman.nbahubu.model.headline.HeadLineNewsItemModel
 import com.aotuman.nbahubu.model.headline.TopBannerItemModel
@@ -36,7 +34,6 @@ class HeadLineRepositoryImpl (
                     lockAt = it.lock_at
                 )
             }
-            Log.e("jbjb","respnes:${response}")
             // 发射转换后的数据
             emit(headLineNews)
         }.flowOn(Dispatchers.IO)
@@ -57,7 +54,6 @@ class HeadLineRepositoryImpl (
                     lockAt = it.lock_at
                 )
             }
-            Log.e("jbjb","respnes:${response}")
             // 发射转换后的数据
             emit(headLineNews)
         }.flowOn(Dispatchers.IO)
@@ -78,7 +74,6 @@ class HeadLineRepositoryImpl (
                     off_time = it.off_time
                 )
             }
-            Log.e("jbjb","fetchTopBanner:${response}")
             // 发射转换后的数据
             emit(topBanners)
         }.flowOn(Dispatchers.IO)
@@ -119,5 +114,9 @@ class HeadLineRepositoryImpl (
             )
         }
         return headLineNews
+    }
+
+    override suspend fun fetchNewsDetailData() {
+        val response = api.fetchHeadLineNewsDetail()
     }
 }
