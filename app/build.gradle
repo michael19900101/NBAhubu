@@ -91,4 +91,5 @@ dependencies {
     implementation Depend.magicIndicator
     implementation Depend.multitype
     implementation Depend.banner
+    implementation Depend.exoPlayer
 }

@@ -28,6 +28,11 @@
             tools:text="新闻详情" />
     </androidx.appcompat.widget.Toolbar>
 
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/playerView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_100dp"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
