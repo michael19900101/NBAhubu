@@ -16,6 +16,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.aotuman.nbahubu.R
 import com.aotuman.nbahubu.databinding.FragmentLatestBinding
+import com.aotuman.nbahubu.ui.follow.FollowFragment
 import com.aotuman.nbahubu.ui.headline.HeadLineFragment
 import com.aotuman.nbahubu.ui.news.NewsFragment
 import com.aotuman.nbahubu.utils.StatusBarUtil
@@ -39,7 +40,7 @@ class LatestFragment : Fragment(R.layout.fragment_latest) {
     private var latestBinding: FragmentLatestBinding? = null
 
     // tab titles
-    private val titles = arrayOf("头条", "资讯")
+    private val titles = arrayOf("关注", "头条", "资讯")
 
     companion object {
         private val TAG = "HeadLineFragment"
@@ -61,6 +62,8 @@ class LatestFragment : Fragment(R.layout.fragment_latest) {
             latestHeader.layoutParams = headerParams
 
             viewpager.adapter = ViewPagerFragmentAdapter(titles, this@LatestFragment.activity)
+            viewpager.currentItem = 1
+            viewpager.isUserInputEnabled = true
             initMagicIndicator(viewpager)
         }
     }
@@ -126,8 +129,9 @@ private class ViewPagerFragmentAdapter(titles: Array<String>,
     @NonNull
     override fun createFragment(position: Int): Fragment {
         when (position) {
-            0 -> return HeadLineFragment()
-            1 -> return NewsFragment()
+            0 -> return FollowFragment()
+            1 -> return HeadLineFragment()
+            2 -> return NewsFragment()
         }
         return HeadLineFragment()
     }

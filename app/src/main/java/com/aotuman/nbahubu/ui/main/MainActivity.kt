@@ -56,6 +56,8 @@ class MainActivity : AppCompatActivity() {
         }
         viewPager.offscreenPageLimit = 1
 
+        viewPager.isUserInputEnabled = false
+
         // 当ViewPager切换页面时，改变底部导航栏的状态
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
