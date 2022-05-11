@@ -138,4 +138,16 @@ class HeadLineRepositoryImpl (
         }
         return null
     }
+
+    override suspend fun fetchHeadLineNewsDetailVideo(videoID: String): HeadLineNewsDetailVideoModel? {
+        val response = api.fetchHeadLineNewsDetailVideo(videoID)
+        response.data?.let {
+            return HeadLineNewsDetailVideoModel(
+                url = it.url,
+                vid = it.vid,
+                title = it.title
+            )
+        }
+        return null
+    }
 }

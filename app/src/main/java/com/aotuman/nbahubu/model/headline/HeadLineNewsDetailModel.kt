@@ -37,5 +37,6 @@ data class HeadLineNewsDetailImgAttr(
 
 data class HeadLineNewsDetailVideoAttr(
     var id: Long,
-    var vid: String?
+    var vid: String?,
+    var image: String?
 )

@@ -46,7 +46,6 @@ object Versions {
     const val magicIndicator = "1.7.0"
     const val multitype = "4.3.0"
     const val banner = "2.2.2"
-    const val exoPlayer = "2.15.0"
 }
 
 object AndroidX {
@@ -145,6 +144,5 @@ object Depend {
     const val magicIndicator = "com.github.hackware1993:MagicIndicator:${Versions.magicIndicator}"
     const val multitype = "com.drakeet.multitype:multitype:${Versions.multitype}"
     const val banner = "io.github.youth5201314:banner:${Versions.banner}"
-    const val exoPlayer = "com.google.android.exoplayer:exoplayer:${Versions.exoPlayer}"
 }
 

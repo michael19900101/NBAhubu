@@ -1,6 +1,7 @@
 package com.aotuman.nbahubu.data.remote.headline
 
 import com.aotuman.nbahubu.data.entity.headline.HeadLineNewsDetailResponse
+import com.aotuman.nbahubu.data.entity.headline.HeadLineNewsDetailVideoResponse
 import com.aotuman.nbahubu.data.entity.headline.HeadLineNewsResponse
 import com.aotuman.nbahubu.data.entity.headline.TopBannerResponse
 import retrofit2.http.GET
@@ -27,4 +28,7 @@ interface HeadLineService {
 
     @GET("cms/v1/news/info")
     suspend fun fetchHeadLineNewsDetail(@Query("news_id") newsID: String): HeadLineNewsDetailResponse
+
+    @GET("cms/v1/video/playurl?quality=shd")
+    suspend fun fetchHeadLineNewsDetailVideo(@Query("vid") videoID: String): HeadLineNewsDetailVideoResponse
 }

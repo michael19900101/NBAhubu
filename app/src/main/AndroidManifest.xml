@@ -19,8 +19,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ui.headline.SimpleDetailActivityMode1"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.headline.HeadLineNewsDetailActivity"
-            android:exported="false" />
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:screenOrientation="portrait" />
         <activity android:name=".ui.news.NewsDetailActivity"></activity>
         <activity android:name=".ui.player.PlayerDetailActivity"></activity>
         <activity android:name=".ui.main.MainActivity">

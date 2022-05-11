@@ -4,6 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import com.aotuman.nbahubu.data.repository.headline.HeadLineRepository
 import com.aotuman.nbahubu.model.headline.HeadLineNewsDetailModel
+import com.aotuman.nbahubu.model.headline.HeadLineNewsDetailVideoModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
@@ -22,6 +23,10 @@ class HeadLineNewsDetailViewModel  @ViewModelInject constructor(
 
     suspend fun fetchNewsDetailData(newsID: String): HeadLineNewsDetailModel? {
         return headLineRepository.fetchNewsDetailData(newsID)
+    }
+
+    suspend fun fetchHeadLineNewsDetailVideo(videoID: String): HeadLineNewsDetailVideoModel? {
+        return headLineRepository.fetchHeadLineNewsDetailVideo(videoID)
     }
 
 }
