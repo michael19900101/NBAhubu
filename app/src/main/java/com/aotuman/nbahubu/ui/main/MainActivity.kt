@@ -2,7 +2,6 @@ package com.aotuman.nbahubu.ui.main
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +16,7 @@ import com.aotuman.nbahubu.R
 import com.aotuman.nbahubu.databinding.ActivityMainBinding
 import com.aotuman.nbahubu.ui.latest.LatestFragment
 import com.aotuman.nbahubu.ui.news.NewsFragment
+import com.aotuman.nbahubu.ui.temp.DevFragment
 import com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_LABELED
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -34,7 +34,9 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var newsFragment: NewsFragment
 
-//    lateinit var playerFragment: PlayerFragment
+    lateinit var matchFragment: DevFragment
+    lateinit var videoFragment: DevFragment
+    lateinit var mineFragment: DevFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +63,7 @@ class MainActivity : AppCompatActivity() {
         }
         viewPager.offscreenPageLimit = 1
 
+        // 禁止viewPager滑动
         viewPager.isUserInputEnabled = false
 
         // 当ViewPager切换页面时，改变底部导航栏的状态
@@ -78,11 +81,17 @@ class MainActivity : AppCompatActivity() {
             // 避免再次点击重复创建
             if (item.isChecked) return@setOnNavigationItemSelectedListener true
             when (item.itemId) {
-                R.id.newsFragment -> {
+                R.id.latestFragment -> {
                     viewPager.setCurrentItem(0, true)
                 }
-                R.id.playerFragment -> {
+                R.id.matchFragment -> {
                     viewPager.setCurrentItem(1, true)
+                }
+                R.id.videoFragment -> {
+                    viewPager.setCurrentItem(2, true)
+                }
+                R.id.mineFragment -> {
+                    viewPager.setCurrentItem(3, true)
                 }
             }
             return@setOnNavigationItemSelectedListener true
@@ -91,10 +100,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun initFragments() {
         latestFragment = LatestFragment()
-        newsFragment = NewsFragment()
-//        playerFragment = PlayerFragment()
+        matchFragment = DevFragment()
+        videoFragment = DevFragment()
+        mineFragment = DevFragment()
         fragmentList.add(latestFragment)
-//        fragmentList.add(playerFragment)
+        fragmentList.add(matchFragment)
+        fragmentList.add(videoFragment)
+        fragmentList.add(mineFragment)
     }
 
     private fun setImmersiveStatusBar(root: View) {

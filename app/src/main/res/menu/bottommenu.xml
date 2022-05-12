@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@id/newsFragment"
+        android:id="@id/latestFragment"
         android:icon="@drawable/bg_footer_tab_latest"
         android:title="@string/footer_tab_latest" />
 
     <item
-        android:id="@id/playerFragment"
+        android:id="@id/matchFragment"
         android:icon="@drawable/bg_footer_tab_match"
         android:title="@string/footer_tab_match" />
 
     <item
-        android:id="@id/playerFragment"
+        android:id="@id/videoFragment"
         android:icon="@drawable/bg_footer_tab_video"
         android:title="@string/footer_tab_video" />
 
     <item
-        android:id="@id/playerFragment"
+        android:id="@id/mineFragment"
         android:icon="@drawable/bg_footer_tab_mine"
         android:title="@string/footer_tab_mine" />
 

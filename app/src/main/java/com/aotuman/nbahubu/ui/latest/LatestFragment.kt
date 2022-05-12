@@ -18,7 +18,7 @@ import com.aotuman.nbahubu.R
 import com.aotuman.nbahubu.databinding.FragmentLatestBinding
 import com.aotuman.nbahubu.ui.follow.FollowFragment
 import com.aotuman.nbahubu.ui.headline.HeadLineFragment
-import com.aotuman.nbahubu.ui.news.NewsFragment
+import com.aotuman.nbahubu.ui.temp.DevFragment
 import com.aotuman.nbahubu.utils.StatusBarUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -131,7 +131,7 @@ private class ViewPagerFragmentAdapter(titles: Array<String>,
         when (position) {
             0 -> return FollowFragment()
             1 -> return HeadLineFragment()
-            2 -> return NewsFragment()
+            2 -> return DevFragment()
         }
         return HeadLineFragment()
     }

@@ -3,16 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tabnavigation"
-    app:startDestination="@id/newsFragment">
+    app:startDestination="@id/latestFragment">
 
     <fragment
-        android:id="@+id/newsFragment"
-        android:name="com.aotuman.nbahubu.ui.news.NewsFragment"
+        android:id="@+id/latestFragment"
+        android:name="com.aotuman.nbahubu.ui.latest.LatestFragment"
         android:label="fragment_news"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_latest" />
     <fragment
-        android:id="@+id/playerFragment"
-        android:name="com.aotuman.nbahubu.ui.player.PlayerFragment"
+        android:id="@+id/matchFragment"
+        android:name="com.aotuman.nbahubu.ui.temp.DevFragment"
         android:label="fragment_player"
-        tools:layout="@layout/fragment_player" />
+        tools:layout="@layout/fragment_dev" />
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="com.aotuman.nbahubu.ui.temp.DevFragment"
+        android:label="fragment_player"
+        tools:layout="@layout/fragment_dev" />
+    <fragment
+        android:id="@+id/mineFragment"
+        android:name="com.aotuman.nbahubu.ui.temp.DevFragment"
+        android:label="fragment_player"
+        tools:layout="@layout/fragment_dev" />
 </navigation>
