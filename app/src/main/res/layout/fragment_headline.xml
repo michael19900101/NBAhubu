@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_80"/>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.aotuman.nbahubu.ui.headline.HeadLineNewsRecyclerView
             android:id="@+id/recycleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
