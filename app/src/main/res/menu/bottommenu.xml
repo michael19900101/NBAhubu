@@ -2,10 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@id/newsFragment"
-        android:icon="@drawable/tab_news_selector"
-        android:title="@string/tab_latest" />
+        android:icon="@drawable/bg_footer_tab_latest"
+        android:title="@string/footer_tab_latest" />
+
     <item
         android:id="@id/playerFragment"
-        android:icon="@drawable/tab_player_selector"
-        android:title="@string/tab_player" />
+        android:icon="@drawable/bg_footer_tab_match"
+        android:title="@string/footer_tab_match" />
+
+    <item
+        android:id="@id/playerFragment"
+        android:icon="@drawable/bg_footer_tab_video"
+        android:title="@string/footer_tab_video" />
+
+    <item
+        android:id="@id/playerFragment"
+        android:icon="@drawable/bg_footer_tab_mine"
+        android:title="@string/footer_tab_mine" />
+
 </menu>

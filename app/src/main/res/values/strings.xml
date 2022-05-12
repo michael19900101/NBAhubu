@@ -6,4 +6,10 @@
     <string name="tab_latest">最新</string>
     <string name="behavior_sample_header">com.aotuman.nbahubu.ui.player.SampleHeaderBehavior</string>
     <string name="behavior_recyclerview">com.aotuman.nbahubu.ui.player.RecyclerViewBehavior</string>
+    <string name="msg_no_data">暂无数据</string>
+    <string name="msg_no_wifi">当前网络不佳\n点击屏幕重新加载</string>
+    <string name="footer_tab_latest">最新</string>
+    <string name="footer_tab_match">比赛</string>
+    <string name="footer_tab_mine">我的</string>
+    <string name="footer_tab_video">视频</string>
 </resources>

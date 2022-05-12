@@ -23,9 +23,10 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:background="@color/page_bg_grey_color"
+        app:itemIconSize="25dp"
         app:itemTextColor="@drawable/hometab_selector_item_color"
         app:itemIconTint="@drawable/hometab_selector_item_color"
         app:menu="@menu/bottommenu" />

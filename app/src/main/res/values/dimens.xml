@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<resources>
+<resources  xmlns:tools="http://schemas.android.com/tools">
 
 
     <!--  通用文字大小 -->
@@ -86,4 +86,18 @@
     <dimen name="progress_height">6dp</dimen>
     <dimen name="progress_paint_bg_width">10dp</dimen>
     <dimen name="search_height">30dp</dimen>
+
+    <dimen name="empty_layout_height">100dp</dimen>
+    <dimen name="error_layout_height">120dp</dimen>
+    <dimen name="navigation_footer_height">49dp</dimen>
+    <dimen name="tab_footer_size">25dp</dimen>
+    <dimen name="tab_item_font">13sp</dimen>
+
+    <!--自定义BottomNavigationView text size-->
+    <dimen name="design_bottom_navigation_text_size" tools:override="true">10sp</dimen>
+    <dimen name="design_bottom_navigation_active_text_size" tools:override="true">10sp</dimen>
+    <dimen name="design_bottom_navigation_height">56dp</dimen>
+
+    <dimen name="progress_layout_height">93dp</dimen>
+    <dimen name="progress_layout_width">40dp</dimen>
 </resources>

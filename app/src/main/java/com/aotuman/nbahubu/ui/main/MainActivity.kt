@@ -2,6 +2,7 @@ package com.aotuman.nbahubu.ui.main
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ import com.aotuman.nbahubu.R
 import com.aotuman.nbahubu.databinding.ActivityMainBinding
 import com.aotuman.nbahubu.ui.latest.LatestFragment
 import com.aotuman.nbahubu.ui.news.NewsFragment
+import com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_LABELED
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -43,6 +45,9 @@ class MainActivity : AppCompatActivity() {
 
         val viewPager = mainBinding.viewpager
         val bottomNavigationView = mainBinding.bottomNavigationView
+
+        // 大于3个tab的时候也要显示文字
+        bottomNavigationView.labelVisibilityMode = LABEL_VISIBILITY_LABELED
 
         //初始化viewPager
         viewPager.adapter = object : FragmentStateAdapter(this) {
@@ -82,7 +87,6 @@ class MainActivity : AppCompatActivity() {
             }
             return@setOnNavigationItemSelectedListener true
         }
-
     }
 
     private fun initFragments() {

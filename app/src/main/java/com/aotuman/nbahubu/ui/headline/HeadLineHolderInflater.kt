@@ -26,7 +26,7 @@ class HeadLineHolderInflater : ViewHolderInflater<HeadLineNewsItemModel, HeadLin
     item.thumbnail?.let {
       holder.imageView.load(it) {
         crossfade(true)
-        placeholder(R.mipmap.ic_launcher)
+        placeholder(R.drawable.default_atlas)
       }
     }
     holder.itemView.setOnClickListener {

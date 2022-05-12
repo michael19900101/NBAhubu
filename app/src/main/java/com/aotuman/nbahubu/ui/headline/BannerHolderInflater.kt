@@ -36,7 +36,7 @@ class BannerHolderInflater : ViewHolderInflater<BannerInflaterModel, BannerHolde
         override fun onBindView(holder: BannerImageHolder, data: String, position: Int, size: Int) {
           holder.imageView.load(data) {
             crossfade(true)
-            placeholder(R.mipmap.ic_launcher)
+            placeholder(R.drawable.default_atlas)
           }
 
           val originTitle = topBanners[position].title?: ""

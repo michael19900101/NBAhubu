@@ -71,7 +71,7 @@ class HeadLineNewsFlowMediaLayout @JvmOverloads constructor(
                 imageView.scaleType = ImageView.ScaleType.CENTER_CROP
                 imageView.load(imgAttr.imgUrl) {
                     crossfade(true)
-                    placeholder(R.mipmap.ic_launcher)
+                    placeholder(R.drawable.default_atlas)
                 }
                 val layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, dp2px(250))
                 layoutParams.topMargin = dp2px(10)
@@ -90,7 +90,7 @@ class HeadLineNewsFlowMediaLayout @JvmOverloads constructor(
                     imageView.scaleType = ImageView.ScaleType.CENTER_CROP
                     imageView.load(url) {
                         crossfade(true)
-                        placeholder(R.mipmap.ic_launcher)
+                        placeholder(R.drawable.default_atlas)
                     }
                     videoPlayer.thumbImageView = imageView
                 }
