@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aotuman.nbahubu.R
 import com.aotuman.nbahubu.databinding.FragmentHeadlineBinding
+import com.aotuman.nbahubu.model.headline.TopBannerItemModel
 import com.aotuman.nbahubu.utils.StatusBarUtil
 import com.aotuman.nbahubu.utils.SystemUiUtils
 import com.aotuman.nbahubu.utils.lifecycleScopeLaunch
@@ -107,7 +108,7 @@ class HeadLineFragment : Fragment(R.layout.fragment_headline) {
 
                     fetPageData(curPage, lastNewsTime){
                         // update ui
-                        Log.e("jbjb","update ui")
+                        Log.d(TAG,"update ui")
                         smartRefreshLayout.finishRefresh()
                         adapter?.items = multiTypeAdapterItems
                         adapter?.notifyDataSetChanged()
@@ -119,7 +120,7 @@ class HeadLineFragment : Fragment(R.layout.fragment_headline) {
                     curPage++
                     fetPageData(curPage, lastNewsTime){
                         // update ui
-                        Log.e("jbjb","update ui load more")
+                        Log.d(TAG,"update ui load more")
                         fragmentHeadlineBinding?.smartRefreshLayout?.finishLoadMore()
                         adapter?.items = multiTypeAdapterItems
                         adapter?.notifyDataSetChanged()
@@ -150,21 +151,26 @@ class HeadLineFragment : Fragment(R.layout.fragment_headline) {
 
     private fun fetPageData(pageNum: Int, lastTime: String, updateUI: () -> Unit){
         activity.lifecycleScopeLaunch(Dispatchers.IO) {
-            val topBannerItemModels = headLineViewModel.fetchTopBannerData()
+            var topBannerItemModels : List<TopBannerItemModel>? = null
+            if (pageNum == 1) {
+                topBannerItemModels = headLineViewModel.fetchTopBannerData()
+            }
             val headLineNewsItemModels = headLineViewModel.fetchHeadLineNewsData(pageNum, lastTime)
 
             activity.lifecycleScopeLaunch(Dispatchers.Main) {
-                Log.e("jbjb","pageNum:${pageNum} ,切换到主线程,组装数据,刷新列表UI")
+                Log.d(TAG,"pageNum:${pageNum} ,切换到主线程,组装数据,刷新列表UI")
 
-                topBannerItemModels?.let {
-                    multiTypeAdapterItems.add(BannerInflaterModel(topBannerItemModels))
+                if (pageNum == 1) {
+                    topBannerItemModels?.let {
+                        multiTypeAdapterItems.add(BannerInflaterModel(topBannerItemModels))
+                    }
                 }
                 headLineNewsItemModels?.let {
                     multiTypeAdapterItems.addAll(headLineNewsItemModels)
 
                     if (it[0].publishTime?.isEmpty() == false) {
                         lastNewsTime = it[0].publishTime.toString()
-                        Log.e("jbjb","入参：pageNum:${pageNum} ,lastTime:${lastTime}" +
+                        Log.d(TAG,"入参：pageNum:${pageNum} ,lastTime:${lastTime}" +
                                 "\n出参：lastNewsTime:${lastNewsTime}")
                     }
                 }
