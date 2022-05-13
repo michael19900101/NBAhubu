@@ -17,6 +17,7 @@ import com.aotuman.nbahubu.databinding.ActivityMainBinding
 import com.aotuman.nbahubu.ui.latest.LatestFragment
 import com.aotuman.nbahubu.ui.news.NewsFragment
 import com.aotuman.nbahubu.ui.temp.DevFragment
+import com.aotuman.nbahubu.ui.video.VideoFragment
 import com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_LABELED
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var newsFragment: NewsFragment
 
     lateinit var matchFragment: DevFragment
-    lateinit var videoFragment: DevFragment
+    lateinit var videoFragment: VideoFragment
     lateinit var mineFragment: DevFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,7 +102,7 @@ class MainActivity : AppCompatActivity() {
     private fun initFragments() {
         latestFragment = LatestFragment()
         matchFragment = DevFragment()
-        videoFragment = DevFragment()
+        videoFragment = VideoFragment()
         mineFragment = DevFragment()
         fragmentList.add(latestFragment)
         fragmentList.add(matchFragment)

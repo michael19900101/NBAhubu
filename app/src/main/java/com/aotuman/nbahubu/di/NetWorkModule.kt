@@ -6,6 +6,7 @@ import com.aotuman.nbahubu.data.remote.news.NewsCommentService
 import com.aotuman.nbahubu.data.remote.news.NewsService
 import com.aotuman.nbahubu.data.remote.player.PlayerService
 import com.aotuman.nbahubu.data.remote.temp.NewsServiceTemp
+import com.aotuman.nbahubu.data.remote.video.VideoService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -112,5 +113,11 @@ object NetWorkModule {
     @Singleton
     fun provideHeadLineService(@Named("retrofit_nba_new")retrofit: Retrofit): HeadLineService {
         return retrofit.create(HeadLineService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideVideoService(@Named("retrofit_nba_new")retrofit: Retrofit): VideoService {
+        return retrofit.create(VideoService::class.java)
     }
 }
