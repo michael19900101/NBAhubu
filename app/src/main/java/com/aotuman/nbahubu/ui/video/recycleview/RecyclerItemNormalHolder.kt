@@ -13,6 +13,7 @@ import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+import com.shuyu.gsyvideoplayer.video.base.GSYVideoView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -37,22 +38,32 @@ class RecyclerItemNormalHolder(var context: Context,
         initPlayer(position, videoItemModel)
 
         player.startButton.setOnClickListener {
-            if (videoItemModel.videoUrl.isNullOrEmpty()) {
-                videoItemModel.vid?.let { vid ->
-                    videoViewModel.viewModelScope.launch(Dispatchers.IO) {
-                        val rsp = videoViewModel.fetchVideoDetail(vid)
-                        rsp?.url?.let { videoUrl ->
-                            videoItemModel.videoUrl = videoUrl
-                            videoViewModel.viewModelScope.launch(Dispatchers.Main) {
-                                player.setUp(videoUrl, true, videoItemModel.title)
-                                player.startPlayLogic()
+            when (player.currentState) {
+                GSYVideoView.CURRENT_STATE_NORMAL -> {
+                    if (videoItemModel.videoUrl.isNullOrEmpty()) {
+                        videoItemModel.vid?.let { vid ->
+                            videoViewModel.viewModelScope.launch(Dispatchers.IO) {
+                                val rsp = videoViewModel.fetchVideoDetail(vid)
+                                rsp?.url?.let { videoUrl ->
+                                    videoItemModel.videoUrl = videoUrl
+                                    videoViewModel.viewModelScope.launch(Dispatchers.Main) {
+                                        player.setUp(videoUrl, true, videoItemModel.title)
+                                        player.startPlayLogic()
+                                    }
+                                }
                             }
                         }
+                    } else {
+                        player.setUp(videoItemModel.videoUrl, true, videoItemModel.title)
+                        player.startPlayLogic()
                     }
                 }
-            } else {
-                player.setUp(videoItemModel.videoUrl, true, videoItemModel.title)
-                player.startPlayLogic()
+                GSYVideoView.CURRENT_STATE_PLAYING -> {
+                    player.onVideoPause()
+                }
+                GSYVideoView.CURRENT_STATE_PAUSE -> {
+                    player.onVideoResume()
+                }
             }
         }
     }
@@ -91,14 +102,14 @@ class RecyclerItemNormalHolder(var context: Context,
                 override fun onPrepared(url: String, vararg objects: Any) {
                     super.onPrepared(url, *objects)
                     if (!player.isIfCurrentIsFullscreen) {
-                        GSYVideoManager.instance().isNeedMute = false
+                        GSYVideoManager.instance().isNeedMute = true
                     }
                 }
 
                 override fun onQuitFullscreen(url: String, vararg objects: Any) {
                     super.onQuitFullscreen(url, *objects)
                     //全屏不静音
-                    GSYVideoManager.instance().isNeedMute = false
+                    GSYVideoManager.instance().isNeedMute = true
                 }
 
                 override fun onEnterFullscreen(url: String, vararg objects: Any) {

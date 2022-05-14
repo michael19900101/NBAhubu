@@ -2,6 +2,7 @@ package com.aotuman.nbahubu.ui.headline
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 
 class VideoLifecycleObserver(player: StandardGSYVideoPlayer) : DefaultLifecycleObserver {
@@ -20,6 +21,7 @@ class VideoLifecycleObserver(player: StandardGSYVideoPlayer) : DefaultLifecycleO
 
     override fun onDestroy(owner: LifecycleOwner) {
         super.onDestroy(owner)
+        GSYVideoManager.releaseAllVideos()
         videoPlayer.setVideoAllCallBack(null)
     }
 
