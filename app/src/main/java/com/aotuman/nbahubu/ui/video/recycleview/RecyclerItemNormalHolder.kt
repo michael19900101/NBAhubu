@@ -1,7 +1,6 @@
 package com.aotuman.nbahubu.ui.video.recycleview
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -45,7 +44,6 @@ class RecyclerItemNormalHolder(var context: Context,
                         rsp?.url?.let { videoUrl ->
                             videoItemModel.videoUrl = videoUrl
                             videoViewModel.viewModelScope.launch(Dispatchers.Main) {
-                                Log.e("jbjb", "videoUrl:${videoUrl}")
                                 player.setUp(videoUrl, true, videoItemModel.title)
                                 player.startPlayLogic()
                             }
@@ -53,7 +51,8 @@ class RecyclerItemNormalHolder(var context: Context,
                     }
                 }
             } else {
-                Log.e("jbjb", "not empty")
+                player.setUp(videoItemModel.videoUrl, true, videoItemModel.title)
+                player.startPlayLogic()
             }
         }
     }
@@ -99,7 +98,7 @@ class RecyclerItemNormalHolder(var context: Context,
                 override fun onQuitFullscreen(url: String, vararg objects: Any) {
                     super.onQuitFullscreen(url, *objects)
                     //全屏不静音
-                    GSYVideoManager.instance().isNeedMute = true
+                    GSYVideoManager.instance().isNeedMute = false
                 }
 
                 override fun onEnterFullscreen(url: String, vararg objects: Any) {

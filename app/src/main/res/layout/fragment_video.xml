@@ -18,6 +18,16 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50">
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/navbar_logo_nba"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:src="@drawable/navbar_logo_nba"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/videoTitle"
             android:layout_width="wrap_content"
@@ -25,9 +35,8 @@
             android:text="@string/footer_tab_video"
             android:textColor="@color/white"
             android:textSize="24sp"
-            android:layout_marginStart="@dimen/dp_16"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/navbar_logo_nba"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
