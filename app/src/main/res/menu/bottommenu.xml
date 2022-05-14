@@ -6,14 +6,14 @@
         android:title="@string/footer_tab_latest" />
 
     <item
-        android:id="@id/matchFragment"
-        android:icon="@drawable/bg_footer_tab_match"
-        android:title="@string/footer_tab_match" />
-
-    <item
         android:id="@id/videoFragment"
         android:icon="@drawable/bg_footer_tab_video"
         android:title="@string/footer_tab_video" />
+
+    <item
+        android:id="@id/matchFragment"
+        android:icon="@drawable/bg_footer_tab_match"
+        android:title="@string/footer_tab_match" />
 
     <item
         android:id="@id/mineFragment"

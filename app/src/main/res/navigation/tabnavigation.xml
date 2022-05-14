@@ -11,18 +11,18 @@
         android:label="fragment_news"
         tools:layout="@layout/fragment_latest" />
     <fragment
+        android:id="@+id/videoFragment"
+        android:name="com.aotuman.nbahubu.ui.video.VideoFragment"
+        android:label="fragment_video"
+        tools:layout="@layout/fragment_video" />
+    <fragment
         android:id="@+id/matchFragment"
         android:name="com.aotuman.nbahubu.ui.temp.DevFragment"
-        android:label="fragment_player"
-        tools:layout="@layout/fragment_dev" />
-    <fragment
-        android:id="@+id/videoFragment"
-        android:name="com.aotuman.nbahubu.ui.temp.DevFragment"
-        android:label="fragment_player"
+        android:label="fragment_match"
         tools:layout="@layout/fragment_dev" />
     <fragment
         android:id="@+id/mineFragment"
         android:name="com.aotuman.nbahubu.ui.temp.DevFragment"
-        android:label="fragment_player"
+        android:label="fragment_mine"
         tools:layout="@layout/fragment_dev" />
 </navigation>

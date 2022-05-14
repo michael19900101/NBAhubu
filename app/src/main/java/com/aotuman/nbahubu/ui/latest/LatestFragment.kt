@@ -40,7 +40,7 @@ class LatestFragment : Fragment(R.layout.fragment_latest) {
     private var latestBinding: FragmentLatestBinding? = null
 
     // tab titles
-    private val titles = arrayOf("关注", "头条", "资讯")
+    private val titles = arrayOf("头条", "关注", "资讯")
 
     companion object {
         private val TAG = "HeadLineFragment"
@@ -62,7 +62,7 @@ class LatestFragment : Fragment(R.layout.fragment_latest) {
             latestHeader.layoutParams = headerParams
 
             viewpager.adapter = ViewPagerFragmentAdapter(titles, this@LatestFragment.activity)
-            viewpager.currentItem = 1
+            viewpager.currentItem = 0
             viewpager.isUserInputEnabled = true
             initMagicIndicator(viewpager)
         }
@@ -129,8 +129,8 @@ private class ViewPagerFragmentAdapter(titles: Array<String>,
     @NonNull
     override fun createFragment(position: Int): Fragment {
         when (position) {
-            0 -> return FollowFragment()
-            1 -> return HeadLineFragment()
+            0 -> return HeadLineFragment()
+            1 -> return FollowFragment()
             2 -> return DevFragment()
         }
         return HeadLineFragment()

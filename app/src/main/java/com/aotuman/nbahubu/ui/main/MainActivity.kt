@@ -85,10 +85,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.latestFragment -> {
                     viewPager.setCurrentItem(0, true)
                 }
-                R.id.matchFragment -> {
+                R.id.videoFragment -> {
                     viewPager.setCurrentItem(1, true)
                 }
-                R.id.videoFragment -> {
+                R.id.matchFragment -> {
                     viewPager.setCurrentItem(2, true)
                 }
                 R.id.mineFragment -> {
@@ -105,8 +105,8 @@ class MainActivity : AppCompatActivity() {
         videoFragment = VideoFragment()
         mineFragment = DevFragment()
         fragmentList.add(latestFragment)
-        fragmentList.add(matchFragment)
         fragmentList.add(videoFragment)
+        fragmentList.add(matchFragment)
         fragmentList.add(mineFragment)
     }
 
