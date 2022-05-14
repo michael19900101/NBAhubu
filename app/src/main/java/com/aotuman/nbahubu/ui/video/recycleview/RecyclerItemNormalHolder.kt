@@ -91,10 +91,9 @@ class RecyclerItemNormalHolder(var context: Context,
             .setVideoAllCallBack(object : GSYSampleCallBack() {
                 override fun onPrepared(url: String, vararg objects: Any) {
                     super.onPrepared(url, *objects)
-//                    if (!player.isIfCurrentIsFullscreen) {
-                        //静音
-                        GSYVideoManager.instance().isNeedMute = true
-//                    }
+                    if (!player.isIfCurrentIsFullscreen) {
+                        GSYVideoManager.instance().isNeedMute = false
+                    }
                 }
 
                 override fun onQuitFullscreen(url: String, vararg objects: Any) {
