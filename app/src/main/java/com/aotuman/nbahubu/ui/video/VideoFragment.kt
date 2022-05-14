@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
-import android.widget.LinearLayout
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -17,11 +16,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.aotuman.nbahubu.R
 import com.aotuman.nbahubu.databinding.FragmentVideoBinding
-import com.aotuman.nbahubu.ui.follow.FollowFragment
-import com.aotuman.nbahubu.ui.headline.HeadLineFragment
 import com.aotuman.nbahubu.ui.latest.ColorFlipPagerTitleView
 import com.aotuman.nbahubu.ui.latest.ViewPager2Helper
-import com.aotuman.nbahubu.ui.temp.DevFragment
 import com.aotuman.nbahubu.utils.StatusBarUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -139,11 +135,11 @@ private class ViewPagerFragmentAdapter(titles: Array<String>,
     @NonNull
     override fun createFragment(position: Int): Fragment {
         when (position) {
-            0 -> return VideoHighLightFragment()
-            1 -> return DevFragment()
-            2 -> return DevFragment()
+            0 -> return VideoBaseFragment(VideoType.HIGHLIGHT)
+            1 -> return VideoBaseFragment(VideoType.OPTIMUM)
+            2 -> return VideoBaseFragment(VideoType.EVENING_CLASS)
         }
-        return VideoHighLightFragment()
+        return VideoBaseFragment(VideoType.HIGHLIGHT)
     }
 
     override fun getItemCount(): Int {

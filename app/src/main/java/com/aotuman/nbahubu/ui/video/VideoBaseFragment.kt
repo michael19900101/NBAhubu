@@ -10,45 +10,53 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aotuman.nbahubu.R
-import com.aotuman.nbahubu.databinding.FragmentHighlightBinding
+import com.aotuman.nbahubu.databinding.FragmentVideoBaseBinding
 import com.aotuman.nbahubu.model.video.VideoItemModel
 import com.aotuman.nbahubu.ui.video.recycleview.RecyclerItemNormalHolder
 import com.aotuman.nbahubu.ui.video.recycleview.RecyclerNormalAdapter
 import com.aotuman.nbahubu.utils.lifecycleScopeLaunch
+import com.scwang.smart.refresh.layout.api.RefreshLayout
+import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import javax.inject.Inject
 
 
 @FlowPreview
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class VideoHighLightFragment : Fragment(R.layout.fragment_highlight) {
+class VideoBaseFragment @Inject constructor(var videoType: VideoType): Fragment(R.layout.fragment_video_base) {
 
-    private var highlightBinding: FragmentHighlightBinding? = null
+    private var videoBaseBinding: FragmentVideoBaseBinding? = null
     private val videoViewModel: VideoViewModel by viewModels()
     private var recyclerNormalAdapter: RecyclerNormalAdapter? = null
     private var linearLayoutManager: LinearLayoutManager? = null
+    private var curPage = 1
+    private var lastNewsTime = "" // 最近同步的最新的一条新闻的时间
+    private var videoModels = mutableListOf<VideoItemModel>()
 
     companion object {
-        private val TAG = "VideoHighLightFragment"
+        private val TAG = "VideoBaseFragment"
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        highlightBinding = FragmentHighlightBinding.inflate(inflater, container, false)
-        return highlightBinding?.root
+        videoBaseBinding = FragmentVideoBaseBinding.inflate(inflater, container, false)
+        return videoBaseBinding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        highlightBinding?.recycleView?.apply {
+        videoBaseBinding?.recycleView?.apply {
             linearLayoutManager = LinearLayoutManager(activity)
             layoutManager = linearLayoutManager
+            recyclerNormalAdapter = RecyclerNormalAdapter(activity, videoViewModel)
+            adapter = recyclerNormalAdapter
             addOnScrollListener(object : RecyclerView.OnScrollListener(){
 
                 var firstVisibleItem = 0
@@ -81,24 +89,69 @@ class VideoHighLightFragment : Fragment(R.layout.fragment_highlight) {
             })
         }
 
+        videoBaseBinding?.apply {
+            // 进入页面自动加载数据
+            smartRefreshLayout.autoRefresh()
+
+            smartRefreshLayout.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
+                override fun onRefresh(refreshLayout: RefreshLayout) {
+                    // 重设 curPage和lastNewsTime
+                    curPage = 1
+                    lastNewsTime = ""
+
+                    fetPageData(curPage, lastNewsTime){
+                        // update ui
+                        smartRefreshLayout.finishRefresh()
+                        recyclerNormalAdapter?.setListData(videoModels)
+                    }
+
+                }
+
+                override fun onLoadMore(refreshLayout: RefreshLayout) {
+                    curPage++
+                    fetPageData(curPage, lastNewsTime){
+                        // update ui
+                        smartRefreshLayout.finishLoadMore()
+                        recyclerNormalAdapter?.setListData(videoModels)
+                    }
+                }
+
+            })
+        }
+    }
+
+    private fun fetPageData(pageNum: Int, lastTime: String, updateUI: () -> Unit){
         // 获取视频列表数据
         activity.lifecycleScopeLaunch(Dispatchers.IO) {
-            val videoItemModels = videoViewModel.fetchVideosData(1002,1,"")
+            val columnID = when(videoType){
+                VideoType.HIGHLIGHT -> 1002
+                VideoType.OPTIMUM -> 1003
+                VideoType.EVENING_CLASS -> 1004
+            }
+            val videoItemModels = videoViewModel.fetchVideosData(columnID, pageNum, lastTime)
 
             activity.lifecycleScopeLaunch(Dispatchers.Main) {
                 videoItemModels?.let {
-                    recyclerNormalAdapter = RecyclerNormalAdapter(activity, it, videoViewModel)
-                    highlightBinding?.recycleView?.adapter = recyclerNormalAdapter
-                    highlightBinding?.recycleView?.adapter?.notifyDataSetChanged()
-                }
+                    if (it[0].publishTime?.isEmpty() == false) {
+                        // update lastNewsTime
+                        lastNewsTime = it[0].publishTime.toString()
+                        Log.d(TAG,"videoType:${videoType}, 入参：pageNum:${pageNum} ,lastTime:${lastTime}" +
+                                    "\n出参：lastNewsTime:${lastNewsTime}")
+                    }
 
+                    if (pageNum == 1) {
+                        videoModels.clear()
+                    }
+                    videoModels.addAll(videoItemModels)
+                }
+                updateUI()
             }
         }
     }
 
     override fun onDestroyView() {
         // Fragment 的存在时间比其视图长。请务必在 Fragment 的 onDestroyView() 方法中清除对绑定类实例的所有引用。
-        highlightBinding = null
+        videoBaseBinding = null
         super.onDestroyView()
     }
 
@@ -115,8 +168,14 @@ class VideoHighLightFragment : Fragment(R.layout.fragment_highlight) {
 
     override fun onResume() {
         super.onResume()
+        if (isVisible && isFirstFetchData) {
+            videoBaseBinding?.smartRefreshLayout?.autoRefresh()
+            isFirstFetchData = false
+        }
         GSYVideoManager.onResume()
     }
+
+    private var isFirstFetchData = true
 
     override fun onDestroy() {
         super.onDestroy()

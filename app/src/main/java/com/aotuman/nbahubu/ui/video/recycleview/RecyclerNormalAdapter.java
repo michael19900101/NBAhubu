@@ -22,6 +22,11 @@ public class RecyclerNormalAdapter extends RecyclerView.Adapter {
     private Context context = null;
     private VideoViewModel videoViewModel;
 
+    public RecyclerNormalAdapter(Context context, VideoViewModel videoViewModel) {
+        this.context = context;
+        this.videoViewModel = videoViewModel;
+    }
+
     public RecyclerNormalAdapter(Context context, List<VideoItemModel> itemDataList, VideoViewModel videoViewModel) {
         this.itemDataList = itemDataList;
         this.context = context;
@@ -47,6 +52,7 @@ public class RecyclerNormalAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
+        if (itemDataList == null) return 0;
         return itemDataList.size();
     }
 
